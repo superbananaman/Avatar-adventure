@@ -1,5 +1,5 @@
 package gameLogic;
 
-public interface Room {
+public class Room {
 
 }
