@@ -19,7 +19,20 @@ public class Master extends Thread {
 	// private final Board board;
 	//private final int broadcastClock;
 	//private final int uid;
-	private static HashSet<PrintWriter> writers = new HashSet<PrintWriter>();
+
+    /**
+     * The set of all names of clients in the chat room.  Maintained
+     * so that we can check that new clients are not registering name
+     * already in use.
+     */
+    private static HashSet<String> names = new HashSet<String>();
+
+    /**
+     * The set of all the print writers for all the clients.  This
+     * set is kept so we can easily broadcast messages.
+     */
+    private static HashSet<PrintWriter> writers = new HashSet<PrintWriter>();
+
 	private final Socket socket;
     private String name;
     //private Socket socket;
@@ -95,19 +108,19 @@ public class Master extends Thread {
              // a name is submitted that is not already used.  Note that
              // checking for the existence of a name and adding the name
              // must be done while locking the set of names.
-             //while (true) {
+             while (true) {
                  out.println("SUBMITNAME");
-//                 name = in.readLine();
-//                 if (name == null) {
-//                     return;
-//                 }
-//                 synchronized (names) {
-//                     if (!names.contains(name)) {
-//                         names.add(name);
-//                         break;
-//                     }
-//                 }
-             //}
+                 name = in.readLine();
+                 if (name == null) {
+                     return;
+                 }
+                 synchronized (names) {
+                     if (!names.contains(name)) {
+                         names.add(name);
+                         break;
+                     }
+                 }
+             }
 
              // Now that a successful name has been chosen, add the
              // socket's print writer to the set of all writers so
@@ -131,9 +144,9 @@ public class Master extends Thread {
          } finally {
              // This client is going down!  Remove its name and its print
              // writer from the sets, and close its socket.
-//             if (name != null) {
-//                 names.remove(name);
-//             }
+             if (name != null) {
+                 names.remove(name);
+             }
              if (out != null) {
                  writers.remove(out);
              }

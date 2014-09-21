@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -70,12 +71,23 @@ public class Slave {
         while (true) {
             String line = in.readLine();
             if (line.startsWith("SUBMITNAME")) {
-//                out.println(getName());
+                out.println(getName());
             } else if (line.startsWith("NAMEACCEPTED")) {
                 textField.setEditable(true);
             } else if (line.startsWith("MESSAGE")) {
                 messageArea.append(line.substring(8) + "\n");
             }
         }
+    }
+
+    /**
+     * Prompt for and return the desired screen name.
+     */
+    private String getName() {
+        return JOptionPane.showInputDialog(
+            frame,
+            "Choose a screen name:",
+            "Screen name selection",
+            JOptionPane.PLAIN_MESSAGE);
     }
 }
