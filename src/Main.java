@@ -55,7 +55,7 @@ public class Main {
 			// TODO create the board
 			// TODO run single player game
 		}
-
+		System.exit(0);
 	}
 
 	private static void runServer(int port, int nclients) {
@@ -77,7 +77,9 @@ public class Main {
 				connections[nclients].start();
 				if(nclients == 0) {
 					System.out.println("ALL CLIENTS ACCEPTED --- GAME BEGINS");
-
+					while(atleastOneConnection(connections)) {
+						//Stay open
+					}
 					System.out.println("ALL CLIENTS DISCONNECTED --- GAME OVER");
 					return; // done
 				}
@@ -93,4 +95,18 @@ public class Main {
 		new Slave(s).run();
 	}
 
+	/**
+	 * Check whether or not there is at least one connection alive.
+	 *
+	 * @param connections
+	 * @return
+	 */
+	private static boolean atleastOneConnection(Master... connections) {
+		for (Master m : connections) {
+			if (m.isAlive()) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
