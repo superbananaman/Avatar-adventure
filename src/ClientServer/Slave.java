@@ -33,6 +33,7 @@ public class Slave {
 		frame.getContentPane().add(textField, "North");
 		frame.getContentPane().add(new JScrollPane(messageArea), "Center");
 		frame.pack();
+		frame.setVisible(true);
 
 		// Add Listeners
 		textField.addActionListener(new ActionListener() {
@@ -58,7 +59,7 @@ public class Slave {
     /**
      * Connects to the server then enters the processing loop.
      */
-    private void run() throws IOException {
+    public void run() throws IOException {
 
         // Make connection and initialize streams
         in = new BufferedReader(new InputStreamReader(
