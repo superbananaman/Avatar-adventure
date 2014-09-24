@@ -7,10 +7,19 @@ public class Player implements Character{
 
 	private Position position;
 	private String nation;
+	private String name;
 	
 	
 	public Player(){
+		name = chooseName();
 		nation = chooseNation();
+		
+		
+	}
+
+
+	private String chooseName() {
+		 return JOptionPane.showInputDialog("What is your name?");	
 	}
 
 
