@@ -17,40 +17,21 @@ public class NetworkSetup {
 	private Game game;
 
 	public NetworkSetup(boolean serv) {
-		// Commmand line arguments
-		boolean server = false; // playing server mode or not
+		// Arguements to create a server
+		boolean server = serv; // playing server mode or not
 		int nclients = 0;
-		int port = askforPort();; // default
-		String url = askforIP(); // ip address
-		if(serv){
+		int port = askforPort(server);// get port
+		String url = askforIP(server); // ip address
+		if (serv) {
 			server = serv;
 			nclients = askforPlayers();
 		}
-
-//		for (int i = 0; i != args.length; ++i) {
-//			if (args[i].startsWith("-")) {
-//				String arg = args[i];
-//				if (arg.equals("-help")) {
-//					// TODO print out options
-//					System.exit(0);
-//				} else if (arg.equals("-server")) {
-//					server = true;
-//					nclients = Integer.parseInt(args[++i]);
-//				} else if (arg.equals("-connect")) {
-//					url = args[++i];
-//				} else if (arg.equals("-port")) {
-//					port = Integer.parseInt(args[++i]);
-//				}
-//			}
-//		}
-
 		// TODO add checks to test validity
 		// run in server mode
 		if (server) {
 			// TODO create the board
 			// TODO run the server
 			runServer(port, nclients);
-
 		}
 		// run in client mode
 		else if (url != null) {
@@ -70,9 +51,14 @@ public class NetworkSetup {
 		System.exit(0);
 	}
 
+	/**
+	 * Creates the server and allows clients to join starts the
+	 * game when the correct number of clients have joined.
+	 * @param port to run the server on
+	 * @param nclients that will be playing
+	 */
 	private static void runServer(int port, int nclients) {
 		// ClockThread clk = new ClockThread(gameClock,game,null);
-
 		// Listen for connections
 		System.out.println("AVATAR SERVER LISTENING ON PORT " + port);
 		System.out.println("AVATAR SERVER AWAITING " + nclients + " CLIENTS");
@@ -103,6 +89,12 @@ public class NetworkSetup {
 		}
 	}
 
+	/**
+	 * Connects the client to the server
+	 * @param addr IP address to connect to
+	 * @param port to connect to
+	 * @throws IOException
+	 */
 	private static void runClient(String addr, int port) throws IOException {
 		Socket s = new Socket(addr, port);
 		System.out.println("AVATAR CLIENT CONNECTED TO " + addr + ":" + port);
@@ -110,10 +102,9 @@ public class NetworkSetup {
 	}
 
 	/**
-	 * Check whether or not there is at least one connection alive.
-	 *
+	 * Checks whether or not there is at least one connection alive.
 	 * @param connections
-	 * @return
+	 * @return whether there are still connections
 	 */
 	private static boolean atleastOneConnection(Master... connections) {
 		for (Master m : connections) {
@@ -124,6 +115,10 @@ public class NetworkSetup {
 		return false;
 	}
 
+	/**
+	 * Asks the host for the amount of players
+	 * @return the amount of players to play
+	 */
 	public int askforPlayers() {
 		String players = JOptionPane.showInputDialog("How Many Players (1-4)?");
 		if (players == null) {
@@ -153,27 +148,65 @@ public class NetworkSetup {
 		System.out.println(number);
 		return number;
 	}
-	public String askforIP(){
+
+	/**
+	 * Asks the user for a IP address to connect to
+	 * @param isServer if the host is running a server
+	 * @return the desried IP address
+	 */
+	public String askforIP(boolean isServer) {
+		if(isServer){
 		String address = JOptionPane
-				.showInputDialog
-				("Open console and type in 'ifconfig'. "
-						+ "On the second line of random stuff, next to the word inet, there is a 4 digit address. "
-						+ "Enter the address.");
-		while(address == null || address.length() < 7) {
+				.showInputDialog("Open console and type in 'ifconfig'. "
+						+ "Enter the address next to where it says \"inet\"");
+		while (address == null || address.length() < 7) {
 			address = JOptionPane
-					.showInputDialog
-					("Invalid IP Address. Please enter again.");
+					.showInputDialog("Invalid IP Address. Please enter again.");
 		}
 		return address;
-	}
-	public int askforPort(){
-		JTextField tf = new JTextField("40700");
-		String port = JOptionPane.showInputDialog(tf,"Enter a Port Number (default: 40700)");
-		while(port == null || port.length() < 5 || port.length() > 5) {
-			port = JOptionPane
-					.showInputDialog
-					("Invalid Port number. Please enter again.");
 		}
-		return Integer.parseInt(port);
+		else{
+			String address = JOptionPane
+					.showInputDialog("Enter the Host's IP Address");
+			while (address == null || address.length() < 7) {
+				address = JOptionPane
+						.showInputDialog("Invalid IP Address. Please enter again.");
+			}
+			return address;
+		}
+	}
+
+	/**
+	 * Asks the user for a Port Number to connect to
+	 * @param isServer if the host is running a server
+	 * @return the desired port
+	 */
+	public int askforPort(boolean isServer) {
+		if (isServer) {
+			JTextField tf = new JTextField();
+			String port = JOptionPane.showInputDialog(tf,
+					"Enter a Port Number (e.g: 40700)");
+			while (port == null || port.length() < 5 || port.length() > 5) {
+				if (port == null) {
+					System.exit(0);
+				}
+				port = JOptionPane
+						.showInputDialog("Invalid Port number. Please enter again.");
+			}
+			return Integer.parseInt(port);
+		}
+		else{
+			JTextField tf = new JTextField();
+			String port = JOptionPane.showInputDialog(tf,
+					"Enter the Host's Port Number");
+			while (port == null || port.length() < 5 || port.length() > 5) {
+				if (port == null) {
+					System.exit(0);
+				}
+				port = JOptionPane
+						.showInputDialog("Invalid Port number. Please enter again.");
+			}
+			return Integer.parseInt(port);
+		}
 	}
 }

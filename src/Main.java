@@ -19,6 +19,6 @@ public class Main {
 //	}
 
 	public static void main(String[] args) {
-		NetworkSetup ns = new NetworkSetup(true);
+		NetworkSetup ns = new NetworkSetup(false);
 	}
 }
