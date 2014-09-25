@@ -4,12 +4,14 @@ import java.awt.Graphics;
 
 import javax.swing.text.Position;
 
+import Renderer.Tile;
+
 public class Armour implements Item{
 
-	private Position position;
+	private Tile tile;
 
-	public Armour(Position pos){
-		position = pos;
+	public Armour(Tile pos){
+		tile = pos;
 	}
 
 

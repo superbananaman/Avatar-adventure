@@ -5,18 +5,22 @@ import java.awt.Graphics;
 import javax.swing.JOptionPane;
 import javax.swing.text.Position;
 
+import Renderer.Tile;
+
 public class Player implements Character{
 
-	private Position position;
+	private Tile tile;
 	private String nation;
 	private String name;
 	private Room currentRoom;
+	private Inventory inventory;
 
 
 	public Player(){
+
 		name = chooseName();
 		nation = chooseNation();
-
+		inventory = new Inventory();
 
 	}
 
@@ -48,6 +52,10 @@ public class Player implements Character{
 	}
 
 	public void draw(Graphics g){
+
+	}
+
+	public void move(){
 
 	}
 
