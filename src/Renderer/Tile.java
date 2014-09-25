@@ -13,11 +13,11 @@ private BufferedImage img;
 
 public Tile(Image i){
 	
-	try {
+	/*try {
 	    setImg( ImageIO.read(new File("grass.png")));
 	} catch (IOException e) {
 		System.out.println(e.toString());
-	}
+	}*/
 }
 
 public Image getImg() {
