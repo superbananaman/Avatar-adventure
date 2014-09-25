@@ -14,7 +14,9 @@ public class Room {
 	private List<Monster> monsters = new ArrayList<Monster>();	// the current alive monsters in this room
 	private List<Item> items = new ArrayList<Item>(); // the items on the floor of this room
 	private List<Object> walls = new ArrayList<Object>(); // the walls and doors in the room
-	private Tile[][] tiles; // the grid setup
+	private Tile[][] background; // the grid setup
+	private Tile[][] pickups; //items
+	private Tile[][] characters; //monsters and players
 
 	public Room(int Height, int Width){
 	height = Height;
