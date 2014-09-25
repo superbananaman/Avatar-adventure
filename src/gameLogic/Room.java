@@ -19,8 +19,8 @@ public class Room {
 	private Tile[][] characters; //monsters and players
 
 	public Room(int Height, int Width){
-	height = Height;
-	width = Width;
+	setHeight(Height);
+	setWidth(Width);
 	setUp();
 
 	}
@@ -46,5 +46,17 @@ public class Room {
 		for(Object o: walls){
 			o.draw(g);
 		}
+	}
+	private int getHeight() {
+		return height;
+	}
+	private void setHeight(int height) {
+		this.height = height;
+	}
+	private int getWidth() {
+		return width;
+	}
+	private void setWidth(int width) {
+		this.width = width;
 	}
 }
