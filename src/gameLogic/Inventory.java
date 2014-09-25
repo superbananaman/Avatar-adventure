@@ -16,4 +16,12 @@ public class Inventory {
 
 	}
 
+	public void add(Item i){
+		items.add(i);
+	}
+
+	public void remove(Item i){
+		items.remove(i);
+	}
+
 }

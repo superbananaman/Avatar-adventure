@@ -14,6 +14,7 @@ public class Player implements Character{
 	private String name;
 	private Room currentRoom;
 	private Inventory inventory;
+	private int health;
 
 
 	public Player(){
@@ -55,7 +56,21 @@ public class Player implements Character{
 
 	}
 
-	public void move(){
+	public void move(String direction){
+		if(direction == "R"){
+
+		}else if(direction == "L"){
+
+		}else if(direction == "U"){
+
+		}else if(direction == "D"){
+
+		}
+	}
+
+
+	public void setHealth(int h) { //adds the health onto current health. taking damage will be adding negative health
+		health = health + h;
 
 	}
 
