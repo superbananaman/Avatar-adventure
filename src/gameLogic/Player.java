@@ -5,18 +5,23 @@ import java.awt.Graphics;
 import javax.swing.JOptionPane;
 import javax.swing.text.Position;
 
+import Renderer.Tile;
+
 public class Player implements Character{
 
-	private Position position;
+	private Tile tile;
 	private String nation;
 	private String name;
 	private Room currentRoom;
+	private Inventory inventory;
+	private int health;
 
 
 	public Player(){
+
 		name = chooseName();
 		nation = chooseNation();
-
+		inventory = new Inventory();
 
 	}
 
@@ -48,6 +53,24 @@ public class Player implements Character{
 	}
 
 	public void draw(Graphics g){
+
+	}
+
+	public void move(String direction){
+		if(direction == "R"){
+
+		}else if(direction == "L"){
+
+		}else if(direction == "U"){
+
+		}else if(direction == "D"){
+
+		}
+	}
+
+
+	public void setHealth(int h) { //adds the health onto current health. taking damage will be adding negative health
+		health = health + h;
 
 	}
 

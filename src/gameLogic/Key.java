@@ -4,12 +4,14 @@ import java.awt.Graphics;
 
 import javax.swing.text.Position;
 
+import Renderer.Tile;
+
 public class Key implements Item{
 
-	private Position position;
+	private Tile tile;
 
-	public Key(Position pos){
-		position = pos;
+	public Key(Tile pos){
+		tile = pos;
 	}
 
 	public void draw(Graphics g) {

@@ -4,9 +4,11 @@ import java.awt.Graphics;
 
 import javax.swing.text.Position;
 
+import Renderer.Tile;
+
 public class Monster implements Character {
 
-	private Position position;
+	private Tile tile;
 
 	public void draw(Graphics g) {
 
