@@ -47,16 +47,20 @@ public class Room {
 			o.draw(g);
 		}
 	}
-	private int getHeight() {
+	public int getHeight() {
 		return height;
 	}
 	private void setHeight(int height) {
 		this.height = height;
 	}
-	private int getWidth() {
+	public int getWidth() {
 		return width;
 	}
 	private void setWidth(int width) {
 		this.width = width;
+	}
+	public Tile[][] getTileSet() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

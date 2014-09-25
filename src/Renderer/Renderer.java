@@ -12,8 +12,8 @@ public class Renderer {
 	public void drawLevel(Graphics G, Room r){
 		Tile[][] tileSet = r.getTileSet();
 	
-		for (int i; i>r.getWidth-1; i++){
-			 for (int j; j>r.getHeight-1; j++){
+		for (int i = 0; i>r.getWidth()-1; i++){
+			 for (int j=0; j>r.getHeight()-1; j++){
 			  int x = j * 64;
 			  int y = i * 64;
 			  Tile tile = tileSet[i][j];
