@@ -1,5 +1,7 @@
 package gameLogic;
 
+import java.awt.Graphics;
+
 import javax.swing.JOptionPane;
 import javax.swing.text.Position;
 
@@ -8,18 +10,19 @@ public class Player implements Character{
 	private Position position;
 	private String nation;
 	private String name;
-	
-	
+	private Room currentRoom;
+
+
 	public Player(){
 		name = chooseName();
 		nation = chooseNation();
-		
-		
+
+
 	}
 
 
 	private String chooseName() {
-		 return JOptionPane.showInputDialog("What is your name?");	
+		 return JOptionPane.showInputDialog("What is your name?");
 	}
 
 
@@ -33,5 +36,19 @@ public class Player implements Character{
 				Nations[0]); // Initial choice
 		return nation;
 	}
-	
+
+
+	public Room getCurrentRoom() {
+		return currentRoom;
+	}
+
+
+	public void setCurrentRoom(Room currentRoom) {
+		this.currentRoom = currentRoom;
+	}
+
+	public void draw(Graphics g){
+
+	}
+
 }
