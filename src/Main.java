@@ -2,7 +2,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import ClientServer.NetworkSetup;
-
+/**
+ * @author Brendan Smith, Matt Catsburg
+ */
 public class Main {
 
 //	public Main(){
@@ -19,6 +21,7 @@ public class Main {
 //	}
 
 	public static void main(String[] args) {
-		NetworkSetup ns = new NetworkSetup(false);
+		//NetworkSetup ns = new NetworkSetup(1,40070);
+		NetworkSetup client = new NetworkSetup("130.195.6.139",40070);
 	}
 }
