@@ -33,7 +33,8 @@ Graphics2D big;
 	int height = 600;
 	Rectangle area; 	
 
-	Room r = new Room(12, 12);
+	Room testRoom = new Room(30,30);
+	Tile[][] testtileset;
 	Renderer renderer = new Renderer();
 
 	// Lander test sprite
@@ -41,7 +42,8 @@ Graphics2D big;
 			24, 21, 24, 16, 19, 16, 7, 0, 0, 10, 10, 3, 14, 10 };
 	private int[] landerYS = { 5, 0, 0, 5, 20, 20, 35, 35, 40, 40, 35, 35, 20,
 			20, 25, 25, 20, 20, 35, 35, 40, 40, 35, 35, 20, 20 };
-	private Polygon lander;
+	private Polygon lander = new Polygon(landerXS, landerYS, landerYS.length);
+	
 
 	public RenderTests() {
 		super("Renderer Test");
@@ -53,11 +55,25 @@ Graphics2D big;
 		contentPane.add(panel);
 		addKeyListener(this);
 		setVisible(true);
-
-		lander = new Polygon(landerXS, landerYS, landerYS.length);
-		lander.translate(300, 150);
-
+		lander.translate(300, 150);				
 	}
+	
+private void setupTestRoom() {
+	testRoom.setTileSet(renderer.parseTileSet("room1"));
+	}
+
+private Tile[][] createtesttileset() {	
+Tile[][] ts = new Tile[testRoom.getWidth()][testRoom.getWidth()];
+	for(int i =0; i < testRoom.getWidth(); i++){
+		for(int j=0; j < testRoom.getHeight(); j++){
+			ts[i][j] = new Tile(renderer.getIso(0,0));
+		}
+	}
+	
+
+	return ts;		
+}
+
 public void paint(Graphics g){
 	update(g);
 }
@@ -65,12 +81,13 @@ public void paint(Graphics g){
 	    Graphics2D g2 = (Graphics2D) g;
 
 	    if (firstTime) {
-	      int w = 800;
-	      int h = 600;
+	      int w = 2500;
+	      int h = 2500;
 	      area = new Rectangle(800,600);
 	      bi = (BufferedImage) createImage(w, h);
 	      big = bi.createGraphics();
-	      renderer.drawLevel(big, r);
+	      setupTestRoom();
+	      renderer.drawLevel(big, testRoom);
 	      firstTime = false;
 	    }
 

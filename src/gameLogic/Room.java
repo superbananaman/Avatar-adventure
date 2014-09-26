@@ -14,9 +14,7 @@ public class Room {
 	private List<Monster> monsters = new ArrayList<Monster>();	// the current alive monsters in this room
 	private List<Item> items = new ArrayList<Item>(); // the items on the floor of this room
 	private List<Object> walls = new ArrayList<Object>(); // the walls and doors in the room
-	private Tile[][] background; // the grid setup
-	private Tile[][] pickups; //items
-	private Tile[][] characters; //monsters and players
+	private Tile[][] TileSet; // the grid setup
 
 	public Room(int Height, int Width){
 	setHeight(Height);
@@ -59,8 +57,16 @@ public class Room {
 	private void setWidth(int width) {
 		this.width = width;
 	}
+	/**
+	 * @return the tileSet
+	 */
 	public Tile[][] getTileSet() {
-		// TODO Auto-generated method stub
-		return null;
+		return TileSet;
+	}
+	/**
+	 * @param tileSet the tileSet to set
+	 */
+	public void setTileSet(Tile[][] tileSet) {
+		TileSet = tileSet;
 	}
 }

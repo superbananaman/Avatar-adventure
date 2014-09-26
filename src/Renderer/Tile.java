@@ -9,23 +9,49 @@ import javax.imageio.ImageIO;
 
 public class Tile {
 
-private BufferedImage img;
+private BufferedImage backGroundImage;
+private BufferedImage pickUpImage;
+private BufferedImage monsterImage;
 
-public Tile(Image i){
-	
-	/*try {
-	    setImg( ImageIO.read(new File("grass.png")));
-	} catch (IOException e) {
-		System.out.println(e.toString());
-	}*/
+/*Use this class if the tile just has a background Image*/
+public Tile(BufferedImage backGroundImg){
+this.backGroundImage = backGroundImg;
 }
 
-public Image getImg() {
-	return img;
+public Image getBackGroundImage() {
+	return backGroundImage;
 }
 
-public void setImg(BufferedImage img) {
-	this.img = img;
+public void setBackGroundImage(BufferedImage img) {
+	this.backGroundImage = img;
+}
+
+/**
+ * @return the pickUpImage
+ */
+public BufferedImage getPickUpImage() {
+	return pickUpImage;
+}
+
+/**
+ * @param pickUpImage the pickUpImage to set
+ */
+public void setPickUpImage(BufferedImage pickUpImage) {
+	this.pickUpImage = pickUpImage;
+}
+
+/**
+ * @return the monsterImage
+ */
+public BufferedImage getMonsterImage() {
+	return monsterImage;
+}
+
+/**
+ * @param monsterImage the monsterImage to set
+ */
+public void setMonsterImage(BufferedImage monsterImage) {
+	this.monsterImage = monsterImage;
 }
 
 }
