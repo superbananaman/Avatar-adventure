@@ -124,7 +124,7 @@ ts[29][29].setBackGroundImage(rug);
 	}
 
 	public void drawSprite(Graphics2D g2, Sprite testSprite) {
-		g2.drawImage(getSpriteIso(testSprite.getStep() %10, testSprite.getFacing()),testSprite.getCurrentX(), testSprite.getCurrentY(),null);
+		g2.drawImage(getSpriteIso(testSprite.getStep() %10, testSprite.getFacing()),400, 300,null);
 		
 	}
 	public BufferedImage getSpriteIso(int x, String direction) {
