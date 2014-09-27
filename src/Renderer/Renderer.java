@@ -1,6 +1,7 @@
 package Renderer;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -15,7 +16,7 @@ import gameLogic.Room;
 
 public class Renderer {
 //BufferedImages for ISO tiles
-	private BufferedImage empty= getIso(64*2,0);
+	private BufferedImage empty= null;
 	private BufferedImage wall= getIso(0,0);
 	private BufferedImage floor = getIso(0,64*5);
 	private BufferedImage Barrel = getIso(64*3,64*5);
@@ -26,7 +27,7 @@ public class Renderer {
 			
 	public void drawLevel(Graphics g, Room r) {
 		Tile[][] ts = r.getTileSet(); if(ts ==null) System.out.println("ERROR ts = null");
-		for (int i = 0; i < r.getWidth()-1; i++) {
+		for (int i = 0; i < r.getWidth(); i++) {
 			for (int j = r.getHeight()-1; j >= 0; j--) {
 				// Tile tile = t;
 
@@ -37,13 +38,13 @@ public class Renderer {
 
 			}
 		}
-
+ts[29][29].setBackGroundImage(rug);
 	}
 
 	private void placetile(Tile tile, Point isoPoint, Graphics g) {if(tile != null)
 		g.drawImage(tile.getBackGroundImage(), isoPoint.x, isoPoint.y + 500, null);
 	else
-		System.out.println("DFgdfgDFG");
+		throw new Error("ERROR  TILE  PLACE   NULL");
 
 	}
 
@@ -120,5 +121,20 @@ public class Renderer {
 		}
 		
 		return ts;
+	}
+
+	public void drawSprite(Graphics2D g2, Sprite testSprite) {
+		g2.drawImage(getSpriteIso(testSprite.getStep() %10, testSprite.getFacing()),testSprite.getCurrentX(), testSprite.getCurrentY(),null);
+		
+	}
+	public BufferedImage getSpriteIso(int x, String direction) {
+		BufferedImage spriteSheet = null;
+		try {
+			spriteSheet = ImageIO.read(new File("sprite/sprite"+direction+".png"));
+		} catch (IOException e) {
+			System.out.println(e.toString());
+		}
+		
+		return spriteSheet.getSubimage(x*(spriteSheet.getWidth()/10), 0, spriteSheet.getWidth()/10, spriteSheet.getHeight());
 	}
 }

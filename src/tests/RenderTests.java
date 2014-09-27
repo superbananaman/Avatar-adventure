@@ -7,6 +7,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -34,6 +35,7 @@ Graphics2D big;
 	Rectangle area; 	
 
 	Room testRoom = new Room(30,30);
+	Sprite testSprite = new Sprite("Sprite",300,500);
 	Tile[][] testtileset;
 	Renderer renderer = new Renderer();
 
@@ -62,7 +64,7 @@ private void setupTestRoom() {
 	testRoom.setTileSet(renderer.parseTileSet("room1"));
 	}
 
-private Tile[][] createtesttileset() {	
+/*private Tile[][] createtesttileset() {	
 Tile[][] ts = new Tile[testRoom.getWidth()][testRoom.getWidth()];
 	for(int i =0; i < testRoom.getWidth(); i++){
 		for(int j=0; j < testRoom.getHeight(); j++){
@@ -72,7 +74,7 @@ Tile[][] ts = new Tile[testRoom.getWidth()][testRoom.getWidth()];
 	
 
 	return ts;		
-}
+}*/
 
 public void paint(Graphics g){
 	update(g);
@@ -87,6 +89,8 @@ public void paint(Graphics g){
 	      bi = (BufferedImage) createImage(w, h);
 	      big = bi.createGraphics();
 	      setupTestRoom();
+	      big.setColor(Color.black);
+	      big.fillRect(0, 0, 2500, 2500);
 	      renderer.drawLevel(big, testRoom);
 	      firstTime = false;
 	    }
@@ -98,7 +102,7 @@ public void paint(Graphics g){
 	  
 		// super.paint(g);
 		g2.setColor(Color.CYAN);
-		g2.fillPolygon(lander);
+		renderer.drawSprite(g2,testSprite);
 
 	}
 
@@ -108,19 +112,30 @@ public void paint(Graphics g){
 
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			lander.translate(10, 5);
+			testSprite.setFacing("Right");
+			testSprite.setCurrentX(testSprite.getCurrentX() + 6); testSprite.setCurrentY(testSprite.getCurrentY() + 3);
+			testSprite.setStep(testSprite.getStep() +1);
 			this.repaint();
 		}
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			lander.translate(-10, -5);
+			//lander.translate(-10, -5);
+			testSprite.setFacing("Left");
+			testSprite.setCurrentX(testSprite.getCurrentX() - 6); testSprite.setCurrentY(testSprite.getCurrentY() - 3);
+			testSprite.setStep(testSprite.getStep() +1);
 			this.repaint();
 		}
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
-			lander.translate(10, -5);
+			//lander.translate(10, -5);
+			testSprite.setFacing("Up");
+			testSprite.setCurrentX(testSprite.getCurrentX() + 6); testSprite.setCurrentY(testSprite.getCurrentY() - 3);
+			testSprite.setStep(testSprite.getStep() +1);
 			this.repaint();
 		}
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			lander.translate(-10, 5);
+			//lander.translate(-10, 5);
+			testSprite.setFacing("Down");
+			testSprite.setCurrentX(testSprite.getCurrentX() - 6); testSprite.setCurrentY(testSprite.getCurrentY() + 3);
+			testSprite.setStep(testSprite.getStep() +1);
 			this.repaint();
 		}
 
@@ -134,5 +149,7 @@ public void paint(Graphics g){
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 
-	}
+	}	
+
 }
+ 
