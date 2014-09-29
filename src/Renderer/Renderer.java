@@ -77,7 +77,7 @@ ts[29][29].setBackGroundImage(rug);
 	public Tile[][] parseTileSet(String roomName){
 		Tile[][] ts = new Tile[30][30];
 		try {
-			FileReader roomFile = new FileReader(roomName+".txt");
+			FileReader roomFile = new FileReader("maps/"+roomName+".txt");
 			Scanner scan = new Scanner(roomFile);
 			
 			

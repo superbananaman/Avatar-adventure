@@ -66,7 +66,7 @@ Graphics2D big;
 	}
 	
 private void setupTestRoom() {
-	testRoom.setTileSet(renderer.parseTileSet("Room1"));
+	testRoom.setTileSet(renderer.parseTileSet("Room1")); 
 	}
 
 public void paint(Graphics g){
