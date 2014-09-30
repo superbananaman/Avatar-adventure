@@ -7,7 +7,7 @@ import java.awt.*;
 import javax.swing.*;
 
 
-public class ClientFrame extends JFrame{
+public class ClientOptions extends JFrame{
 	int squareSize = 25;
 	int width = 14*squareSize;
 	int height = 9*squareSize;
@@ -17,7 +17,7 @@ public class ClientFrame extends JFrame{
 	String address = "";
 	String name = "";
 
-	public ClientFrame(){
+	public ClientOptions(){
 		super("Client Options");
 		setBounds(100,100,width,height);
 		setResizable(false);

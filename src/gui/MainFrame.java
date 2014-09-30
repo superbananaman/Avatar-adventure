@@ -35,7 +35,7 @@ public class MainFrame extends JFrame {
 		b.setMnemonic(KeyEvent.VK_C);
 		b.addActionListener(new ActionListener(){
 		      public void actionPerformed(ActionEvent evt) {
-	           new ClientFrame();
+	           new ClientOptions();
 		}});
 		b.setLocation((width-buttonWidth)/2,fromTop+buttonHeight*numButtons+spacing*numButtons);
 		b.setSize(buttonWidth,buttonHeight);
