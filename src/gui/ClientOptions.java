@@ -3,6 +3,8 @@ package gui;
  * @author Devlin Mahoney
  */
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -49,6 +51,11 @@ public class ClientOptions extends JFrame{
 		JButton startButton = new JButton("Join");
 		startButton.setLocation(3*squareSize,5*squareSize);
 		startButton.setSize(8*squareSize,2*squareSize);
+		startButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new ClientFrame();
+			}
+		});
 		pane.add(startButton);
 
 		setVisible(true);

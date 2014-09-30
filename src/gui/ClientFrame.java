@@ -1,20 +1,14 @@
 package gui;
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import gameLogic.Room;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLayeredPane;
-import javax.swing.BoxLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import javax.swing.JMenuBar;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
-import java.awt.Insets;
-import java.awt.Color;
-import javax.swing.border.EtchedBorder;
+import java.awt.*;
+
+import javax.swing.*;
+import javax.swing.border.*;
+
+import Renderer.Renderer;
+import Renderer.Sprite;
+import Renderer.Tile;
 
 
 public class ClientFrame extends JFrame {
@@ -41,11 +35,10 @@ public class ClientFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public ClientFrame() {
+		setTitle("Avatar Adventure! ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 700);
 		
-		//JMenuBar menuBar = new JMenuBar();
-		//setJMenuBar(menuBar);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -56,6 +49,7 @@ public class ClientFrame extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
+		//Render Window Placeholder
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.BLACK);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -65,6 +59,7 @@ public class ClientFrame extends JFrame {
 		gbc_panel.gridy = 0;
 		contentPane.add(panel, gbc_panel);
 		
+		//Inventory Place Holder
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
@@ -74,6 +69,7 @@ public class ClientFrame extends JFrame {
 		gbc_panel_2.gridy = 0;
 		contentPane.add(panel_2, gbc_panel_2);
 		
+		//Consoleoutput placeholder
 		JTextArea textArea = new JTextArea();
 		GridBagConstraints gbc_textArea = new GridBagConstraints();
 		gbc_textArea.insets = new Insets(0, 0, 0, 5);
