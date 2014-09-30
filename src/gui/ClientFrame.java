@@ -77,6 +77,8 @@ public class ClientFrame extends JFrame {
 		gbc_textArea.gridx = 0;
 		gbc_textArea.gridy = 1;
 		contentPane.add(textArea, gbc_textArea);
+		
+		setVisible(true);
 	}
 
 }

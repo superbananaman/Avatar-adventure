@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 
-public class ClientOptions extends JFrame{
+public class ClientOptions extends JFrame implements ActionListener{
 	int squareSize = 25;
 	int width = 14*squareSize;
 	int height = 9*squareSize;
@@ -51,13 +51,17 @@ public class ClientOptions extends JFrame{
 		JButton startButton = new JButton("Join");
 		startButton.setLocation(3*squareSize,5*squareSize);
 		startButton.setSize(8*squareSize,2*squareSize);
-		startButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				new ClientFrame();
-			}
-		});
+		startButton.addActionListener(this);
 		pane.add(startButton);
 
 		setVisible(true);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("Join")){
+			new ClientFrame();
+			this.setVisible(false);
+			this.setEnabled(false);
+		}
 	}
 }
