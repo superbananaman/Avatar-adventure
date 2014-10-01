@@ -2,6 +2,8 @@ package gui;
 import gameLogic.Room;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -12,9 +14,10 @@ import Renderer.Sprite;
 import Renderer.Tile;
 
 
-public class ClientFrame extends JFrame {
+public class ClientFrame extends JFrame{
 
 	private JPanel contentPane;
+	private JPanel renderWindow;
 
 	/**
 	 * Launch the application.
@@ -51,15 +54,15 @@ public class ClientFrame extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 
 		//Render Window Placeholder
-		JPanel panel = new RenderWindow("room1");
-		panel.setBackground(Color.BLACK);
+		renderWindow = new RenderWindow("room1");
+		renderWindow.setBackground(Color.BLACK);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.insets = new Insets(0, 0, 5, 5);
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 0;
-		contentPane.add(panel, gbc_panel);
-		panel.setFocusable(true);
+		contentPane.add(renderWindow, gbc_panel);
+		renderWindow.setFocusable(true);
 
 		//Inventory Place Holder
 		JPanel panel_2 = new JPanel();
