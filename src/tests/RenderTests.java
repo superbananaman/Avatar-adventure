@@ -30,10 +30,10 @@ BufferedImage bi = new BufferedImage(800,600,BufferedImage.TYPE_INT_RGB);
 Graphics2D big;
 
 	JPanel panel = new JPanel();
-	
+
 	int width = 800;
 	int height = 600;
-	Rectangle area; 	
+	Rectangle area;
 
 	Room testRoom = new Room(30,30);
 	Sprite testSprite = new Sprite("Sprite",300,400);
@@ -50,7 +50,7 @@ Graphics2D big;
 	private int offsetX=0;
 
 	private int offsetY =0;
-	
+
 
 	public RenderTests() {
 		super("Renderer Test");
@@ -62,11 +62,11 @@ Graphics2D big;
 		contentPane.add(panel);
 		addKeyListener(this);
 		setVisible(true);
-		lander.translate(300, 150);				
+		lander.translate(300, 150);
 	}
-	
+
 private void setupTestRoom() {
-	testRoom.setTileSet(renderer.parseTileSet("Room1")); 
+	testRoom.setTileSet(renderer.parseTileSet("room2"));
 	}
 
 public void paint(Graphics g){
@@ -88,10 +88,10 @@ public void paint(Graphics g){
 	      firstTime = false;
 	    }
 
-	    
+
 
 	    g2.drawImage(bi,offsetX,offsetY, this);
-	  
+
 		// super.paint(g);
 		g2.setColor(Color.CYAN);
 		renderer.drawSprite(g2,testSprite);
@@ -104,15 +104,15 @@ public void paint(Graphics g){
 
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			
+
 			testSprite.setFacing("Right");
 			testSprite.setCurrentX(testSprite.getCurrentX() - 4); testSprite.setCurrentY(testSprite.getCurrentY() - 2);
-			testSprite.setStep(testSprite.getStep() +1);			
+			testSprite.setStep(testSprite.getStep() +1);
 			offsetX-=4; offsetY-=2;
 			this.repaint();
 		}
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			
+
 			testSprite.setFacing("Left");
 			testSprite.setCurrentX(testSprite.getCurrentX() - 4); testSprite.setCurrentY(testSprite.getCurrentY() - 2);
 			testSprite.setStep(testSprite.getStep() +1);
@@ -120,7 +120,7 @@ public void paint(Graphics g){
 			this.repaint();
 		}
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
-		
+
 			testSprite.setFacing("Up");
 			testSprite.setCurrentX(testSprite.getCurrentX() + 4); testSprite.setCurrentY(testSprite.getCurrentY() - 2);
 			testSprite.setStep(testSprite.getStep() +1);
@@ -128,14 +128,14 @@ public void paint(Graphics g){
 			this.repaint();
 		}
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-		
+
 			testSprite.setFacing("Down");
 			testSprite.setCurrentX(testSprite.getCurrentX() - 4); testSprite.setCurrentY(testSprite.getCurrentY() + 2);
 			testSprite.setStep(testSprite.getStep() +1);
 			offsetX+=4; offsetY-=2;
 			this.repaint();
 		}
-		
+
 	}
 
 	public void keyReleased(KeyEvent arg0) {
@@ -146,7 +146,7 @@ public void paint(Graphics g){
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 
-	}	
+	}
 
 }
- 
+

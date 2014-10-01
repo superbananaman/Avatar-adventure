@@ -56,19 +56,18 @@ public class Player implements Character{
 
 	}
 
-	public void move(String direction){
-		if(direction == "R"){
 
-		}else if(direction == "L"){
-
-		}else if(direction == "U"){
-
-		}else if(direction == "D"){
-
+	public void pickUp(Tile tile){
+		if(tile.hasItem()){  //has item returns true if it is occupied with an item
+			inventory.add(tile.getItem());
 		}
+		tile.removeItem();
 	}
 
-
+	public void dropItem(Item i){
+		inventory.remove(i);
+		tile.setItem(i);
+	}
 	public void setHealth(int h) { //adds the health onto current health. taking damage will be adding negative health
 		health = health + h;
 

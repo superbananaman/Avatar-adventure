@@ -1,5 +1,7 @@
 package Renderer;
 
+import gameLogic.Item;
+
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -12,6 +14,8 @@ public class Tile {
 private BufferedImage backGroundImage;
 private BufferedImage pickUpImage;
 private BufferedImage monsterImage;
+
+private Item item = null;
 
 /*Use this class if the tile just has a background Image*/
 public Tile(BufferedImage backGroundImg){
@@ -53,5 +57,38 @@ public BufferedImage getMonsterImage() {
 public void setMonsterImage(BufferedImage monsterImage) {
 	this.monsterImage = monsterImage;
 }
+
+/**
+ * @param sets an item to this tile
+ */
+public void setItem(Item i){
+	item = i;
+}
+
+
+/**
+ * @return true if there is an item here
+ */
+public boolean hasItem(){
+	return item!=null;
+}
+
+/**
+ * @return the item on this tile
+ */
+public Item getItem(){
+	if(item!=null){
+		return item;
+	}
+	return null;
+}
+
+/**
+ * @param sets item to null
+ */
+public void removeItem(){
+	item = null;
+}
+
 
 }
