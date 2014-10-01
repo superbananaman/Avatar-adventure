@@ -1,12 +1,17 @@
 package ClientServer;
+
 /**
  * @author Brendan Smith, Matt Catsburg
  */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -16,7 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class Slave {
+public class Slave implements KeyListener {
 
 	Socket socket;
 
@@ -25,6 +30,9 @@ public class Slave {
 	JFrame frame = new JFrame("Chatter");
 	JTextField textField = new JTextField(40);
 	JTextArea messageArea = new JTextArea(8, 40);
+
+	ObjectOutputStream oos;
+	ObjectInputStream ois;
 
 	public Slave(Socket s) {
 
@@ -60,37 +68,62 @@ public class Slave {
 		}
 	}
 
-    /**
-     * Connects to the server then enters the processing loop.
-     */
-    public void run() throws IOException {
+	/**
+	 * Connects to the server then enters the processing loop.
+	 */
+	public void run() throws IOException {
 
-        // Make connection and initialize streams
-        in = new BufferedReader(new InputStreamReader(
-            socket.getInputStream()));
-        out = new PrintWriter(socket.getOutputStream(), true);
+		// Make connection and initialize streams
+		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		out = new PrintWriter(socket.getOutputStream(), true);
 
-        // Process all messages from server, according to the protocol.
-        while (true) {
-            String line = in.readLine();
-            if (line.startsWith("SUBMITNAME")) {
-                out.println(getName());
-            } else if (line.startsWith("NAMEACCEPTED")) {
-                textField.setEditable(true);
-            } else if (line.startsWith("MESSAGE")) {
-                messageArea.append(line.substring(8) + "\n");
-            }
-        }
-    }
+		// Process all messages from server, according to the protocol.
+		while (true) {
+			String line = in.readLine();
+			if (line.startsWith("SUBMITNAME")) {
+				out.println(getName());
+			} else if (line.startsWith("NAMEACCEPTED")) {
+				textField.setEditable(true);
+			} else if (line.startsWith("MESSAGE")) {
+				messageArea.append(line.substring(8) + "\n");
+			}
+		}
+	}
 
-    /**
-     * Prompt for and return the desired screen name.
-     */
-    private String getName() {
-        return JOptionPane.showInputDialog(
-            frame,
-            "Choose a screen name:",
-            "Screen name selection",
-            JOptionPane.PLAIN_MESSAGE);
-    }
+	/**
+	 * Prompt for and return the desired screen name.
+	 */
+	private String getName() {
+		return JOptionPane.showInputDialog(frame, "Choose a screen name:",
+				"Screen name selection", JOptionPane.PLAIN_MESSAGE);
+	}
+
+	public void keyPressed(KeyEvent e) {
+		
+		
+		// send an event to the server to write to all clients
+		try {
+			//first send the uid of the player being moved
+			//TODO get players uid
+			int code = e.getKeyCode();
+			if (code == KeyEvent.VK_UP) {
+				oos.writeInt(1);
+			} else if (code == KeyEvent.VK_DOWN) {
+				oos.writeInt(2);
+			} else if (code == KeyEvent.VK_LEFT) {
+				oos.writeInt(3);
+			} else if (code == KeyEvent.VK_RIGHT) {
+				oos.writeInt(4);
+			}
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+
+	}
+
+	public void keyReleased(KeyEvent e) {
+	}
+
+	public void keyTyped(KeyEvent e) {
+	}
 }

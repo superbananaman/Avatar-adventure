@@ -9,6 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import tests.*;
 
+
+/**
+ * 
+ * @author Brendan Smith, Matt Catsburg
+ *
+ */
 public class Server {
 
 	private final int port;
@@ -86,6 +92,12 @@ public class Server {
         				for (ObjectOutputStream oos : ooses) {
                             oos.writeObject(c);
                         }
+        			}
+        			// if the object received is an int the player has pressed a key
+        			if (o instanceof Integer){
+        				// the moved player's uid
+        				//int uid  = (Integer) o;
+        				// read an int from the slave
         			}
         		}
 
