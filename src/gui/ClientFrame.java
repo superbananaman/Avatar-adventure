@@ -39,19 +39,19 @@ public class ClientFrame extends JFrame {
 		setTitle("Avatar Adventure! ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
-		
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{537, 228, 0};
-		gbl_contentPane.rowHeights = new int[]{525, 91, 0};
+		gbl_contentPane.columnWidths = new int[]{1000, 280, 0};
+		gbl_contentPane.rowHeights = new int[]{650, 70, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
-		
+
 		//Render Window Placeholder
-		JPanel panel = new RenderWindow("Room1");
+		JPanel panel = new RenderWindow("room1");
 		panel.setBackground(Color.BLACK);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
@@ -60,7 +60,7 @@ public class ClientFrame extends JFrame {
 		gbc_panel.gridy = 0;
 		contentPane.add(panel, gbc_panel);
 		panel.setFocusable(true);
-		
+
 		//Inventory Place Holder
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -70,7 +70,7 @@ public class ClientFrame extends JFrame {
 		gbc_panel_2.gridx = 1;
 		gbc_panel_2.gridy = 0;
 		contentPane.add(panel_2, gbc_panel_2);
-		
+
 		//Consoleoutput placeholder
 		JTextArea textArea = new JTextArea();
 		GridBagConstraints gbc_textArea = new GridBagConstraints();
@@ -79,7 +79,7 @@ public class ClientFrame extends JFrame {
 		gbc_textArea.gridx = 0;
 		gbc_textArea.gridy = 1;
 		contentPane.add(textArea, gbc_textArea);
-		
+
 		setVisible(true);
 	}
 
