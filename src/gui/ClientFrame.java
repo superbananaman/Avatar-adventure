@@ -6,6 +6,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import Renderer.RenderWindow;
 import Renderer.Renderer;
 import Renderer.Sprite;
 import Renderer.Tile;
@@ -37,7 +38,7 @@ public class ClientFrame extends JFrame {
 	public ClientFrame() {
 		setTitle("Avatar Adventure! ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 700, 700);
+		setBounds(100, 100, 1280, 720);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -50,7 +51,7 @@ public class ClientFrame extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 		
 		//Render Window Placeholder
-		JPanel panel = new JPanel();
+		JPanel panel = new RenderWindow("Room1");
 		panel.setBackground(Color.BLACK);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
@@ -58,6 +59,7 @@ public class ClientFrame extends JFrame {
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 0;
 		contentPane.add(panel, gbc_panel);
+		panel.setFocusable(true);
 		
 		//Inventory Place Holder
 		JPanel panel_2 = new JPanel();

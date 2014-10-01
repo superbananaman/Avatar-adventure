@@ -30,11 +30,16 @@ public class Renderer {
 		for (int i = 0; i < r.getWidth(); i++) {
 			for (int j = r.getHeight()-1; j >= 0; j--) {
 				// Tile tile = t;
-
-				int x;
-				int y;
-				placetile(ts[i][j], new Point(x = (j * 64 / 2) + (i * 64 / 2),
-						y = (i * 32 / 2) - (j * 32 / 2)), g);
+				int x =(j*64);
+				int	y =(i*64);
+				//Point pIso = twoDToIso(new Point(x,y));
+					placetile(ts[i][j], new Point(
+						x = (j * 64 / 2) + (i * 64 / 2),
+						y = (i * 32 / 2) - (j * 32 / 2)),
+						g);
+				//pIso.x +=500;
+				//placetile(ts[i][j],pIso,
+						//g);
 
 			}
 		}
@@ -42,7 +47,7 @@ ts[29][29].setBackGroundImage(rug);
 	}
 
 	private void placetile(Tile tile, Point isoPoint, Graphics g) {if(tile != null)
-		g.drawImage(tile.getBackGroundImage(), isoPoint.x, isoPoint.y + 500, null);
+		g.drawImage(tile.getBackGroundImage(), isoPoint.x, isoPoint.y+500, null);
 	else
 		throw new Error("ERROR  TILE  PLACE   NULL");
 
@@ -59,8 +64,7 @@ ts[29][29].setBackGroundImage(rug);
 		Point tempPt = new Point(0, 0);
 		tempPt.x = pt.x - pt.y;
 		tempPt.y = (pt.x + pt.y) / 2;
-		// System.out.println("Converted "+pt.x+" "+pt.y
-		// +" to "+tempPt.x+" "+tempPt.y);
+		 System.out.println("Converted "+pt.x+" "+pt.y +" to "+tempPt.x+" "+tempPt.y);
 		return (tempPt);
 	}
 
