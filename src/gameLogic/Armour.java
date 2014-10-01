@@ -24,7 +24,9 @@ public class Armour implements Item{
 
 	}
 
-	public void equip(Player p){  //equipping armour gives health
-		p.setHealth(health);
+	public void use(Player p){  //equipping armour gives health
+		p.setmaxHealth(health);
 	}
+
+
 }

@@ -27,4 +27,10 @@ public class Fruit implements Item{
 
 	}
 
+
+	public void use(Player player) {
+		player.setcurrentHealth(health);
+
+	}
+
 }

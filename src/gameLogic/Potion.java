@@ -30,7 +30,7 @@ public class Potion implements Item {
 	}
 
 	public void use(Player p){
-		p.setHealth(health);
+		p.setcurrentHealth(health);
 	}
 
 

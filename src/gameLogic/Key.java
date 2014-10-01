@@ -18,4 +18,9 @@ public class Key implements Item{
 		// TODO Auto-generated method stub
 
 	}
+
+	public void use(Player player) {
+		// TODO Auto-generated method stub
+
+	}
 }
