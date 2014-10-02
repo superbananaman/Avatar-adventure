@@ -8,10 +8,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
+import gameLogic.Item;
+import gameLogic.Monster;
 import gameLogic.Room;
 
 public class Renderer {
@@ -23,6 +26,7 @@ public class Renderer {
 	private BufferedImage rug = getIso(64*4,64*0);
 	private BufferedImage door = getIso(64*1,64*1);
 	private BufferedImage crate = getIso(64*3,64*5);
+	private BufferedImage skelly = getIso(64*4,64*1);
 			
 			
 	public void drawLevel(Graphics g, Room r) {
@@ -46,8 +50,18 @@ public class Renderer {
 ts[29][29].setBackGroundImage(rug);
 	}
 
-	private void placetile(Tile tile, Point isoPoint, Graphics g) {if(tile != null)
+	private void placetile(Tile tile, Point isoPoint, Graphics g) {
+	if(tile != null){
 		g.drawImage(tile.getBackGroundImage(), isoPoint.x, isoPoint.y+500, null);
+			
+		if(tile.getPickUpImage()!=null)
+			g.drawImage(tile.getPickUpImage(), isoPoint.x, isoPoint.y+500, null);
+		
+		if(tile.getMonsterImage()!=null)
+			g.drawImage(tile.getMonsterImage(), isoPoint.x, isoPoint.y+500, null);
+		
+		
+	}
 	else
 		throw new Error("ERROR  TILE  PLACE   NULL");
 
@@ -78,10 +92,10 @@ ts[29][29].setBackGroundImage(rug);
 		return tilesheet.getSubimage(x, y, 64, 64);
 	}
 	
-	public Tile[][] parseTileSet(String roomName){
+	public Tile[][] parseTileSet(Room roomName){ System.out.println(roomName);
 		Tile[][] ts = new Tile[30][30];
 		try {
-			FileReader roomFile = new FileReader("maps/"+roomName+".txt");
+			FileReader roomFile = new FileReader("maps/"+roomName.getRoomName()+".txt");
 			Scanner scan = new Scanner(roomFile);
 			
 			
@@ -98,26 +112,47 @@ ts[29][29].setBackGroundImage(rug);
 					case 6:								temp = new Tile(rug);			break;
 					case 7: case 8:						temp = new Tile(crate);			break;
 					case 9: case 10: case 11: 
-					case 12: case 13: case 14:			temp = new Tile(door);			break;					
+					case 12: case 13: case 14:			temp = new Tile(door);			break;	
+					
 				}
 				ts[i][j] = temp;
 				}
 			}
 			System.out.println(scan.next()+"  Loading");
+			ArrayList<Item> items = new ArrayList<Item>();
 			for(int i =0; i <30; i++){
 				for(int j = 0; j <30; j++){
-
-				scan.nextInt();
-
+					BufferedImage temp = null;
+					Item tempItem =null;
+					int tile = scan.nextInt();
+					switch(tile) {					
+					//case 0:								temp = empty; 		break;
+					//case 1:								temp = empty;		break;
+									
+					}
+					items.add(tempItem);
+					ts[i][j].setPickUpImage(temp);
+					
 				}
 			}
-			System.out.println(scan.next()+"  Loading");
+			System.out.println(scan.next()+"  Loading "); //Loading monsters
+			ArrayList<Monster> monsters = new ArrayList<Monster>();
 			for(int i =0; i <30; i++){
-				for(int j = 0; j <29; j++){
-					Tile temp = null;
-				scan.nextInt();
+				for(int j = 0; j <30; j++){
+					BufferedImage temp = null;
+					int tile = scan.nextInt();
+					switch(tile) {					
+					case 0:								temp = skelly; 		break;
+					case 1:								temp = skelly;		break;
+									
+					}
+					monsters.add(new Monster(ts[i][j]));
+					ts[i][j].setMonsterImage(temp);
+					
 				}
 			}
+			roomName.setMonsters(monsters);
+			roomName.setItems(items);
 			
 		scan.close();
 			

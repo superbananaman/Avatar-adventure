@@ -16,14 +16,14 @@ public class Game {
 
 	public void setUp(){
 
-		addRoom();
+		//addRoom();
 
 	}
 
-	public void addRoom() {
+/*	public void addRoom() {
 		rooms.add(new Room(800, 600));
 		rooms.get(rooms.size()-1).updatePlayers(players);
-	}
+	}*/
 
 	public void addPlayers() {
 		Player player = new Player();

@@ -40,14 +40,13 @@ Graphics2D big;
 	int height = 600;
 	Rectangle area; 	
 
-	Room room = new Room(30,30);
+	Room room;
 	Sprite currentSprite = new Sprite("Sprite",300,400);
 	Tile[][] testtileset;
 	Renderer renderer = new Renderer();
 	private int offsetX=0;
 	private int offsetY =0;
 
-	private String currentRoom;
 	
 
 	public RenderWindow(String RoomName) {
@@ -59,12 +58,12 @@ Graphics2D big;
 
 		addKeyListener(this);
 		setVisible(true);		
-		currentRoom=RoomName;
-		setupTestRoom(currentRoom); 
+		room = new Room(30,30,RoomName);
+		setupTestRoom(room); 
 	}
 	
-private void setupTestRoom(String roomName) {
-	room.setTileSet(renderer.parseTileSet(roomName)); 
+private void setupTestRoom(Room currentRoom) {
+	room.setTileSet(renderer.parseTileSet(currentRoom)); 
 	}
 
 public void paint(Graphics g){
@@ -73,7 +72,7 @@ public void paint(Graphics g){
 	public void update(Graphics g) {
 	    Graphics2D g2 = (Graphics2D) g;
 	    //Draw Background once only
-	    if (firstTime) {System.out.println("Printing frist time"); 
+	    if (firstTime) {
 	      int w = 2000;
 	      int h = 2000;
 	      area = new Rectangle(800,600);
@@ -187,7 +186,7 @@ public void paint(Graphics g){
 	
 	public void changeRoom(String roomName){
 		firstTime =false;
-		currentRoom = roomName;
+		room = new Room(30,30,roomName);
 		this.repaint();
 	}
 

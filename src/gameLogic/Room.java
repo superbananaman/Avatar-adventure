@@ -15,10 +15,12 @@ public class Room {
 	private List<Item> items = new ArrayList<Item>(); // the items on the floor of this room
 	private List<Object> walls = new ArrayList<Object>(); // the walls and doors in the room
 	private Tile[][] TileSet; // the grid setup
+	private String roomName;
 
-	public Room(int Height, int Width){
+	public Room(int Height, int Width,String roomname){
 	setHeight(Height);
 	setWidth(Width);
+	this.roomName = roomname;
 	setUp();
 
 	}
@@ -35,10 +37,10 @@ public class Room {
 		for(Player p: players){
 			p.draw(g);
 		}
-		for(Item i: items){
+		for(Item i: getItems()){
 			i.draw(g);
 		}
-		for(Monster m: monsters){
+		for(Monster m: getMonsters()){
 			m.draw(g);
 		}
 		for(Object o: walls){
@@ -68,5 +70,23 @@ public class Room {
 	 */
 	public void setTileSet(Tile[][] tileSet) {
 		TileSet = tileSet;
+	}
+	public List<Monster> getMonsters() {
+		return monsters;
+	}
+	public void setMonsters(List<Monster> monsters) {
+		this.monsters = monsters;
+	}
+	public List<Item> getItems() {
+		return items;
+	}
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+	public String getRoomName() {
+		return roomName;
+	}
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
 	}
 }

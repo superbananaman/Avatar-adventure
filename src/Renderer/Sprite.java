@@ -63,5 +63,9 @@ public class Sprite{
 	public String getName() {
 		return name;
 	}
+	public Tile getTile(){
+		
+		return null;
+	}
 	
 }

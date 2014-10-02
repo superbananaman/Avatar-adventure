@@ -35,7 +35,7 @@ Graphics2D big;
 	int height = 600;
 	Rectangle area;
 
-	Room testRoom = new Room(30,30);
+	Room currentRoom = new Room(30,30);
 	Sprite testSprite = new Sprite("Sprite",300,400);
 	Tile[][] testtileset;
 	Renderer renderer = new Renderer();
@@ -65,8 +65,8 @@ Graphics2D big;
 		lander.translate(300, 150);
 	}
 
-private void setupTestRoom() {
-	testRoom.setTileSet(renderer.parseTileSet("room2"));
+private void setupRoom(Room room) {
+	currentRoom.setTileSet(renderer.parseTileSet(room));
 	}
 
 public void paint(Graphics g){
@@ -81,10 +81,10 @@ public void paint(Graphics g){
 	      area = new Rectangle(800,600);
 	      bi = (BufferedImage) createImage(w, h);
 	      big = bi.createGraphics();
-	      setupTestRoom();
+	      setupRoom(currentRoom);
 	      big.setColor(Color.black);
 	      big.fillRect(0, 0, 2500, 2500);
-	      renderer.drawLevel(big, testRoom);
+	      renderer.drawLevel(big, currentRoom);
 	      firstTime = false;
 	    }
 
