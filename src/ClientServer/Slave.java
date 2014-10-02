@@ -25,41 +25,12 @@ public class Slave implements KeyListener {
 
 	Socket socket;
 
-//	BufferedReader in;
-//	PrintWriter out;
-//	JFrame frame = new JFrame("Chatter");
-//	JTextField textField = new JTextField(40);
-//	JTextArea messageArea = new JTextArea(8, 40);
-
 	ObjectOutputStream out;
 	ObjectInputStream in;
 
 	public Slave(Socket s) {
 
 		socket = s;
-
-		// Layout GUI
-//		textField.setEditable(false);
-//		messageArea.setEditable(false);
-//		frame.getContentPane().add(textField, "North");
-//		frame.getContentPane().add(new JScrollPane(messageArea), "Center");
-//		frame.pack();
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		frame.setVisible(true);
-//
-//		// Add Listeners
-//		textField.addActionListener(new ActionListener() {
-//			/**
-//			 * Responds to pressing the enter key in the textfield by sending
-//			 * the contents of the text field to the server. Then clear the text
-//			 * area in preparation for the next message.
-//			 */
-//			public void actionPerformed(ActionEvent e) {
-//				out.println(textField.getText());
-//				textField.setText("");
-//			}
-//		});
-
 
 		try {
 			run();
@@ -107,22 +78,11 @@ public class Slave implements KeyListener {
 				}
 			}
 
-
-//			String line = in.readLine();
-//			if (line.startsWith("SUBMITNAME")) {
-//				out.println(getName());
-//			} else if (line.startsWith("NAMEACCEPTED")) {
-//				textField.setEditable(true);
-//			} else if (line.startsWith("MESSAGE")) {
-//				messageArea.append(line.substring(8) + "\n");
-//			}
 		}
 	}
 
 
-
 	public void keyPressed(KeyEvent e) {
-
 		// send an event to the server to write to all clients
 		try {
 			//first send the uid of the player being moved
