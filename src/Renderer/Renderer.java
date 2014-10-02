@@ -16,7 +16,7 @@ import gameLogic.Room;
 
 public class Renderer {
 //BufferedImages for ISO tiles
-	private BufferedImage empty= null;
+	private BufferedImage empty= getIso(64,64*2);
 	private BufferedImage wall= getIso(0,0);
 	private BufferedImage floor = getIso(0,64*5);
 	private BufferedImage Barrel = getIso(64*9,64*5);
@@ -142,4 +142,17 @@ ts[29][29].setBackGroundImage(rug);
 		
 		return spriteSheet.getSubimage(x*(spriteSheet.getWidth()/10), 0, spriteSheet.getWidth()/10, spriteSheet.getHeight());
 	}
+	
+	public void rotate(Room room) {
+		Tile[][] TileSet = room.getTileSet();
+		Tile[][] rotate = new Tile[30][30];
+		for (int i = 0; i < 30; i++) {
+			for (int j = 0; j < 30; j++) {
+				rotate[i][29 - j] = TileSet[j][i];
+                    
+			}
+		}
+		room.setTileSet(rotate);
+	}
+	
 }

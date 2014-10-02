@@ -60,6 +60,7 @@ Graphics2D big;
 		addKeyListener(this);
 		setVisible(true);		
 		currentRoom=RoomName;
+		setupTestRoom(currentRoom); 
 	}
 	
 private void setupTestRoom(String roomName) {
@@ -72,13 +73,12 @@ public void paint(Graphics g){
 	public void update(Graphics g) {
 	    Graphics2D g2 = (Graphics2D) g;
 	    //Draw Background once only
-	    if (firstTime) {
-	      int w = 2500;
-	      int h = 2500;
+	    if (firstTime) {System.out.println("Printing frist time"); 
+	      int w = 2000;
+	      int h = 2000;
 	      area = new Rectangle(800,600);
 	      bi = (BufferedImage) createImage(w, h);
 	      big = bi.createGraphics();
-	      setupTestRoom(currentRoom);
 	      big.setColor(Color.black);
 	      big.fillRect(0, 0, 2500, 2500);
 	      renderer.drawLevel(big, room);
@@ -151,6 +151,15 @@ public void paint(Graphics g){
 			}
 
 		}
+		if (e.getKeyCode() == KeyEvent.VK_R ) {
+		//rotate room 90 degrees clockwise
+			renderer.rotate(room);
+			firstTime = true;
+			this.repaint(); 
+			}
+
+		
+		
 		
 	}
 
