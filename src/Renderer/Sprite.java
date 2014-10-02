@@ -60,5 +60,8 @@ public class Sprite{
 	public void setStep(int step) {
 		this.step = step;
 	}
+	public String getName() {
+		return name;
+	}
 	
 }

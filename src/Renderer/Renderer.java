@@ -19,10 +19,10 @@ public class Renderer {
 	private BufferedImage empty= null;
 	private BufferedImage wall= getIso(0,0);
 	private BufferedImage floor = getIso(0,64*5);
-	private BufferedImage Barrel = getIso(64*3,64*5);
-	private BufferedImage rug = getIso(64*9,64*5);
-	private BufferedImage door = getIso(64*9,65*3);
-	
+	private BufferedImage Barrel = getIso(64*9,64*5);
+	private BufferedImage rug = getIso(64*4,64*0);
+	private BufferedImage door = getIso(64*1,64*1);
+	private BufferedImage crate = getIso(64*3,64*5);
 			
 			
 	public void drawLevel(Graphics g, Room r) {
@@ -95,7 +95,8 @@ ts[29][29].setBackGroundImage(rug);
 					case 1: case 2: case 3:  			temp = new Tile(wall);			break;
 					case 4:							 	temp = new Tile(floor);			break;
 					case 5: 						 	temp = new Tile(Barrel);		break;
-					case 6: case 7: case 8: 		 	temp = new Tile(rug);			break;
+					case 6:								temp = new Tile(rug);			break;
+					case 7: case 8:						temp = new Tile(crate);			break;
 					case 9: case 10: case 11: 
 					case 12: case 13: case 14:			temp = new Tile(door);			break;					
 				}
@@ -128,13 +129,13 @@ ts[29][29].setBackGroundImage(rug);
 	}
 
 	public void drawSprite(Graphics2D g2, Sprite testSprite) {
-		g2.drawImage(getSpriteIso(testSprite.getStep() %10, testSprite.getFacing()),400, 300,null);
+		g2.drawImage(getSpriteIso(testSprite.getStep() %10, testSprite.getFacing(), testSprite.getName()),400, 300,null);
 		
 	}
-	public BufferedImage getSpriteIso(int x, String direction) {
+	public BufferedImage getSpriteIso(int x, String direction,String currentSpriteName) {
 		BufferedImage spriteSheet = null;
 		try {
-			spriteSheet = ImageIO.read(new File("sprite/sprite"+direction+".png"));
+			spriteSheet = ImageIO.read(new File("sprite/"+currentSpriteName+direction+".png"));
 		} catch (IOException e) {
 			System.out.println(e.toString());
 		}
