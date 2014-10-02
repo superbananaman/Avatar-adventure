@@ -5,11 +5,12 @@ import java.awt.Graphics;
 import javax.swing.JOptionPane;
 import javax.swing.text.Position;
 
+import Renderer.Sprite;
 import Renderer.Tile;
 
 public class Player implements Character {
 
-	private Tile tile;
+	private Sprite sprite;
 	private String nation;
 	private String name;
 	private Room currentRoom;
@@ -23,6 +24,7 @@ public class Player implements Character {
 		name = chooseName();
 		nation = chooseNation();
 		inventory = new Inventory();
+		sprite = new Sprite("Sprite", 0, 0);
 
 	}
 
@@ -58,18 +60,17 @@ public class Player implements Character {
 	 */
 
 	public void pickUp(Tile tile) {
-		if (isAlive) {
-			if (tile.hasItem()) { // has item returns true if it is occupied
-									// with an item
-				inventory.add(tile.getItem());
-			}
-			tile.removeItem();
-		}
+//		if (isAlive) {
+//			if (sprite.getTile().hasItem()) { // has item returns true if it is occupied
+//				inventory.add(sprite.getTile().getItem());
+//			}
+//			sprite.getTile().removeItem();
+//		}
 	}
 
 	public void dropItem(Item i) {
 		inventory.remove(i);
-		tile.setItem(i);
+		//sprite.getTile().setItem(i);
 	}
 
 	/**
