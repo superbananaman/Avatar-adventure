@@ -25,95 +25,117 @@ public class Slave implements KeyListener {
 
 	Socket socket;
 
-	BufferedReader in;
-	PrintWriter out;
-	JFrame frame = new JFrame("Chatter");
-	JTextField textField = new JTextField(40);
-	JTextArea messageArea = new JTextArea(8, 40);
+//	BufferedReader in;
+//	PrintWriter out;
+//	JFrame frame = new JFrame("Chatter");
+//	JTextField textField = new JTextField(40);
+//	JTextArea messageArea = new JTextArea(8, 40);
 
-	ObjectOutputStream oos;
-	ObjectInputStream ois;
+	ObjectOutputStream out;
+	ObjectInputStream in;
 
 	public Slave(Socket s) {
 
 		socket = s;
 
 		// Layout GUI
-		textField.setEditable(false);
-		messageArea.setEditable(false);
-		frame.getContentPane().add(textField, "North");
-		frame.getContentPane().add(new JScrollPane(messageArea), "Center");
-		frame.pack();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
+//		textField.setEditable(false);
+//		messageArea.setEditable(false);
+//		frame.getContentPane().add(textField, "North");
+//		frame.getContentPane().add(new JScrollPane(messageArea), "Center");
+//		frame.pack();
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.setVisible(true);
+//
+//		// Add Listeners
+//		textField.addActionListener(new ActionListener() {
+//			/**
+//			 * Responds to pressing the enter key in the textfield by sending
+//			 * the contents of the text field to the server. Then clear the text
+//			 * area in preparation for the next message.
+//			 */
+//			public void actionPerformed(ActionEvent e) {
+//				out.println(textField.getText());
+//				textField.setText("");
+//			}
+//		});
 
-		// Add Listeners
-		textField.addActionListener(new ActionListener() {
-			/**
-			 * Responds to pressing the enter key in the textfield by sending
-			 * the contents of the text field to the server. Then clear the text
-			 * area in preparation for the next message.
-			 */
-			public void actionPerformed(ActionEvent e) {
-				out.println(textField.getText());
-				textField.setText("");
-			}
-		});
 
 		try {
 			run();
-		} catch (IOException e1) {
+		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
+
 	}
 
 	/**
 	 * Connects to the server then enters the processing loop.
 	 */
-	public void run() throws IOException {
+	public void run() throws IOException, ClassNotFoundException {
 
 		// Make connection and initialize streams
-		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		out = new PrintWriter(socket.getOutputStream(), true);
+		out = new ObjectOutputStream(socket.getOutputStream());
+		in = new ObjectInputStream(socket.getInputStream());
 
-		// Process all messages from server, according to the protocol.
+
 		while (true) {
-			String line = in.readLine();
-			if (line.startsWith("SUBMITNAME")) {
-				out.println(getName());
-			} else if (line.startsWith("NAMEACCEPTED")) {
-				textField.setEditable(true);
-			} else if (line.startsWith("MESSAGE")) {
-				messageArea.append(line.substring(8) + "\n");
+			Object o = in.readObject();
+			// represents a key being pressed or uid
+			if (o instanceof Integer){
+				Integer i = (Integer)o;
+				if (i.equals(1)){
+					//Move player up
+				}
+				else if (i.equals(2)){
+					//Move player down
+				}
+				else if (i.equals(3)){
+					//Move player left
+				}
+				else if (i.equals(4)){
+					//Move player right
+				}
+				// the uid
+				else{
+					//uid = i;
+				}
 			}
+
+
+//			String line = in.readLine();
+//			if (line.startsWith("SUBMITNAME")) {
+//				out.println(getName());
+//			} else if (line.startsWith("NAMEACCEPTED")) {
+//				textField.setEditable(true);
+//			} else if (line.startsWith("MESSAGE")) {
+//				messageArea.append(line.substring(8) + "\n");
+//			}
 		}
 	}
 
-	/**
-	 * Prompt for and return the desired screen name.
-	 */
-	private String getName() {
-		return JOptionPane.showInputDialog(frame, "Choose a screen name:",
-				"Screen name selection", JOptionPane.PLAIN_MESSAGE);
-	}
+
 
 	public void keyPressed(KeyEvent e) {
-		
-		
+
 		// send an event to the server to write to all clients
 		try {
 			//first send the uid of the player being moved
 			//TODO get players uid
 			int code = e.getKeyCode();
 			if (code == KeyEvent.VK_UP) {
-				oos.writeInt(1);
+				out.writeObject(new Integer(1));
 			} else if (code == KeyEvent.VK_DOWN) {
-				oos.writeInt(2);
+				out.writeInt(2);
 			} else if (code == KeyEvent.VK_LEFT) {
-				oos.writeInt(3);
+				out.writeInt(3);
 			} else if (code == KeyEvent.VK_RIGHT) {
-				oos.writeInt(4);
+				out.writeInt(4);
 			}
 		} catch (IOException ioe) {
 			ioe.printStackTrace();

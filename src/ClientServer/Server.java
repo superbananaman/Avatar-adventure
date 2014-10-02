@@ -11,7 +11,7 @@ import tests.*;
 
 
 /**
- * 
+ *
  * @author Brendan Smith, Matt Catsburg
  *
  */
@@ -23,7 +23,6 @@ public class Server {
 
 	public Server(int port) {
 		this.port = port;
-
 		try {
 			runServer();
 		} catch (IOException e) {
@@ -39,8 +38,6 @@ public class Server {
 	public void runServer() throws IOException {
 		System.out.println("The Server is Running");
 		ServerSocket listener = new ServerSocket(port);
-
-
 		try {
 			while (true) {
 				ClientThread ct =  new ClientThread(listener.accept());
@@ -86,7 +83,7 @@ public class Server {
         			if (o == null){
         				return;
         			}
-        			//TODO test Object
+        			//TESTING
         			if (o instanceof Circle){
         				Circle c = (Circle)o;
         				for (ObjectOutputStream oos : ooses) {

@@ -31,10 +31,25 @@ public class NetworkSetup {
 		//run in client mode
 		try {
 			runClient(address, port);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
+
+
+	/**
+	 * Create a server amd allow clients to join
+	 * @param port the game the port is running on
+	 */
+	private static void runServer(int port){
+		Server s = new Server(port);
+	}
+
 
 	/**
 	 * Creates the server and allows clients to join starts the
@@ -79,7 +94,7 @@ public class NetworkSetup {
 	 * @param port to connect to
 	 * @throws IOException
 	 */
-	private static void runClient(String addr, int port) throws IOException {
+	private static void runClient(String addr, int port) throws IOException, ClassNotFoundException {
 		Socket s = new Socket(addr, port);
 		System.out.println("AVATAR CLIENT CONNECTED TO " + addr + ":" + port);
 		new Slave(s).run();
