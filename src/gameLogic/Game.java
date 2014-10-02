@@ -10,12 +10,12 @@ public class Game {
 	private List<Room> rooms = new ArrayList<Room>();
 	private List<Player> players = new ArrayList<Player>();
 
-	public Game(String type){
+	public Game(){
 		setUp();
 	}
 
 	public void setUp(){
-		addPlayers();
+
 		addRoom();
 
 	}
@@ -30,4 +30,5 @@ public class Game {
 		players.add(player);
 
 	}
+
 }

@@ -61,7 +61,7 @@ public class ClientTest implements MouseListener {
 
 	private void drawCircle(Graphics g) {
 		synchronized (circles) {
-			//g.setColor(Color.RED);
+			g.setColor(Color.BLACK);
 			for (Circle circ : circles) {
 				circ.draw(g);
 			}
