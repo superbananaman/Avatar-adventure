@@ -1,32 +1,31 @@
 package ClientServer;
 
 /**
- * @author Brendan Smith, Matt Catsburg
+
  */
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
+import gui.*;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
+/**
+ * A slave connection receives information about the current state of the board
+ * and relays that into the local copy of the board. The slave connection also
+ * notifies the clientThread running in the server that a key has been pressed or
+ * a message has been sent.
+ * @author Brendan Smith, Matt Catsburg
+ */
 public class Slave implements KeyListener {
 
-	Socket socket;
+	private Socket socket;
 
-	ObjectOutputStream out;
-	ObjectInputStream in;
+	private static ObjectOutputStream out;
+	private ObjectInputStream in;
+
+	private ClientFrame frame;
 
 	public Slave(Socket s) {
 
@@ -55,6 +54,12 @@ public class Slave implements KeyListener {
 		in = new ObjectInputStream(socket.getInputStream());
 
 
+		// wait for response from server then start frame
+//		frame = new ClientFrame();
+//		frame.setVisible(true);
+
+		// while the game is running, recieves info
+		// on the current state of the game
 		while (true) {
 			Object o = in.readObject();
 			// represents a key being pressed or uid
@@ -81,6 +86,14 @@ public class Slave implements KeyListener {
 		}
 	}
 
+	public static void sendMessage(String message){
+		try {
+			out.writeObject(message);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public void keyPressed(KeyEvent e) {
 		// send an event to the server to write to all clients
@@ -91,11 +104,11 @@ public class Slave implements KeyListener {
 			if (code == KeyEvent.VK_UP) {
 				out.writeObject(new Integer(1));
 			} else if (code == KeyEvent.VK_DOWN) {
-				out.writeInt(2);
+				out.writeObject(new Integer(2));
 			} else if (code == KeyEvent.VK_LEFT) {
-				out.writeInt(3);
+				out.writeObject(new Integer(3));
 			} else if (code == KeyEvent.VK_RIGHT) {
-				out.writeInt(4);
+				out.writeObject(new Integer(4));
 			}
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
