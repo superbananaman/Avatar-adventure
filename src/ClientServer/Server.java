@@ -11,19 +11,19 @@ import java.util.List;
 import tests.*;
 
 /**
- * 
+ *
  * @author Brendan Smith, Matt Catsburg
- * 
+ *
  */
 public class Server {
 
 	private final int port;
 	private int nclients;
 	public static List<ClientThread> threads = new ArrayList<ClientThread>();
-	
+
 	// list of all streams to clients
 	public static List<ObjectOutputStream> ooses = new ArrayList<ObjectOutputStream>();
-	
+
 	//Instance of the game for the saving and loading
 
 	public Server(int port) {
@@ -52,13 +52,13 @@ public class Server {
 					nclients--;
 					if(nclients == 0){
 						//no more accepting run the game
-						runGame();						
+						runGame();
 						return;
 					}
 					System.out.println("Waiting for " + nclients + " connection(s)");
 				}
 			} finally {
-				// close the socket and exit program				
+				// close the socket and exit program
 				listener.close();
 				System.exit(0);
 			}
@@ -69,7 +69,7 @@ public class Server {
 
 	/**
 	 * Runs the Server
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	public void runServer() throws IOException {
@@ -94,9 +94,9 @@ public class Server {
 		while(!threads.isEmpty()){
 			//keep running
 		}
-		
+
 	}
-	
+
 	/**
 	 * Receives input from a single client and sends that input to
 	 * each client that is connected to the server
@@ -126,15 +126,17 @@ public class Server {
 						o = in.readObject();
 					} catch (ClassNotFoundException e) {
 						System.out.println("An object was not sent through");
-						e.printStackTrace();						
+						e.printStackTrace();
 					}
 					// the object has not been sent, destroy connection for now
 					if (o == null) {
 						return;
-					}						
-					
-					for (ObjectOutputStream oos : ooses) {
-						oos.writeObject(o);
+					}
+					// This fixes the StreamCorruptedException through synchronization
+					synchronized (ooses) {
+						for (ObjectOutputStream oos : ooses) {
+							oos.writeObject(o);
+						}
 					}
 				}
 
@@ -145,7 +147,7 @@ public class Server {
 				// from the list and close the socket
 				if (out != null) {
 					ooses.remove(out);
-				}	
+				}
 				threads.remove(this);
 				try {
 					socket.close();
