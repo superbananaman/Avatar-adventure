@@ -22,6 +22,8 @@ public class Slave implements KeyListener {
 
 	private Socket socket;
 
+	private static String uid;
+	
 	private static ObjectOutputStream out;
 	private ObjectInputStream in;
 
@@ -43,6 +45,26 @@ public class Slave implements KeyListener {
 
 
 	}
+	
+	public Slave(String address, int port, String charName, String nation){
+		try{
+			socket = new Socket(address, port);
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+		uid = charName;
+		
+		// Create Player????
+		try {
+			run();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Connects to the server then enters the processing loop.
@@ -55,8 +77,8 @@ public class Slave implements KeyListener {
 
 
 		// wait for response from server then start frame
-//		frame = new ClientFrame();
-//		frame.setVisible(true);
+		frame = new ClientFrame();
+		frame.setVisible(true);
 
 		// while the game is running, recieves info
 		// on the current state of the game
@@ -86,11 +108,19 @@ public class Slave implements KeyListener {
 		}
 	}
 
-	public static void sendMessage(String message){
-		try {
+	/**
+	 * Sends a message to the server to be sent to all other clients
+	 * playing the game, static so any class can send a message to the
+	 * server
+	 * @param m the message to be sent
+	 */
+	public static void sendMessage(String m){
+		UIDObjectPair message = new UIDObjectPair(uid, m);
+		try {		
 			out.writeObject(message);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			//something went wrong, ignore it for now
+			//TODO
 			e.printStackTrace();
 		}
 	}
