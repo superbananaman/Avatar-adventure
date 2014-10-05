@@ -83,28 +83,33 @@ public class Slave implements KeyListener {
 		// while the game is running, recieves info
 		// on the current state of the game
 		while (true) {
-			Object o = in.readObject();
-			// represents a key being pressed or uid
-			if (o instanceof Integer){
-				Integer i = (Integer)o;
-				if (i.equals(1)){
-					//Move player up
+			Object o = in.readObject();			
+			// received either a movement object or a message
+			if (o instanceof UIDObjectPair){
+				UIDObjectPair pair = (UIDObjectPair)o;
+				String playerUID = pair.getUID();
+				Object ob = pair.getObject();
+				// if integer is sent through, means the player has moved
+				if (ob instanceof Integer){
+					Integer i = (Integer)ob;
+					if (i.equals(1)){
+						//TODO Move player up
+					}
+					else if (i.equals(2)){
+						//TODO Move player down
+					}
+					else if (i.equals(3)){
+						//TODO Move player left
+					}
+					else if (i.equals(4)){
+						//TODO Move player right
+					}
 				}
-				else if (i.equals(2)){
-					//Move player down
-				}
-				else if (i.equals(3)){
-					//Move player left
-				}
-				else if (i.equals(4)){
-					//Move player right
-				}
-				// the uid
-				else{
-					//uid = i;
+				else if (ob instanceof String){
+					String message = (String)ob;
+					//TODO Give message to Textfield in clientframe to show
 				}
 			}
-
 		}
 	}
 
@@ -127,18 +132,16 @@ public class Slave implements KeyListener {
 
 	public void keyPressed(KeyEvent e) {
 		// send an event to the server to write to all clients
-		try {
-			//first send the uid of the player being moved
-			//TODO get players uid
+		try {			
 			int code = e.getKeyCode();
 			if (code == KeyEvent.VK_UP) {
-				out.writeObject(new Integer(1));
+				out.writeObject(new UIDObjectPair(uid, new Integer(1)));
 			} else if (code == KeyEvent.VK_DOWN) {
-				out.writeObject(new Integer(2));
+				out.writeObject(new UIDObjectPair(uid, new Integer(2)));
 			} else if (code == KeyEvent.VK_LEFT) {
-				out.writeObject(new Integer(3));
+				out.writeObject(new UIDObjectPair(uid, new Integer(3)));
 			} else if (code == KeyEvent.VK_RIGHT) {
-				out.writeObject(new Integer(4));
+				out.writeObject(new UIDObjectPair(uid, new Integer(4)));
 			}
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
