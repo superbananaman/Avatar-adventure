@@ -23,6 +23,8 @@ public class Server {
 	
 	// list of all streams to clients
 	public static List<ObjectOutputStream> ooses = new ArrayList<ObjectOutputStream>();
+	
+	//Instance of the game for the saving and loading
 
 	public Server(int port) {
 		this.port = port;
@@ -56,7 +58,7 @@ public class Server {
 					System.out.println("Waiting for " + nclients + " connection(s)");
 				}
 			} finally {
-				// close the socket and exit program
+				// close the socket and exit program				
 				listener.close();
 				System.exit(0);
 			}
@@ -88,7 +90,7 @@ public class Server {
 
 	public void runGame(){
 		// while there is at least one connection
-		System.out.println("all Clients accepted, the game is now running");
+		System.out.println("All clients have disconnected, the game is over");
 		while(!threads.isEmpty()){
 			//keep running
 		}
@@ -96,8 +98,8 @@ public class Server {
 	}
 	
 	/**
-	 * responsible for dealing with a single client
-	 * 
+	 * Receives input from a single client and sends that input to
+	 * each client that is connected to the server
 	 */
 	private static class ClientThread extends Thread {
 
@@ -116,31 +118,23 @@ public class Server {
 				out = new ObjectOutputStream(socket.getOutputStream());
 				// add the OutputStream to the list
 				ooses.add(out);
-
+				// so far all this loop does is read an object and
+				// send it back out to all clients
 				while (true) {
 					Object o = null;
 					try {
 						o = in.readObject();
 					} catch (ClassNotFoundException e) {
-						e.printStackTrace();
+						System.out.println("An object was not sent through");
+						e.printStackTrace();						
 					}
 					// the object has not been sent, destroy connection for now
 					if (o == null) {
 						return;
-					}
-					// TESTING
-					if (o instanceof Circle) {
-						Circle c = (Circle) o;
-						for (ObjectOutputStream oos : ooses) {
-							oos.writeObject(c);
-						}
-					}
-					// if the object received is an int the player has pressed a
-					// key
-					if (o instanceof Integer) {
-						// the moved player's uid
-						// int uid = (Integer) o;
-						// read an int from the slave
+					}						
+					
+					for (ObjectOutputStream oos : ooses) {
+						oos.writeObject(o);
 					}
 				}
 
@@ -151,7 +145,7 @@ public class Server {
 				// from the list and close the socket
 				if (out != null) {
 					ooses.remove(out);
-				}
+				}	
 				threads.remove(this);
 				try {
 					socket.close();
