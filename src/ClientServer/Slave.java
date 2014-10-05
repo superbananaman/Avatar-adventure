@@ -22,6 +22,8 @@ public class Slave implements KeyListener {
 
 	private Socket socket;
 
+	private static String uid;
+	
 	private static ObjectOutputStream out;
 	private ObjectInputStream in;
 
@@ -43,6 +45,26 @@ public class Slave implements KeyListener {
 
 
 	}
+	
+	public Slave(String address, int port, String charName, String nation){
+		try{
+			socket = new Socket(address, port);
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+		uid = charName;
+		
+		// Create Player????
+		try {
+			run();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Connects to the server then enters the processing loop.
@@ -55,60 +77,71 @@ public class Slave implements KeyListener {
 
 
 		// wait for response from server then start frame
-//		frame = new ClientFrame();
-//		frame.setVisible(true);
+		frame = new ClientFrame();
+		frame.setVisible(true);
 
 		// while the game is running, recieves info
 		// on the current state of the game
 		while (true) {
-			Object o = in.readObject();
-			// represents a key being pressed or uid
-			if (o instanceof Integer){
-				Integer i = (Integer)o;
-				if (i.equals(1)){
-					//Move player up
+			Object o = in.readObject();			
+			// received either a movement object or a message
+			if (o instanceof UIDObjectPair){
+				UIDObjectPair pair = (UIDObjectPair)o;
+				String playerUID = pair.getUID();
+				Object ob = pair.getObject();
+				// if integer is sent through, means the player has moved
+				if (ob instanceof Integer){
+					Integer i = (Integer)ob;
+					if (i.equals(1)){
+						//TODO Move player up
+					}
+					else if (i.equals(2)){
+						//TODO Move player down
+					}
+					else if (i.equals(3)){
+						//TODO Move player left
+					}
+					else if (i.equals(4)){
+						//TODO Move player right
+					}
 				}
-				else if (i.equals(2)){
-					//Move player down
-				}
-				else if (i.equals(3)){
-					//Move player left
-				}
-				else if (i.equals(4)){
-					//Move player right
-				}
-				// the uid
-				else{
-					//uid = i;
+				else if (ob instanceof String){
+					String message = (String)ob;
+					//TODO Give message to Textfield in clientframe to show
 				}
 			}
-
 		}
 	}
 
-	public static void sendMessage(String message){
-		try {
+	/**
+	 * Sends a message to the server to be sent to all other clients
+	 * playing the game, static so any class can send a message to the
+	 * server
+	 * @param m the message to be sent
+	 */
+	public static void sendMessage(String m){
+		UIDObjectPair message = new UIDObjectPair(uid, m);
+		try {		
 			out.writeObject(message);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			//something went wrong, ignore it for now
+			//TODO
 			e.printStackTrace();
 		}
 	}
 
 	public void keyPressed(KeyEvent e) {
 		// send an event to the server to write to all clients
-		try {
-			//first send the uid of the player being moved
-			//TODO get players uid
+		try {			
 			int code = e.getKeyCode();
 			if (code == KeyEvent.VK_UP) {
-				out.writeObject(new Integer(1));
+				out.writeObject(new UIDObjectPair(uid, new Integer(1)));
 			} else if (code == KeyEvent.VK_DOWN) {
-				out.writeObject(new Integer(2));
+				out.writeObject(new UIDObjectPair(uid, new Integer(2)));
 			} else if (code == KeyEvent.VK_LEFT) {
-				out.writeObject(new Integer(3));
+				out.writeObject(new UIDObjectPair(uid, new Integer(3)));
 			} else if (code == KeyEvent.VK_RIGHT) {
-				out.writeObject(new Integer(4));
+				out.writeObject(new UIDObjectPair(uid, new Integer(4)));
 			}
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
