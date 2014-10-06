@@ -1,4 +1,8 @@
 package gui;
+/**
+ * Represents the Window displaying the game
+ * @author Devlin Mahoney
+ */
 import gameLogic.Room;
 
 import java.awt.*;
@@ -18,6 +22,10 @@ public class ClientFrame extends JFrame{
 
     private JPanel contentPane;
     private JPanel renderWindow;
+
+    JLabel textArea;
+    JTextField inputArea;
+    String currentText = "";
 
     /**
      * Launch the application.
@@ -47,10 +55,10 @@ public class ClientFrame extends JFrame{
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         GridBagLayout gbl_contentPane = new GridBagLayout();
-        gbl_contentPane.columnWidths = new int[]{800, 200, 0};
-        gbl_contentPane.rowHeights = new int[]{600, 120, 0};
-        gbl_contentPane.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-        gbl_contentPane.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+        //gbl_contentPane.columnWidths = new int[]{800, 200, 0};
+        //gbl_contentPane.rowHeights = new int[]{600, 120, 0};
+        gbl_contentPane.columnWeights = new double[]{5.0, 1.0, Double.MIN_VALUE};
+        gbl_contentPane.rowWeights = new double[]{50.0, 10.0, 0.5, Double.MIN_VALUE};
         contentPane.setLayout(gbl_contentPane);
 
         //Render Window Placeholder
@@ -75,7 +83,7 @@ public class ClientFrame extends JFrame{
         contentPane.add(panel_2, gbc_panel_2);
 
         //Consoleoutput placeholder
-        JLabel textArea = new JLabel();
+        textArea = new JLabel();
         GridBagConstraints gbc_textArea = new GridBagConstraints();
         textArea.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
         textArea.setBackground(Color.WHITE);
@@ -87,9 +95,41 @@ public class ClientFrame extends JFrame{
         gbc_textArea.gridy = 1;
         contentPane.add(textArea, gbc_textArea);
 
+        //ConsoleInput
+        inputArea = new JTextField();
+        GridBagConstraints gbc_inputArea = new GridBagConstraints();
+        inputArea.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+        inputArea.setBackground(Color.WHITE);
+        inputArea.setOpaque(true);
+        gbc_inputArea.insets = new Insets(0, 0, 0, 5);
+        gbc_inputArea.fill = GridBagConstraints.BOTH;
+        gbc_inputArea.gridx = 0;
+        gbc_inputArea.gridy = 2;
+        contentPane.add(inputArea, gbc_inputArea);
+
         setVisible(true);
 
-        textArea.setText("I'm a console window!");
+        currentText += "I'm a console window!";
+        textArea.setText("<html>"+currentText+"</html>");
+
     }
 
+    /**
+     * Displays a message on the console
+     * @param message The message to display
+     */
+    public void toConsole(String message){
+    	currentText = currentText +"<br>" +message;
+    	textArea.setText("<html>"+currentText+"</html>");
+    }
+
+    /**
+     * Displays chat from a player to the console
+     * @param name	The Player saying the message
+     * @param message	The Message
+     */
+    public void toConsole(String name, String message){
+    	currentText = currentText +"<br>" +name +": \""+ message+"\"";
+    	textArea.setText("<html>"+currentText+"</html>");
+    }
 }
