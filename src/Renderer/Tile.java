@@ -14,7 +14,7 @@ public class Tile {
 private BufferedImage backGroundImage;
 private BufferedImage pickUpImage;
 private BufferedImage monsterImage;
-
+private boolean isWalkable = true;
 private Item item = null;
 
 /*Use this class if the tile just has a background Image*/
@@ -88,6 +88,20 @@ public Item getItem(){
  */
 public void removeItem(){
 	item = null;
+}
+
+/**
+ * @return the isWalkable
+ */
+public boolean isWalkable() {
+	return isWalkable;
+}
+
+/**
+ * @param isWalkable the isWalkable to set
+ */
+public void setWalkable(boolean isWalkeable) {
+	this.isWalkable = isWalkeable;
 }
 
 

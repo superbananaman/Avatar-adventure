@@ -41,13 +41,13 @@ Graphics2D big;
 	Rectangle area; 	
 
 	Room room;
-	Sprite currentSprite = new Sprite("Sprite",300,400);
+	
 	Tile[][] testtileset;
 	Renderer renderer = new Renderer();
-	private int offsetX=0;
-	private int offsetY =0;
+	public int offsetX=-620;
+	public int offsetY =250;
+	Sprite currentSprite = new Sprite("Sprite",-60,70);
 
-	
 
 	public RenderWindow(String RoomName) {
 		//super("Renderer Test");
@@ -67,19 +67,21 @@ private void setupTestRoom(Room currentRoom) {
 	}
 
 public void paint(Graphics g){
+	g.setColor(Color.black);
+	g.fillRect(0, 0, 2500, 2500);
 	update(g);
 }
 	public void update(Graphics g) {
 	    Graphics2D g2 = (Graphics2D) g;
 	    //Draw Background once only
 	    if (firstTime) {
-	      int w = 2000;
+	      int w = 2500;
 	      int h = 2000;
 	      area = new Rectangle(800,600);
 	      bi = (BufferedImage) createImage(w, h);
 	      big = bi.createGraphics();
 	      big.setColor(Color.black);
-	      big.fillRect(0, 0, 2500, 2500);
+	      big.fillRect(0, 0, 2500, 2000);
 	      renderer.drawLevel(big, room);
 	      firstTime = false;
 	    }
@@ -87,7 +89,6 @@ public void paint(Graphics g){
 	    //Rpeatitive drawing tasks
 
 	    g2.drawImage(bi,offsetX,offsetY, null);
-	  	g2.setColor(Color.CYAN);
 		renderer.drawSprite(g2,currentSprite);
 
 	}
@@ -107,20 +108,21 @@ public void paint(Graphics g){
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 		//move dowwn map
 			currentSprite.setFacing("Right");
-			if(checkValidMove(currentSprite, currentSprite.getCurrentX(), currentSprite.getCurrentY(), room)){
-			currentSprite.setCurrentX(currentSprite.getCurrentX() - 4); currentSprite.setCurrentY(currentSprite.getCurrentY() - 2);
-			currentSprite.setStep(currentSprite.getStep() +1);			
+			if(checkValidMove(currentSprite, 4, 2, room)){
+				
+			currentSprite.addCurrentX(4); currentSprite.addCurrentY(2);
+			currentSprite.step();			
 			offsetX-=4; offsetY-=2;
 			this.repaint();
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			//move up map
-			if(checkValidMove(currentSprite, currentSprite.getCurrentX(), currentSprite.getCurrentY(), room)){
+			if(checkValidMove(currentSprite, -4, -2, room)){
 
 			currentSprite.setFacing("Left");
-			currentSprite.setCurrentX(currentSprite.getCurrentX() - 4); currentSprite.setCurrentY(currentSprite.getCurrentY() - 2);
-			currentSprite.setStep(currentSprite.getStep() +1);
+			currentSprite.addCurrentX(-4); currentSprite.addCurrentY(-2);
+			currentSprite.step();
 			offsetX+=4; offsetY+=2;
 			this.repaint();
 			}
@@ -128,11 +130,11 @@ public void paint(Graphics g){
 		}
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 		//move right map
-			if(checkValidMove(currentSprite, currentSprite.getCurrentX(), currentSprite.getCurrentY(), room)){
+			if(checkValidMove(currentSprite, 4, -2, room)){
 
 			currentSprite.setFacing("Up");
-			currentSprite.setCurrentX(currentSprite.getCurrentX() + 4);  currentSprite.setCurrentY(currentSprite.getCurrentY() - 2);
-			currentSprite.setStep(currentSprite.getStep() +1);
+			currentSprite.addCurrentX(4); currentSprite.addCurrentY(-2);
+			currentSprite.step();
 			offsetX-=4; offsetY+=2;
 			this.repaint();
 			}
@@ -140,12 +142,13 @@ public void paint(Graphics g){
 		}
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 		//move left map
-			if(checkValidMove(currentSprite, currentSprite.getCurrentX(), currentSprite.getCurrentY(), room)){
+			if(checkValidMove(currentSprite, -4, 2, room)){
 
 			currentSprite.setFacing("Down");
-			currentSprite.setCurrentX(currentSprite.getCurrentX() - 4); currentSprite.setCurrentY(currentSprite.getCurrentY() + 2);
-			currentSprite.setStep(currentSprite.getStep() +1);
+			currentSprite.addCurrentX(-4); currentSprite.addCurrentY(2);
+			currentSprite.step();
 			offsetX+=4; offsetY-=2;
+			//test++; System.out.println(test);
 			this.repaint();
 			}
 
@@ -153,7 +156,6 @@ public void paint(Graphics g){
 		if (e.getKeyCode() == KeyEvent.VK_R ) {
 		//rotate room 90 degrees clockwise
 			renderer.rotate(room);
-			firstTime = true;
 			this.repaint(); 
 			}
 
@@ -162,17 +164,13 @@ public void paint(Graphics g){
 		
 	}
 
-	private boolean checkValidMove(Sprite currrentSprite, int xProposed, int yProposed, Room room) {
-		System.out.println(currentSprite.getCurrentX()+" :  "+currentSprite.getCurrentY());
-		int newX = currrentSprite.getCurrentX()+xProposed;
-		int newY = currrentSprite.getCurrentX()+xProposed;
-		//int cartesianX = (newX / 64 * 2) + (newY / 64 * 2);
-		// int cartesianY = (newY / 32 * 2) - (newX / 32 * 2);
-		int cartesianX = renderer.isoTo2D(new Point(newX,newY)).x;
-		int cartesianY = renderer.isoTo2D(new Point(newX,newY)).y;
-				 System.out.println("iso X: "+newX+" : "+(cartesianX/30)+" iso Y: "+newY+" : "+ (cartesianY/30));
-		return true;
-	}
+	private boolean checkValidMove(Sprite currrentSprite, int x, int y, Room room) {
+		Point cartesian = renderer.isoTo2D(new Point(currrentSprite.getCurrentX()+x,currentSprite.getCurrentY()+y));
+		//System.out.println("Iso "+currentSprite.getCurrentX()+"  :  "+currentSprite.getCurrentY()+"  to   "+cartesian.x+"   :   "+cartesian.y);
+		Tile[][] proposedTile = room.getTileSet();		
+		return	proposedTile[cartesian.y][cartesian.x].isWalkable();
+				
+		}
 
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub

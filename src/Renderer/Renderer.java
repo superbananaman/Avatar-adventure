@@ -27,38 +27,25 @@ public class Renderer {
 	private BufferedImage door = getIso(64*1,64*1);
 	private BufferedImage crate = getIso(64*3,64*5);
 	private BufferedImage skelly = getIso(64*4,64*1);
-			
-			
+	
 	public void drawLevel(Graphics g, Room r) {
-		Tile[][] ts = r.getTileSet(); if(ts ==null) System.out.println("ERROR ts = null");
+		Tile[][] ts = r.getTileSet();
 		for (int i = 0; i < r.getWidth(); i++) {
-			for (int j = r.getHeight()-1; j >= 0; j--) {
-				// Tile tile = t;
-				int x =(j*64);
-				int	y =(i*64);
-				//Point pIso = twoDToIso(new Point(x,y));
-					placetile(ts[i][j], new Point(
-						x = (j * 64 / 2) + (i * 64 / 2),
-						y = (i * 32 / 2) - (j * 32 / 2)),
-						g);
-				//pIso.x +=500;
-				//placetile(ts[i][j],pIso,
-						//g);
-
+			for (int j = 0;j <r.getHeight(); j++) {			
+				placetile(ts[i][j], twoDToIso(new Point(j,i)),g);
 			}
 		}
-ts[29][29].setBackGroundImage(rug);
 	}
 
 	private void placetile(Tile tile, Point isoPoint, Graphics g) {
 	if(tile != null){
-		g.drawImage(tile.getBackGroundImage(), isoPoint.x, isoPoint.y+500, null);
+		g.drawImage(tile.getBackGroundImage(), isoPoint.x+1100, isoPoint.y+10, null);
 			
 		if(tile.getPickUpImage()!=null)
-			g.drawImage(tile.getPickUpImage(), isoPoint.x, isoPoint.y+500, null);
+			g.drawImage(tile.getPickUpImage(), isoPoint.x+1100, isoPoint.y+10, null);
 		
 		if(tile.getMonsterImage()!=null)
-			g.drawImage(tile.getMonsterImage(), isoPoint.x, isoPoint.y+500, null);
+			g.drawImage(tile.getMonsterImage(), isoPoint.x+1100, isoPoint.y+10, null);
 		
 		
 	}
@@ -69,16 +56,14 @@ ts[29][29].setBackGroundImage(rug);
 
 	public Point isoTo2D(Point pt) {
 		Point tempPt = new Point(0, 0);
-		tempPt.x = (2 * pt.y + pt.x) / 2;
-		tempPt.y = (2 * pt.y - pt.x) / 2;
+		tempPt.x = (pt.x / 32 + pt.y / 16)  /2;
+		tempPt.y = (pt.y / 16 -(pt.x / 32)) /2;
 		return (tempPt);
 	}
-
 	public Point twoDToIso(Point pt) {
 		Point tempPt = new Point(0, 0);
-		tempPt.x = pt.x - pt.y;
-		tempPt.y = (pt.x + pt.y) / 2;
-		 System.out.println("Converted "+pt.x+" "+pt.y +" to "+tempPt.x+" "+tempPt.y);
+		tempPt.x = ((pt.x - pt.y)*32);
+		tempPt.y = ((pt.x + pt.y)*16);
 		return (tempPt);
 	}
 
@@ -92,7 +77,7 @@ ts[29][29].setBackGroundImage(rug);
 		return tilesheet.getSubimage(x, y, 64, 64);
 	}
 	
-	public Tile[][] parseTileSet(Room roomName){ System.out.println(roomName);
+	public Tile[][] parseTileSet(Room roomName){ System.out.println(roomName.getRoomName());
 		Tile[][] ts = new Tile[30][30];
 		try {
 			FileReader roomFile = new FileReader("maps/"+roomName.getRoomName()+".txt");
@@ -106,13 +91,13 @@ ts[29][29].setBackGroundImage(rug);
 				int tile = scan.nextInt();
 				switch(tile) {					
 					case 0:								temp = new Tile(empty); 		break;
-					case 1: case 2: case 3:  			temp = new Tile(wall);			break;
+					case 1: case 2: case 3:  			temp = new Tile(wall); temp.setWalkable(false); 	break;
 					case 4:							 	temp = new Tile(floor);			break;
 					case 5: 						 	temp = new Tile(Barrel);		break;
 					case 6:								temp = new Tile(rug);			break;
 					case 7: case 8:						temp = new Tile(crate);			break;
 					case 9: case 10: case 11: 
-					case 12: case 13: case 14:			temp = new Tile(door);			break;	
+					case 12: case 13: case 14:			temp = new Tile(door);	temp.setWalkable(false);		break;	
 					
 				}
 				ts[i][j] = temp;

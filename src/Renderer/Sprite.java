@@ -2,8 +2,8 @@ package Renderer;
 
 public class Sprite{
 	private String name;
-	private int currentX;
-	private int currentY;
+	private double currentX;
+	private double currentY;
 	private String facing;
 	private int step;
 	public Sprite(String name, int x, int y ){			
@@ -16,25 +16,25 @@ public class Sprite{
 	 * @return the currentX
 	 */
 	public int getCurrentX() {
-		return currentX;
+		return (int)currentX;
 	}
 	/**
-	 * @param currentX the currentX to set
+	 * @param d the currentX to set
 	 */
-	public void setCurrentX(int currentX) {
-		this.currentX = currentX;
+	public void addCurrentX(double d) {
+		this.currentX += d;
 	}
 	/**
 	 * @return the currentY
 	 */
 	public int getCurrentY() {
-		return currentY;
+		return (int)currentY;
 	}
 	/**
-	 * @param currentY the currentY to set
+	 * @param d the currentY to set
 	 */
-	public void setCurrentY(int currentY) {
-		this.currentY = currentY;
+	public void addCurrentY(double d) {
+		this.currentY += d;
 	}
 	/**
 	 * @return the facing
@@ -57,8 +57,8 @@ public class Sprite{
 	/**
 	 * @param step the step to set
 	 */
-	public void setStep(int step) {
-		this.step = step;
+	public void step() {
+		this.step++;
 	}
 	public String getName() {
 		return name;
