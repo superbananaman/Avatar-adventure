@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import ClientServer.Server;
+import ClientServer.Slave;
+
 
 public class ClientOptions extends JFrame implements ActionListener{
 	int squareSize = 25;
@@ -15,6 +18,10 @@ public class ClientOptions extends JFrame implements ActionListener{
 	int height = 9*squareSize;
 
 	JPanel pane = new JPanel();
+
+	JTextField addressText;
+	JTextField nameText;
+	JTextField portText;
 
 	String address = "";
 	String name = "";
@@ -38,12 +45,22 @@ public class ClientOptions extends JFrame implements ActionListener{
 		jl.setSize(squareSize*4, squareSize);
 		pane.add(jl);
 
-		JTextField addressText = new JTextField();
+		jl = new JLabel("Port:");
+		jl.setLocation(2*squareSize, squareSize*2);
+		jl.setSize(squareSize*4, squareSize);
+		pane.add(jl);
+
+		addressText = new JTextField();
 		addressText.setLocation(squareSize*6, squareSize);
 		addressText.setSize(squareSize*6,squareSize);
 		pane.add(addressText);
 
-		JTextField nameText = new JTextField();
+		portText = new JTextField();
+		portText.setLocation(squareSize*6,squareSize*2);
+		portText.setSize(squareSize*6,squareSize);
+		pane.add(portText);
+
+		nameText = new JTextField();
 		nameText.setLocation(squareSize*6,squareSize*3);
 		nameText.setSize(squareSize*6,squareSize);
 		pane.add(nameText);
@@ -59,9 +76,17 @@ public class ClientOptions extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Join")){
-			new ClientFrame();
-			this.setVisible(false);
-			this.setEnabled(false);
+			try{
+				int num = Integer.parseInt(portText.getText());
+				
+				new Slave(addressText.getText(), num, nameText.getText(), null);
+
+				this.setVisible(false);
+				this.setEnabled(false);
+
+			} catch (NumberFormatException nfe) {
+
+			}
 		}
 	}
 }
