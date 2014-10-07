@@ -97,7 +97,7 @@ public class NetworkSetup {
 	private static void runClient(String addr, int port) throws IOException, ClassNotFoundException {
 		Socket s = new Socket(addr, port);
 		System.out.println("AVATAR CLIENT CONNECTED TO " + addr + ":" + port);
-		new Slave(s).run();
+		//new Slave(s).run();
 	}
 
 	/**

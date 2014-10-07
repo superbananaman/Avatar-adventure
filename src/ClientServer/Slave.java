@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
+
+import tests.Circle;
+import gameLogic.Player;
 import gui.*;
 
 /**
@@ -23,28 +28,16 @@ public class Slave implements KeyListener {
 	private Socket socket;
 
 	private static String uid;
+	// the player that this person chose
+	private Player player;
+	private List<Player> players = new ArrayList<Player>();
+	
+	
 	
 	private static ObjectOutputStream out;
 	private ObjectInputStream in;
 
 	private ClientFrame frame;
-
-	public Slave(Socket s) {
-
-		socket = s;
-
-		try {
-			run();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-
-	}
 	
 	public Slave(String address, int port, String charName, String nation){
 		try{
@@ -54,14 +47,12 @@ public class Slave implements KeyListener {
 		}
 		uid = charName;
 		
-		// Create Player????
+		// TODO Create Player
 		try {
 			run();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+		} catch (ClassNotFoundException e) {			
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (IOException e) {			
 			e.printStackTrace();
 		}
 	}
@@ -75,7 +66,24 @@ public class Slave implements KeyListener {
 		out = new ObjectOutputStream(socket.getOutputStream());
 		in = new ObjectInputStream(socket.getInputStream());
 
-
+		// send the player made to the server
+		out.writeObject(player);
+		// receives player from server
+		while (true){
+			Object o = in.readObject();
+			if (o instanceof Player){
+				players.add((Player) o);
+			}
+			//TESTING
+			else if (o instanceof Circle){
+				
+			}
+			// all players have accepted, can start
+			else if (o instanceof String){
+				break;
+			}
+		}
+		
 		// wait for response from server then start frame
 		frame = new ClientFrame();
 		frame.setVisible(true);
