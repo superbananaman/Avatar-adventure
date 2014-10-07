@@ -12,12 +12,12 @@ public class Fruit implements Item{
 
 	public Fruit(Tile pos, String Type){
 		tile = pos;
-		type = Type;
-		if(type == "Banana"){
+		setType(Type);
+		if(getType() == "Banana"){
 			health = 200;
-		}else if(type == "Apple"){
+		}else if(getType() == "Apple"){
 			health = 300;
-		}else if(type == "Mango"){
+		}else if(getType() == "Mango"){
 			health = 400;
 		}
 	}
@@ -31,6 +31,16 @@ public class Fruit implements Item{
 	public void use(Player player) {
 		player.setcurrentHealth(health);
 
+	}
+
+
+	public String getType() {
+		return type;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

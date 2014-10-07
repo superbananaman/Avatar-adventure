@@ -25,6 +25,8 @@ public class Player implements Character {
 		nation = chooseNation();
 		inventory = new Inventory();
 		sprite = new Sprite("Sprite", 0, 0);
+		setmaxHealth(500);
+		setcurrentHealth(500);
 
 	}
 
@@ -60,22 +62,25 @@ public class Player implements Character {
 	 */
 
 	public void pickUp(Tile tile) {
-//		if (isAlive) {
-//			if (sprite.getTile().hasItem()) { // has item returns true if it is occupied
-//				inventory.add(sprite.getTile().getItem());
-//			}
-//			sprite.getTile().removeItem();
-//		}
+		// if (isAlive) {
+		// if (sprite.getTile().hasItem()) { // has item returns true if it is
+		// occupied
+		// inventory.add(sprite.getTile().getItem());
+		// }
+		// sprite.getTile().removeItem();
+		// }
 	}
 
 	public void dropItem(Item i) {
 		inventory.remove(i);
-		//sprite.getTile().setItem(i);
+		// sprite.getTile().setItem(i);
 	}
 
 	/**
 	 *
-	 * @param h is the health/damage. damage will be negative, so will be subtracted
+	 * @param h
+	 *            is the health/damage. damage will be negative, so will be
+	 *            subtracted
 	 */
 
 	public void setcurrentHealth(int h) {
@@ -101,10 +106,17 @@ public class Player implements Character {
 		}
 	}
 
-	public void attack() {
+	public int attack1() {
 		if (isAlive) {
-
+			return 200;
 		}
+		return 0;
 	}
 
+	public int attack2() {
+		if (isAlive) {
+			return 350;
+		}
+		return 0;
+	}
 }

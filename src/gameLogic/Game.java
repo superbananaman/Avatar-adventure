@@ -8,7 +8,7 @@ import java.util.*;
 public class Game {
 
 	private List<Room> rooms = new ArrayList<Room>();
-	private List<Player> players = new ArrayList<Player>();
+	private List<Player> totalPlayers = new ArrayList<Player>();
 
 	public Game(){
 		setUp();
@@ -27,7 +27,7 @@ public class Game {
 
 	public void addPlayers() {
 		Player player = new Player();
-		players.add(player);
+		totalPlayers.add(player);
 
 	}
 

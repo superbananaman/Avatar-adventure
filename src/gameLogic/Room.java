@@ -20,7 +20,7 @@ public class Room {
 	public Room(int Height, int Width,String roomname){
 	setHeight(Height);
 	setWidth(Width);
-	this.roomName = roomname;
+	roomName = roomname;
 	setUp();
 
 	}
@@ -50,13 +50,13 @@ public class Room {
 	public int getHeight() {
 		return height;
 	}
-	private void setHeight(int height) {
+	public void setHeight(int height) {
 		this.height = height;
 	}
 	public int getWidth() {
 		return width;
 	}
-	private void setWidth(int width) {
+	public void setWidth(int width) {
 		this.width = width;
 	}
 	/**
@@ -66,7 +66,7 @@ public class Room {
 		return TileSet;
 	}
 	/**
-	 * @param tileSet the tileSet to set
+	 * @param the tileSet to set
 	 */
 	public void setTileSet(Tile[][] tileSet) {
 		TileSet = tileSet;

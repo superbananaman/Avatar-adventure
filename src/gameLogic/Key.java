@@ -9,9 +9,11 @@ import Renderer.Tile;
 public class Key implements Item{
 
 	private Tile tile;
+	private Door door;
 
-	public Key(Tile pos){
+	public Key(Tile pos, Door door){
 		tile = pos;
+		setDoor(door);
 	}
 
 	public void draw(Graphics g) {
@@ -22,5 +24,13 @@ public class Key implements Item{
 	public void use(Player player) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public Door getDoor() {
+		return door;
+	}
+
+	public void setDoor(Door door) {
+		this.door = door;
 	}
 }

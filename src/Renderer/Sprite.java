@@ -6,7 +6,7 @@ public class Sprite{
 	private double currentY;
 	private String facing;
 	private int step;
-	public Sprite(String name, int x, int y ){			
+	public Sprite(String name, int x, int y ){
 		currentX = x; 	currentY = y;
 		facing = "Up";
 		step = 0;
@@ -64,8 +64,8 @@ public class Sprite{
 		return name;
 	}
 	public Tile getTile(){
-		
+
 		return null;
 	}
-	
+
 }

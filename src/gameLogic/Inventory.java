@@ -8,6 +8,7 @@ public class Inventory {
 
 	private List<Item> items = new ArrayList<Item>();
 
+
 	public Inventory(){
 
 	}

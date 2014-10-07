@@ -1,0 +1,43 @@
+package gameLogic;
+
+import Renderer.Tile;
+
+public class Boss {
+
+	private Tile tile;
+	private int health;
+
+
+	public Boss(Tile tile, int players){
+		setTile(tile);
+		health = players*5000;
+	}
+
+
+	public Tile getTile() {
+		return tile;
+	}
+
+
+	public void setTile(Tile tile) {
+		this.tile = tile;
+	}
+
+
+	public int getHealth() {
+		return health;
+	}
+
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
+
+	public int attack(){
+		return 1000; // attacks all players
+	}
+	public int ulti(){
+		return 9001;
+	}
+
+}

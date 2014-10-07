@@ -7,16 +7,13 @@ import javax.swing.text.Position;
 
 import Renderer.Tile;
 
-public class Monster implements Character {
-	private Tile tile;
-	
-public Monster (Tile tile){
-	this.tile = tile;
-}
+public interface Monster extends Character {
 
 
-	public void draw(Graphics g) {
 
 
-	}
+	public void draw(Graphics g);
+
+
+
 }
