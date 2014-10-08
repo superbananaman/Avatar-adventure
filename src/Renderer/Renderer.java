@@ -154,6 +154,7 @@ public class Renderer {
 	}
 	public BufferedImage getSpriteIso(int x, String direction,String currentSpriteName) {
 		BufferedImage spriteSheet = null;
+		currentSpriteName = currentSpriteName.toLowerCase();
 		try {
 			spriteSheet = ImageIO.read(new File("sprite/"+currentSpriteName+direction+".png"));
 		} catch (IOException e) {
