@@ -9,9 +9,12 @@ public class ServerConsoleWindow extends JFrame {//put a mouseListener Here?
 
     private JPanel contentPane;
 
-    JLabel textArea;
+    JTextArea textArea;
     JPanel buttonPanel;
     JLabel rightLabel;
+    JButton saveButton;
+    JButton loadButton;
+    JButton stopButton;
     String currentText = "";
 
     /**
@@ -42,24 +45,26 @@ public class ServerConsoleWindow extends JFrame {//put a mouseListener Here?
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         GridBagLayout gbl_contentPane = new GridBagLayout();
-        //gbl_contentPane.columnWidths = new int[]{800, 200, 0};
-        //gbl_contentPane.rowHeights = new int[]{600, 120, 0};
-        gbl_contentPane.columnWeights = new double[]{18.0, 5.0, Double.MIN_VALUE};
+        gbl_contentPane.columnWidths = new int[]{800, 200, 0};
+        gbl_contentPane.rowHeights = new int[]{660, 65, 0};
+        gbl_contentPane.columnWeights = new double[]{18.0, 10.0, Double.MIN_VALUE};
         gbl_contentPane.rowWeights = new double[]{17.0, 1.5, Double.MIN_VALUE};
         contentPane.setLayout(gbl_contentPane);
 
         //Consoleoutput placeholder
-        textArea = new JLabel();
+        textArea = new JTextArea();
         GridBagConstraints gbc_textArea = new GridBagConstraints();
         textArea.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
         textArea.setBackground(Color.WHITE);
         textArea.setOpaque(true);
-        textArea.setVerticalAlignment(SwingConstants.BOTTOM);
+        textArea.setFocusable(false);
+        JScrollPane scroll = new JScrollPane(textArea);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         gbc_textArea.insets = new Insets(0, 0, 5, 5);
         gbc_textArea.fill = GridBagConstraints.BOTH;
         gbc_textArea.gridx = 0;
         gbc_textArea.gridy = 0;
-        contentPane.add(textArea, gbc_textArea);
+        contentPane.add(scroll, gbc_textArea);
 
         //Inventory Place Holder
         rightLabel = new JLabel();
@@ -77,18 +82,29 @@ public class ServerConsoleWindow extends JFrame {//put a mouseListener Here?
         //for Buttons
         buttonPanel = new JPanel();
         GridBagConstraints gbc_buttonPanel = new GridBagConstraints();
-        buttonPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-        buttonPanel.setOpaque(true);
         gbc_buttonPanel.insets = new Insets(0, 5, 5, 10);
         gbc_buttonPanel.fill = GridBagConstraints.BOTH;
         gbc_buttonPanel.gridx = 0;
         gbc_buttonPanel.gridy = 1;
+
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        saveButton = new JButton("Save");
+        saveButton.setPreferredSize(new Dimension(200,50));
+        buttonPanel.add(saveButton);
+
+        loadButton = new JButton("Load");
+        loadButton.setPreferredSize(new Dimension(200,50));
+        buttonPanel.add(loadButton);
+
+        stopButton = new JButton("Stop");
+        stopButton.setPreferredSize(new Dimension(200,50));
+        buttonPanel.add(stopButton);
         contentPane.add(buttonPanel, gbc_buttonPanel);
 
         setVisible(true);
 
         currentText += "I'm a console window!";
-        textArea.setText("<html>"+currentText+"</html>");
 
     }
 
@@ -97,8 +113,8 @@ public class ServerConsoleWindow extends JFrame {//put a mouseListener Here?
      * @param message The message to display
      */
     public void toConsole(String message){
-        currentText = currentText +"<br>" +message;
-        textArea.setText("<html>"+currentText+"</html>");
+        currentText = currentText +"\n" +message;
+        textArea.setText(currentText);
     }
 
     /**
@@ -107,8 +123,8 @@ public class ServerConsoleWindow extends JFrame {//put a mouseListener Here?
      * @param message    The Message
      */
     public void toConsole(String name, String message){
-        currentText = currentText +"<br>" +name +": \""+ message+"\"";
-        textArea.setText("<html>"+currentText+"</html>");
+        currentText = currentText +"\n" +name +": \""+ message+"\"";
+        textArea.setText(currentText);
     }
 }
 
