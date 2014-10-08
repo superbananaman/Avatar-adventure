@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 import gameLogic.Item;
 import gameLogic.Monster;
 import gameLogic.Room;
+import gameLogic.Skeleton;
 
 public class Renderer {
 //BufferedImages for ISO tiles
@@ -131,7 +132,7 @@ public class Renderer {
 					case 1:								temp = skelly;		break;
 
 					}
-					//monsters.add(new Monster(ts[i][j]));                                 LIAM FIX THIS PLEASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					monsters.add(new Skeleton(ts[i][j]));					
 					ts[i][j].setMonsterImage(temp);
 
 				}
@@ -154,7 +155,6 @@ public class Renderer {
 	}
 	public BufferedImage getSpriteIso(int x, String direction,String currentSpriteName) {
 		BufferedImage spriteSheet = null;
-		currentSpriteName = currentSpriteName.toLowerCase();
 		try {
 			spriteSheet = ImageIO.read(new File("sprite/"+currentSpriteName+direction+".png"));
 		} catch (IOException e) {
