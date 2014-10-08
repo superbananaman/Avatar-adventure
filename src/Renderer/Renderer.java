@@ -132,7 +132,7 @@ public class Renderer {
 					case 1:								temp = skelly;		break;
 
 					}
-					monsters.add(new Skeleton(ts[i][j]));					
+					monsters.add(new Skeleton(ts[i][j]));
 					ts[i][j].setMonsterImage(temp);
 
 				}

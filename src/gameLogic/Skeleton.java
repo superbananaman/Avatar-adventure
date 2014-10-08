@@ -1,16 +1,18 @@
 package gameLogic;
 
+import java.awt.Graphics;
+
 import Renderer.Tile;
 
-public class Skeleton {
+public class Skeleton implements Monster{
 
 	private Tile tile;
 	private int health;
 
 
-	public Skeleton(Tile tile, int players){
+	public Skeleton(Tile tile){
 		setTile(tile);
-		health = players*400;
+
 
 	}
 
@@ -30,8 +32,8 @@ public class Skeleton {
 	}
 
 
-	public void setHealth(int health) {
-		this.health = health;
+	public void setHealth(int numofPlayers) {
+		health = numofPlayers*400;
 	}
 
 	public int throwBones(){
@@ -40,6 +42,12 @@ public class Skeleton {
 
 	public int bite(){
 		return 150;
+	}
+
+
+	public void draw(Graphics g) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
