@@ -11,13 +11,14 @@ public class Game implements Serializable{
 	private List<Room> rooms = new ArrayList<Room>();
 	private List<Player> totalPlayers = new ArrayList<Player>();
 
-	public Game(){
+	public Game(List<Player> players){
+		totalPlayers = players;
 		setUp();
 	}
 
 	public void setUp(){
 		setMonsterHealth(totalPlayers.size());
-		//addRoom();
+		addRoom();
 
 	}
 
@@ -38,10 +39,5 @@ public void setMonsterHealth(int size) {
 		rooms.add(new Room("Bossroom"));
 	}
 
-	public void addPlayers() {
-		//Player player = new Player();
-		//totalPlayers.add(player);
-
-	}
 
 }
