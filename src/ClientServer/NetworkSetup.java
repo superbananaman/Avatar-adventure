@@ -47,7 +47,7 @@ public class NetworkSetup {
 	 * @param port the game the port is running on
 	 */
 	private static void runServer(int port){
-		Server s = new Server(port);
+		Server s = new Server(2, port);
 	}
 
 
