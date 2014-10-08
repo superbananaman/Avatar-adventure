@@ -23,6 +23,7 @@ public class ServerFrame extends JFrame implements ActionListener{
 
 	JPanel pane = new JPanel();
 	JTextField portText;
+	JTextField clientText;
 	JTextField saveText;
 	Server server;
 
@@ -43,6 +44,11 @@ public class ServerFrame extends JFrame implements ActionListener{
 		jl.setSize(squareSize*3, squareSize);
 		pane.add(jl);
 
+		jl = new JLabel("Clients:");
+		jl.setLocation(2*squareSize, squareSize*2);
+		jl.setSize(squareSize*3, squareSize);
+		pane.add(jl);
+
 		jl = new JLabel("Save:");
 		jl.setLocation(2*squareSize, squareSize*3);
 		jl.setSize(squareSize*3, squareSize);
@@ -52,6 +58,11 @@ public class ServerFrame extends JFrame implements ActionListener{
 		portText.setLocation(squareSize*5, squareSize);
 		portText.setSize(squareSize*5,squareSize);
 		pane.add(portText);
+
+		clientText = new JTextField();
+		clientText.setLocation(squareSize*5, squareSize*2);
+		clientText.setSize(squareSize*5,squareSize);
+		pane.add(clientText);
 
 		saveText = new JTextField();
 		saveText.setLocation(squareSize*5, squareSize*3);
@@ -71,11 +82,12 @@ public class ServerFrame extends JFrame implements ActionListener{
 		if(e.getActionCommand().equals("Start")){
 			try{
 				int num = Integer.parseInt(portText.getText());
-				System.out.println("Starting server on port "+num);
-				server = new Server(num);
+				int cli = Integer.parseInt(clientText.getText());
+				System.out.println("Starting server on port "+num+" with max clients "+cli);
+				server = new Server(cli, num);
 			} catch (NumberFormatException nfe) {
-				System.out.println("Starting server on port "+defaultPort);
-				server = new Server(defaultPort);
+				//System.out.println("Starting server on port "+defaultPort);
+				//server = new Server(defaultPort);
 			} finally{
 				this.setVisible(false);
 				this.setEnabled(false);
