@@ -1,8 +1,5 @@
 package ClientServer;
 
-/**
-
- */
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
@@ -14,7 +11,7 @@ import java.util.List;
 
 import tests.Circle;
 import gameLogic.Game;
-import gameLogic.Player;
+import tests.Player;
 import gui.*;
 
 /**
@@ -122,7 +119,7 @@ public class Slave implements KeyListener {
 				else if (ob instanceof String){
 					String message = (String)ob;
 					//TODO Give message to Textfield in clientframe to show
-					frame.toConsole(uid, message);
+					frame.toConsole(playerUID, message);
 				}
 			}
 		}

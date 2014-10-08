@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gameLogic.Game;
-import gameLogic.Player;
+import tests.Player;
 import gui.ServerConsoleWindow;
 import tests.*;
 

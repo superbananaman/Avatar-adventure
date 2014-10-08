@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -206,12 +207,12 @@ public class ClientTest implements KeyListener {
 		}
 		else if(n == 1){
 			//ClientTest client = new ClientTest(new Circle(200, 200, "a", Color.RED));
-			ClientTest client = new ClientTest(new Circle(10, 10, "b", Color.BLUE));
+			//ClientTest client = new ClientTest(new Circle(10, 10, "b", Color.BLUE));
 			//ClientTest client = new ClientTest(new Circle(300, 200, "c", Color.CYAN));
 //			client.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //			client.frame.setVisible(true);
-			client.run();
-		//	Slave s = new Slave(new Socket(getServerAddress(), 9003));
+			//client.run();
+			Slave s = new Slave(InetAddress.getLocalHost().getHostAddress(), 9003, "matt",null);
 		}
 		
 		
