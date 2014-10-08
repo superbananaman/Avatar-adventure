@@ -11,16 +11,16 @@ public class Room implements Serializable{
 	private int height;
 	private int width;
 
-	private List<Player> players = new ArrayList<Player>(); // the current players in this room
+	//private List<Player> players = new ArrayList<Player>(); // the current players in this room
 	private List<Monster> monsters = new ArrayList<Monster>();	// the current alive monsters in this room
 	private List<Item> items = new ArrayList<Item>(); // the items on the floor of this room
 	private List<Object> walls = new ArrayList<Object>(); // the walls and doors in the room
 	private Tile[][] TileSet; // the grid setup
 	private String roomName;
 
-	public Room(int Height, int Width,String roomname){
-	setHeight(Height);
-	setWidth(Width);
+	public Room(String roomname){
+//	setHeight(Height);
+//	setWidth(Width);
 	roomName = roomname;
 	setUp();
 
@@ -29,23 +29,21 @@ public class Room implements Serializable{
 
 
 	}
-	public void updatePlayers(List<Player> p){ //gets called when players enter the room
-		players.addAll(p);
-	}
 
 
-	public void draw(Graphics g){
-		for(Player p: players){
-			p.draw(g);
-		}
-		for(Item i: getItems()){
-			i.draw(g);
-		}
-		for(Monster m: getMonsters()){
-			m.draw(g);
-		}
 
-	}
+//	public void draw(Graphics g){
+//		for(Player p: players){
+//			p.draw(g);
+//		}
+//		for(Item i: getItems()){
+//			i.draw(g);
+//		}
+//		for(Monster m: getMonsters()){
+//			m.draw(g);
+//		}
+//
+//	}
 	public int getHeight() {
 		return height;
 	}

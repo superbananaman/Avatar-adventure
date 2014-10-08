@@ -16,15 +16,27 @@ public class Game implements Serializable{
 	}
 
 	public void setUp(){
-
+		setMonsterHealth(totalPlayers.size());
 		//addRoom();
 
 	}
 
-/*	public void addRoom() {
-		rooms.add(new Room(800, 600));
-		rooms.get(rooms.size()-1).updatePlayers(players);
-	}*/
+public void setMonsterHealth(int size) {
+		for(Room r: rooms){
+			for(Monster m: r.getMonsters()){
+				m.setHealth(size);
+			}
+		}
+
+	}
+
+	public void addRoom() {
+		rooms.add(new Room("Starting"));
+		rooms.add(new Room("Room1"));
+		rooms.add(new Room("Room2"));
+		rooms.add(new Room("Room3"));
+		rooms.add(new Room("Bossroom"));
+	}
 
 	public void addPlayers() {
 		//Player player = new Player();

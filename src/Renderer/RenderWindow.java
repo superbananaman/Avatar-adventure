@@ -35,13 +35,13 @@ BufferedImage bi = new BufferedImage(800,600,BufferedImage.TYPE_INT_RGB);
 Graphics2D big;
 
 	JPanel panel = new JPanel();
-	
+
 	int width = 800;
 	int height = 600;
-	Rectangle area; 	
+	Rectangle area;
 
 	Room room;
-	
+
 	Tile[][] testtileset;
 	Renderer renderer = new Renderer();
 	public int offsetX=-620;
@@ -57,13 +57,13 @@ Graphics2D big;
 		panel.setSize(height, width);
 
 		addKeyListener(this);
-		setVisible(true);		
-		room = new Room(30,30,RoomName);
-		setupTestRoom(room); 
+		setVisible(true);
+		//room = new Room(30,30,RoomName);                       FIX THIS
+		setupTestRoom(room);
 	}
-	
+
 private void setupTestRoom(Room currentRoom) {
-	room.setTileSet(renderer.parseTileSet(currentRoom)); 
+	room.setTileSet(renderer.parseTileSet(currentRoom));
 	}
 
 public void paint(Graphics g){
@@ -101,7 +101,7 @@ public void paint(Graphics g){
 		canvas.setSize(800, 600);
 		canvas.setVisible(true);
 		panel.setFocusable(true);
-		
+
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -109,9 +109,9 @@ public void paint(Graphics g){
 		//move dowwn map
 			currentSprite.setFacing("Right");
 			if(checkValidMove(currentSprite, 4, 2, room)){
-				
+
 			currentSprite.addCurrentX(4); currentSprite.addCurrentY(2);
-			currentSprite.step();			
+			currentSprite.step();
 			offsetX-=4; offsetY-=2;
 			this.repaint();
 			}
@@ -156,20 +156,20 @@ public void paint(Graphics g){
 		if (e.getKeyCode() == KeyEvent.VK_R ) {
 		//rotate room 90 degrees clockwise
 			renderer.rotate(room);
-			this.repaint(); 
+			this.repaint();
 			}
 
-		
-		
-		
+
+
+
 	}
 
 	private boolean checkValidMove(Sprite currrentSprite, int x, int y, Room room) {
 		Point cartesian = renderer.isoTo2D(new Point(currrentSprite.getCurrentX()+x,currentSprite.getCurrentY()+y));
 		//System.out.println("Iso "+currentSprite.getCurrentX()+"  :  "+currentSprite.getCurrentY()+"  to   "+cartesian.x+"   :   "+cartesian.y);
-		Tile[][] proposedTile = room.getTileSet();		
+		Tile[][] proposedTile = room.getTileSet();
 		return	proposedTile[cartesian.y][cartesian.x].isWalkable();
-				
+
 		}
 
 	public void keyReleased(KeyEvent arg0) {
@@ -180,13 +180,13 @@ public void paint(Graphics g){
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 
-	}	
-	
+	}
+
 	public void changeRoom(String roomName){
 		firstTime =false;
-		room = new Room(30,30,roomName);
+		//room = new Room(30,30,roomName);												FIX THIS
 		this.repaint();
 	}
 
 }
- 
+
