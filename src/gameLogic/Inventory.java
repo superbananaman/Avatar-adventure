@@ -25,4 +25,13 @@ public class Inventory {
 		items.remove(i);
 	}
 
+	public boolean has(Item i){
+		for(Item item: items){
+			if(i == item){
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

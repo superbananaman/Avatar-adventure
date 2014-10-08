@@ -22,7 +22,7 @@ public class Key implements Item{
 	}
 
 	public void use(Player player) {
-		// TODO Auto-generated method stub
+		//return "Opens " + getDoor();
 
 	}
 

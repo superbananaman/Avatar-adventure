@@ -24,8 +24,8 @@ public class Door {
 		// TODO Auto-generated method stub
 
 	}
-	public boolean use(Key key){
-		if(key.getDoor()==this && getKey()==key){
+	public boolean use(Player player){
+		if(player.getInventory().has(getKey()) == true){
 			return true;
 		}
 	return false;

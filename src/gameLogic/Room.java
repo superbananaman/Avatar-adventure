@@ -1,11 +1,12 @@
 package gameLogic;
 
 import java.awt.Graphics;
+import java.io.Serializable;
 import java.util.*;
 
 import Renderer.Tile;
 
-public class Room {
+public class Room implements Serializable{
 
 	private int height;
 	private int width;

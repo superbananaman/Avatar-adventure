@@ -1,6 +1,7 @@
 package gameLogic;
 
 import java.awt.Graphics;
+import java.io.Serializable;
 
 import javax.swing.JOptionPane;
 import javax.swing.text.Position;
@@ -8,7 +9,7 @@ import javax.swing.text.Position;
 import Renderer.Sprite;
 import Renderer.Tile;
 
-public class Player implements Character {
+public class Player implements Character, Serializable {
 
 	private Sprite sprite;
 	private String nation;
@@ -21,7 +22,7 @@ public class Player implements Character {
 
 	public Player(String name) {
 
-		inventory = new Inventory();
+		setInventory(new Inventory());
 		sprite = new Sprite("Sprite", 0, 0);
 		setmaxHealth(500);
 		setcurrentHealth(500);
@@ -56,7 +57,7 @@ public class Player implements Character {
 	}
 
 	public void dropItem(Item i) {
-		inventory.remove(i);
+		getInventory().remove(i);
 		// sprite.getTile().setItem(i);
 	}
 
@@ -102,5 +103,13 @@ public class Player implements Character {
 			return 350;
 		}
 		return 0;
+	}
+
+	public Inventory getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
 	}
 }
