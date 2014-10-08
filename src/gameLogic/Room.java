@@ -43,9 +43,7 @@ public class Room {
 		for(Monster m: getMonsters()){
 			m.draw(g);
 		}
-		for(Object o: walls){
-			o.draw(g);
-		}
+
 	}
 	public int getHeight() {
 		return height;

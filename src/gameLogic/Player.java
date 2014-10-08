@@ -12,36 +12,20 @@ public class Player implements Character {
 
 	private Sprite sprite;
 	private String nation;
-	private String name;
+	private String name; // does nothing right now
 	private Room currentRoom;
 	private Inventory inventory;
 	private int maxHealth;
 	private int currentHealth;
 	private boolean isAlive = true;
 
-	public Player() {
+	public Player(String name) {
 
-		name = chooseName();
-		nation = chooseNation();
 		inventory = new Inventory();
 		sprite = new Sprite("Sprite", 0, 0);
 		setmaxHealth(500);
 		setcurrentHealth(500);
 
-	}
-
-	private String chooseName() {
-		return JOptionPane.showInputDialog("What is your name?");
-	}
-
-	private String chooseNation() {
-		String[] Nations = { "Fire", "Earth", "Water", "Air" };
-		String nation = (String) JOptionPane.showInputDialog(null,
-				"Which Nation do you choose?", "Birthplace",
-				JOptionPane.QUESTION_MESSAGE, null, // Use// default// icon
-				Nations, // Array of choices
-				Nations[0]); // Initial choice
-		return nation;
 	}
 
 	public Room getCurrentRoom() {
