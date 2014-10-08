@@ -6,7 +6,7 @@ import javax.swing.text.Position;
 
 import Renderer.Tile;
 
-public class Door implements Object {
+public class Door {
 
 	private Tile tile;
 	private Room room;
