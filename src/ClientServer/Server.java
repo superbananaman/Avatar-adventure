@@ -7,7 +7,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+
+import gameLogic.Game;
 import gameLogic.Player;
+import gui.ServerConsoleWindow;
 import tests.*;
 
 /**
@@ -23,31 +26,33 @@ public class Server {
 
 	// list of all streams to clients
 	private static List<ObjectOutputStream> ooses = new ArrayList<ObjectOutputStream>();
-	
-	private ServerFrame frame;
-	
-	//private static List<Player> players = new ArrayList<Player>();
-	
-	private static List<Circle> players = new ArrayList<Circle>();
+
+	//private ServerFrame frame;
+	private ServerConsoleWindow frame;
+
+	private static List<Player> players = new ArrayList<Player>();
+
+	//private static List<Circle> players = new ArrayList<Circle>();
 	// indicates whether all players have joined
 	private static boolean allPlayers = false;
 	//Instance of the game for the saving and loading
+	private static Game game;
 
-	public Server(int port) {
-		this.port = port;
-		try {
-			runServer();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+//	public Server(int port) {
+//		this.port = port;
+//		try {
+//			runServer();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	public Server(int nclients, int port) {
-		frame = new ServerFrame();
+		frame = new ServerConsoleWindow();
 		this.nclients = nclients;
 		this.port = port;
-		frame.appendMessage("The server is running");
-		frame.appendMessage("Awaiting " + nclients + " connections");
+		frame.toConsole("The server is running");
+		frame.toConsole("Awaiting " + nclients + " connections");
 		try {
 			ServerSocket listener = new ServerSocket(port);
 			try {
@@ -55,7 +60,7 @@ public class Server {
 					ClientThread ct = new ClientThread(listener.accept());
 					threads.add(ct);
 					ct.start();
-					frame.appendMessage("Accepted Connection from: "
+					frame.toConsole("Accepted Connection from: "
 							+ ct.socket.getLocalAddress());
 					nclients--;
 					if(nclients == 0){
@@ -64,7 +69,7 @@ public class Server {
 						runGame();
 						return;
 					}
-					frame.appendMessage("Waiting for " + nclients + " connection(s)");
+					frame.toConsole("Waiting for " + nclients + " connection(s)");
 				}
 			} finally {
 				// close the socket and exit program
@@ -98,13 +103,14 @@ public class Server {
 	}
 
 	public void runGame(){
-		
-		frame.appendMessage("All clients have joined, the game is now running");
+
+		frame.toConsole("All clients have joined, the game is now running");
 		// while there is at least one connection
+		//game = new Game(players);
 		while(!threads.isEmpty()){
 			//keep running
 		}
-		frame.appendMessage("All clients have disconnected, the game is over");
+		frame.toConsole("All clients have disconnected, the game is over");
 	}
 
 	/**
@@ -129,7 +135,7 @@ public class Server {
 				// add the OutputStream to the list
 				ooses.add(out);
 				// while we are still waiting for clients to join
-				while(!allPlayers){
+				do{
 					Object o = null;
 					try{
 						o = in.readObject();
@@ -140,24 +146,24 @@ public class Server {
 					if (o == null){
 						return;
 					}
-//					if (o instanceof Player){
-//						players.add((Player)o);
-//					}
-					//TESTING
-					if (o instanceof Circle){
-						players.add((Circle)o);
+					if (o instanceof Player){
+						players.add((Player)o);
 					}
-				}
-				
+					//TESTING
+//					if (o instanceof Circle){
+//						players.add((Circle)o);
+//					}
+				}while(!allPlayers);
+
 				// all clients have accepted send players to slaves
 				for (ObjectOutputStream oos : ooses){
-//					for (Player p : players){
-//						oos.writeObject(p);
-//					}
-					//TESTING
-					for (Circle c : players){
-						oos.writeObject(c);
+					for (Player p : players){
+						oos.writeObject(p);
 					}
+					//TESTING
+//					for (Circle c : players){
+//						oos.writeObject(c);
+//					}
 				}
 				// send a string which indicated the game can begin
 				for (ObjectOutputStream oos : ooses){

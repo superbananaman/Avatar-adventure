@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tests.Circle;
+import gameLogic.Game;
 import gameLogic.Player;
 import gui.*;
 
@@ -29,16 +30,17 @@ public class Slave implements KeyListener {
 
 	private static String uid;
 	// the player that this person chose
-	private Player player;
-	private List<Player> players = new ArrayList<Player>();
-	
-	
-	
+	private static Player player;
+	private static List<Player> players = new ArrayList<Player>();
+
+	private static Game game;
+
+
 	private static ObjectOutputStream out;
 	private ObjectInputStream in;
 
 	private ClientFrame frame;
-	
+
 	public Slave(String address, int port, String charName, String nation){
 		try{
 			socket = new Socket(address, port);
@@ -46,13 +48,14 @@ public class Slave implements KeyListener {
 			e.printStackTrace();
 		}
 		uid = charName;
-		
+
 		// TODO Create Player
+		player = new Player(charName);
 		try {
 			run();
-		} catch (ClassNotFoundException e) {			
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		} catch (IOException e) {			
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -76,22 +79,25 @@ public class Slave implements KeyListener {
 			}
 			//TESTING
 			else if (o instanceof Circle){
-				
+
 			}
 			// all players have accepted, can start
 			else if (o instanceof String){
 				break;
 			}
 		}
-		
+
 		// wait for response from server then start frame
+//		game = new Game(player, players);
+//		frame = new ClientFrame(game);
+
 		frame = new ClientFrame();
 		frame.setVisible(true);
 
 		// while the game is running, recieves info
 		// on the current state of the game
 		while (true) {
-			Object o = in.readObject();			
+			Object o = in.readObject();
 			// received either a movement object or a message
 			if (o instanceof UIDObjectPair){
 				UIDObjectPair pair = (UIDObjectPair)o;
@@ -116,6 +122,7 @@ public class Slave implements KeyListener {
 				else if (ob instanceof String){
 					String message = (String)ob;
 					//TODO Give message to Textfield in clientframe to show
+					frame.toConsole(uid, message);
 				}
 			}
 		}
@@ -129,7 +136,7 @@ public class Slave implements KeyListener {
 	 */
 	public static void sendMessage(String m){
 		UIDObjectPair message = new UIDObjectPair(uid, m);
-		try {		
+		try {
 			out.writeObject(message);
 		} catch (IOException e) {
 			//something went wrong, ignore it for now
@@ -140,7 +147,7 @@ public class Slave implements KeyListener {
 
 	public void keyPressed(KeyEvent e) {
 		// send an event to the server to write to all clients
-		try {			
+		try {
 			int code = e.getKeyCode();
 			if (code == KeyEvent.VK_UP) {
 				out.writeObject(new UIDObjectPair(uid, new Integer(1)));
@@ -162,4 +169,17 @@ public class Slave implements KeyListener {
 
 	public void keyTyped(KeyEvent e) {
 	}
+
+	/**
+	 * @return the current player of this client
+	 */
+	public static Player getCurrent(){
+		return player;
+	}
+
+	public static List<Player> getPlayers(){
+		return players;
+	}
+
+
 }
