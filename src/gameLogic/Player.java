@@ -21,7 +21,7 @@ public class Player implements Character, Serializable {
 	private boolean isAlive = true;
 
 	public Player(String name) {
-
+		this.name = name;
 		setInventory(new Inventory());
 		sprite = new Sprite("Sprite", 0, 0);
 		setmaxHealth(500);
