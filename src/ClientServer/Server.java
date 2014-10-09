@@ -18,7 +18,7 @@ import tests.*;
  * @author Brendan Smith, Matt Catsburg
  *
  */
-public class Server {
+public class Server extends Thread{
 
 	private final int port;
 	private int nclients;
@@ -48,9 +48,16 @@ public class Server {
 //	}
 
 	public Server(int nclients, int port) {
-		frame = new ServerConsoleWindow();
 		this.nclients = nclients;
 		this.port = port;
+	}
+
+	@Override
+	public void run() {
+		frame = new ServerConsoleWindow();
+//		this.frame = f;
+//		this.nclients = nclients;
+//		this.port = port;
 		frame.toConsole("The server is running");
 		frame.toConsole("Awaiting " + nclients + " connections");
 		try {
@@ -107,8 +114,15 @@ public class Server {
 		frame.toConsole("All clients have joined, the game is now running");
 		// while there is at least one connection
 		//game = new Game(players);
+		int i = 0;
 		while(!threads.isEmpty()){
 			//keep running
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		frame.toConsole("All clients have disconnected, the game is over");
 	}

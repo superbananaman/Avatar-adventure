@@ -17,11 +17,12 @@ import gui.*;
 /**
  * A slave connection receives information about the current state of the board
  * and relays that into the local copy of the board. The slave connection also
- * notifies the clientThread running in the server that a key has been pressed or
- * a message has been sent.
+ * notifies the clientThread running in the server that a key has been pressed
+ * or a message has been sent.
+ *
  * @author Brendan Smith, Matt Catsburg
  */
-public class Slave implements KeyListener {
+public class Slave extends Thread implements KeyListener {
 
 	private Socket socket;
 
@@ -32,112 +33,107 @@ public class Slave implements KeyListener {
 
 	private static Game game;
 
-
 	private static ObjectOutputStream out;
 	private ObjectInputStream in;
 
 	private ClientFrame frame;
 
-	public Slave(String address, int port, String charName, String nation){
-		try{
+	public Slave(String address, int port, String charName, String nation) {
+		try {
 			socket = new Socket(address, port);
-		}catch (IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		uid = charName;
 
 		// TODO Create Player
 		player = new Player(charName);
-		try {
-			run();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
 	}
 
 	/**
 	 * Connects to the server then enters the processing loop.
 	 */
-	public void run() throws IOException, ClassNotFoundException {
+	public void run() {
+		try {
+			// Make connection and initialize streams
+			out = new ObjectOutputStream(socket.getOutputStream());
+			in = new ObjectInputStream(socket.getInputStream());
 
-		// Make connection and initialize streams
-		out = new ObjectOutputStream(socket.getOutputStream());
-		in = new ObjectInputStream(socket.getInputStream());
-
-		// send the player made to the server
-		out.writeObject(player);
-		// receives player from server
-		while (true){
-			Object o = in.readObject();
-			if (o instanceof Player){
-				players.add((Player) o);
-			}
-			//TESTING
-			else if (o instanceof Circle){
-
-			}
-			// all players have accepted, can start
-			else if (o instanceof String){
-				break;
-			}
-		}
-
-		// wait for response from server then start frame
-//		game = new Game(player, players);
-//		frame = new ClientFrame(game);
-
-		frame = new ClientFrame();
-		frame.setVisible(true);
-
-		// while the game is running, recieves info
-		// on the current state of the game
-		while (true) {
-			Object o = in.readObject();
-			// received either a movement object or a message
-			if (o instanceof UIDObjectPair){
-				UIDObjectPair pair = (UIDObjectPair)o;
-				String playerUID = pair.getUID();
-				Object ob = pair.getObject();
-				// if integer is sent through, means the player has moved
-				if (ob instanceof Integer){
-					Integer i = (Integer)ob;
-					if (i.equals(1)){
-						//TODO Move player up
-					}
-					else if (i.equals(2)){
-						//TODO Move player down
-					}
-					else if (i.equals(3)){
-						//TODO Move player left
-					}
-					else if (i.equals(4)){
-						//TODO Move player right
-					}
+			// send the player made to the server
+			out.writeObject(player);
+			// receives player from server
+			while (true) {
+				Object o = in.readObject();
+				if (o instanceof Player) {
+					players.add((Player) o);
 				}
-				else if (ob instanceof String){
-					String message = (String)ob;
-					//TODO Give message to Textfield in clientframe to show
-					frame.toConsole(playerUID, message);
+				// TESTING
+				else if (o instanceof Circle) {
+
+				}
+				// all players have accepted, can start
+				else if (o instanceof String) {
+					break;
 				}
 			}
+
+			// wait for response from server then start frame
+			// game = new Game(player, players);
+			// frame = new ClientFrame(game);
+
+			frame = new ClientFrame();
+			frame.setVisible(true);
+
+			// while the game is running, recieves info
+			// on the current state of the game
+			while (true) {
+				Object o = in.readObject();
+				// received either a movement object or a message
+				if (o instanceof UIDObjectPair) {
+					UIDObjectPair pair = (UIDObjectPair) o;
+					String playerUID = pair.getUID();
+					Object ob = pair.getObject();
+					// if integer is sent through, means the player has moved
+					if (ob instanceof Integer) {
+						Integer i = (Integer) ob;
+						if (i.equals(1)) {
+							// TODO Move player up
+						} else if (i.equals(2)) {
+							// TODO Move player down
+						} else if (i.equals(3)) {
+							// TODO Move player left
+						} else if (i.equals(4)) {
+							// TODO Move player right
+						}
+					} else if (ob instanceof String) {
+						String message = (String) ob;
+						// TODO Give message to Textfield in clientframe to show
+						frame.toConsole(playerUID, message);
+					}
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Sends a message to the server to be sent to all other clients
-	 * playing the game, static so any class can send a message to the
-	 * server
-	 * @param m the message to be sent
+	 * Sends a message to the server to be sent to all other clients playing the
+	 * game, static so any class can send a message to the server
+	 *
+	 * @param m
+	 *            the message to be sent
 	 */
-	public static void sendMessage(String m){
+	public static void sendMessage(String m) {
 		UIDObjectPair message = new UIDObjectPair(uid, m);
 		try {
 			out.writeObject(message);
 		} catch (IOException e) {
-			//something went wrong, ignore it for now
-			//TODO
+			// something went wrong, ignore it for now
+			// TODO
 			e.printStackTrace();
 		}
 	}
@@ -170,13 +166,12 @@ public class Slave implements KeyListener {
 	/**
 	 * @return the current player of this client
 	 */
-	public static Player getCurrent(){
+	public static Player getCurrent() {
 		return player;
 	}
 
-	public static List<Player> getPlayers(){
+	public static List<Player> getPlayers() {
 		return players;
 	}
-
 
 }
