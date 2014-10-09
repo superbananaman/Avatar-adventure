@@ -3,10 +3,13 @@ package gui;
  * Represents the Window displaying the game
  * @author Devlin Mahoney
  */
+import gameLogic.Item;
+import gameLogic.Player;
 import gameLogic.Room;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -21,11 +24,12 @@ import Renderer.Tile;
 public class ClientFrame extends JFrame implements MouseListener, KeyListener{
 
     private JPanel contentPane;
-    private JPanel renderWindow;
+    private RenderWindow renderWindow;
 
     private JTextArea textArea;
     private JTextField inputArea;
     private JScrollPane scroll;
+    private ArrayList<Item> inventory;
 
     /**
      * Launch the application.
@@ -46,11 +50,12 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
     /**
      * Create the frame.
      */
-    public ClientFrame() {
+    public ClientFrame(Player currentPlayer, ArrayList<Player> players) {
     	addMouseListener(this);
         setTitle("Avatar Adventure! ");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1000, 720);
+        setResizable(false);
 
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -63,8 +68,8 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
         contentPane.setLayout(gbl_contentPane);
 
         //Render Window Placeholder
-        //renderWindow = new JPanel();
-        renderWindow = new RenderWindow("room1");
+        renderWindow = new RenderWindow("room1", players);
+        //renderWindow = new RenderWindow("room1");
         renderWindow.setBackground(Color.BLACK);
         renderWindow.addMouseListener(this);
         GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -105,7 +110,23 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
 
         setVisible(true);
 
-        inputArea.getWidth();
+      //Inventory Place Holder
+        JPanel panel_2 = new JPanel();
+        panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+        GridBagConstraints gbc_panel_2 = new GridBagConstraints();
+        gbc_panel_2.fill = GridBagConstraints.BOTH;
+        gbc_panel_2.insets = new Insets(0, 0, 5, 0);
+        gbc_panel_2.gridx = 1;
+        gbc_panel_2.gridy = 0;
+        contentPane.add(panel_2, gbc_panel_2);
+
+        GridLayout grid = new GridLayout(3,9);
+        panel_2.setLayout(grid);
+        //for(int i = 0; i < 9; i++){
+        //	for(int j = 0)
+        //}
+
+
 
     }
 
@@ -144,7 +165,6 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
 
-
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == 10){
 			//they presed enter
@@ -159,4 +179,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
 	public void keyReleased(KeyEvent e) {
 	}
 
+	//public List<Player> getPlayers(){
+	//	return renderWindow.getPlayers();
+	//}
 }
