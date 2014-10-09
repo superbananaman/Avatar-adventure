@@ -13,6 +13,7 @@ public class Room implements Serializable{
 	//private List<Player> players = new ArrayList<Player>(); // the current players in this room
 	private List<Tile> spawnSpots = new ArrayList<Tile>(); //spawn spots in a room
 	private List<Monster> monsters = new ArrayList<Monster>();	// the current alive monsters in this room
+	private List<Door> doors = new ArrayList<Door>();
 
 	private Tile[][] TileSet; // the grid setup
 	private String roomName;
@@ -53,6 +54,14 @@ public class Room implements Serializable{
 	}
 	public void setSpawnSpots(Tile spawnspots) {
 		spawnSpots.add(spawnspots);
+	}
+
+	public List<Door> getDoors() {
+		return doors;
+	}
+
+	public void addDoors(Door door) {
+		doors.add(door);
 	}
 
 }

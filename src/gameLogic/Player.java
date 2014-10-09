@@ -107,4 +107,8 @@ public class Player implements Character, Serializable {
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
 	}
+
+	public Sprite getSprite() {
+		return sprite;
+	}
 }
