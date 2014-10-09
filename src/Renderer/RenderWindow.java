@@ -16,6 +16,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -47,12 +49,12 @@ Graphics2D big;
 	public int offsetX=-620;
 	public int offsetY =250;
 	Sprite currentSprite = new Sprite("sprite",-60,70);
+	private List<Player> players;
 
 
-	public RenderWindow(String RoomName) {
-		//super("Renderer Test");
+	public RenderWindow(String RoomName, ArrayList<Player> players) {
 		setBounds(0, 0, width, height);
-
+		this.players = players;
 		panel.setLayout(null);
 		panel.setSize(height, width);
 
@@ -89,20 +91,8 @@ public void paint(Graphics g){
 
 	}
 
-	public static void main(String args[]) {
-		JPanel panel = new RenderWindow("startroom");
-		JFrame canvas = new JFrame();
-		canvas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		canvas.setContentPane(panel);
-		canvas.setSize(800, 600);
-		canvas.setVisible(true);
-		panel.setFocusable(true);
-
-	}
-
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-		//move down map
 			currentSprite.setFacing("Right");
 			if(checkValidMove(currentSprite, 4, 2, room)){
 

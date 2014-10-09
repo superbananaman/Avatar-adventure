@@ -13,8 +13,10 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
+import gameLogic.Armour;
 import gameLogic.Fruit;
 import gameLogic.Item;
+import gameLogic.Key;
 import gameLogic.Monster;
 import gameLogic.Room;
 import gameLogic.Skeleton;
@@ -114,7 +116,7 @@ public class Renderer {
 					case 7: case 8:						temp = new Tile(crate);			break;
 					case 9: case 10: case 11:
 					case 12: case 13: case 14:			temp = new Tile(door);	temp.setWalkable(false);		break;
-					case 99:							temp = new Tile(floor); roomName.setSpawnSpots(ts[i][j]); break;
+					case 99:							temp = new Tile(floor);  break;//roomName.setSpawnSpots(ts[i][j]);
 
 				}
 				ts[i][j] = temp;
@@ -132,13 +134,13 @@ public class Renderer {
 					case 1: tempItem = new Fruit(ts[i][j], "Apple");		temp = Apple;		break;
 					case 2: tempItem = new Fruit(ts[i][j], "Mango");		temp = Mango;		break;
 					case 3: tempItem = new Fruit(ts[i][j], "RedPot");		temp = RedPot;		break;
-					case 4: tempItem = new Fruit(ts[i][j], "ArmorHead");	temp = ArmorHead;	break;
-					case 5: tempItem = new Fruit(ts[i][j], "ArmorChest");	temp = ArmorChest;	break;
-					case 6: tempItem = new Fruit(ts[i][j], "ArmorLegs");	temp = ArmorLegs;	break;
-					case 7: tempItem = new Fruit(ts[i][j], "KeyRoom2");		temp = KeyRoom2;	break;
-					case 8: tempItem = new Fruit(ts[i][j], "KeyRoom3");		temp = KeyRoom3;	break;
-					case 9: tempItem = new Fruit(ts[i][j], "KeyRoom4");		temp = KeyRoom4;	break;
-					case 10: tempItem = new Fruit(ts[i][j], "KeyRoom5");	temp = KeyRoom5;	break;
+					case 4: tempItem = new Armour(ts[i][j], "ArmorHead");	temp = ArmorHead;	break;
+					case 5: tempItem = new Armour(ts[i][j], "ArmorChest");	temp = ArmorChest;	break;
+					case 6: tempItem = new Armour(ts[i][j], "ArmorLegs");	temp = ArmorLegs;	break;
+					case 7: tempItem = new Key(ts[i][j], "Room2");		temp = KeyRoom2;	break;
+					case 8: tempItem = new Key(ts[i][j], "Room3");		temp = KeyRoom3;	break;
+					case 9: tempItem = new Key(ts[i][j], "Room4");		temp = KeyRoom4;	break;
+					case 10: tempItem = new Key(ts[i][j],"Room5");		temp = KeyRoom5;	break;
 					}
 					items.add(tempItem);
 					ts[i][j].setPickUpImage(temp);
@@ -162,7 +164,6 @@ public class Renderer {
 				}
 			}
 			roomName.setMonsters(monsters);
-			roomName.setItems(items);
 
 		scan.close();
 
