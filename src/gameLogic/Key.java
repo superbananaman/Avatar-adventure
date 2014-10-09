@@ -16,10 +16,6 @@ public class Key implements Item{
 		setDoor(door);
 	}
 
-	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-
-	}
 
 	public void use(Player player) {
 		//return "Opens " + getDoor();

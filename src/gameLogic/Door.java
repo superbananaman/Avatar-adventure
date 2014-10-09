@@ -20,10 +20,6 @@ public class Door {
 		setTile(getTile());
 	}
 
-	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-
-	}
 	public boolean use(Player player){
 		if(player.getInventory().has(getKey()) == true){
 			return true;

@@ -11,25 +11,10 @@ public class Armour implements Item{
 	private Tile tile;
 	private int health;
 	private String type;
-	private String material;
 
 	public Armour(Tile pos, String material, String type){
 		setTile(pos);
 		setType(type);
-		setMaterial(material);
-		if(material == "Iron"){
-			health = 200;
-		}else if(material == "Steel"){
-			health = 600;
-		}else if(material == "Hero"){
-			health = 1200;
-		}
-		// if statements about what type of armour it is
-	}
-
-
-	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -56,16 +41,5 @@ public class Armour implements Item{
 	public void setType(String type) {
 		this.type = type;
 	}
-
-
-	public String getMaterial() {
-		return material;
-	}
-
-
-	public void setMaterial(String material) {
-		this.material = material;
-	}
-
 
 }

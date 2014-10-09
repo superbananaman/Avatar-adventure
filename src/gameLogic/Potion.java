@@ -24,11 +24,6 @@ public class Potion implements Item {
 		}
 	}
 
-	public void draw(Graphics g) {
-
-
-	}
-
 	public void use(Player p){
 		p.setcurrentHealth(health);
 	}

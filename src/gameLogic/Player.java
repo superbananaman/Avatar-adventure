@@ -36,29 +36,24 @@ public class Player implements Character, Serializable {
 	public void setCurrentRoom(Room currentRoom) {
 		this.currentRoom = currentRoom;
 	}
-
-	public void draw(Graphics g) {
-
-	}
-
 	/**
 	 *
 	 * @param tile
 	 */
 
 	public void pickUp(Tile tile) {
-		// if (isAlive) {
-		// if (sprite.getTile().hasItem()) { // has item returns true if it is
-		// occupied
-		// inventory.add(sprite.getTile().getItem());
-		// }
-		// sprite.getTile().removeItem();
-		// }
+		 if (isAlive) {
+		 if (sprite.getTile().hasItem()) { // has item returns true if it is
+
+		 inventory.add(sprite.getTile().getItem());
+		 }
+		 sprite.getTile().removeItem();
+		 }
 	}
 
 	public void dropItem(Item i) {
 		getInventory().remove(i);
-		// sprite.getTile().setItem(i);
+		sprite.getTile().setItem(i);
 	}
 
 	/**

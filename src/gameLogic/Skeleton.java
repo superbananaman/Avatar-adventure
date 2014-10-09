@@ -45,10 +45,5 @@ public class Skeleton implements Monster{
 	}
 
 
-	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-
-	}
-
 }
 

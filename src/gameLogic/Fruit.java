@@ -23,11 +23,6 @@ public class Fruit implements Item{
 	}
 
 
-	public void draw(Graphics g) {
-
-	}
-
-
 	public void use(Player player) {
 		player.setcurrentHealth(health);
 

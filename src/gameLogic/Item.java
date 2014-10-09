@@ -6,6 +6,6 @@ public interface Item {
 
 	public void use(Player player);
 
-	public void draw(Graphics g);
+
 
 }
