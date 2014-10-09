@@ -1,32 +1,42 @@
 package gui;
 
-import java.awt.Container;
-import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.*;
+import java.io.File;
+import java.io.IOException;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class MainFrame extends JFrame {
 
-	JPanel pane = new JPanel();
+	JPanel pane;
 
 	int buttonWidth = 300;
 	int buttonHeight = 50;
 	int fromTop = 125;
 	int spacing = 8;
-	int width = 500;
-	int height = 550;
+	int width = 550;
+	int height = 800;
 
 	public MainFrame(){
 		super("Frame 1");
+
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(new File("background/mainBackground.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		setContentPane(new JLabel(new ImageIcon(img)));
+
 		setBounds(100,100,width,height);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		Container con = this.getContentPane();
+
+		pane = new JPanel();
 		pane.setLayout(null);
 		pane.setSize(height,width);
 		con.add(pane);
@@ -60,6 +70,7 @@ public class MainFrame extends JFrame {
 		numButtons++;
 		pane.add(b);
 
+		pane.setOpaque(false);
 		setVisible(true);
 	}
 

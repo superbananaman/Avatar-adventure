@@ -53,7 +53,6 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
 
         //Render Window Placeholder
         renderWindow = new RenderWindow("room1", (ArrayList<Player>) players);
-        //renderWindow = new RenderWindow("room1");
         renderWindow.setBackground(Color.BLACK);
         renderWindow.addMouseListener(this);
         GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -110,6 +109,10 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
         	for(int j = 0; j < 3; j++){
         		JPanel toAdd = new JPanel();
         		toAdd.setBackground(Color.BLACK);
+        		toAdd.addMouseListener(this);
+        		int n = 3*i+j;
+        		toAdd.setName(n+"");
+        		toAdd.setFocusable(false);
         		inventory.add(toAdd);
         		panel_2.add(toAdd);
         	}
@@ -141,14 +144,16 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
     	textArea.setCaretPosition(textArea.getDocument().getLength());
     }
 
-	public void mouseClicked(MouseEvent e) {
-		//textArea.append("\n"+e.getSource().getClass().toString());
+	public void mouseClicked(MouseEvent e) {}
+	public void mousePressed(MouseEvent e) {
 		if(e.getSource().getClass().toString().equals("class Renderer.RenderWindow")){
 			((RenderWindow) e.getSource()).requestFocus();
 		}
-
+		else if(e.getSource().getClass().toString().equals("class javax.swing.JPanel")){
+			textArea.append("\n" + ((JPanel) e.getSource()).getName());
+			//currentPlayer.getInventory(parse int -> e.getSource().getName());
+		}
 	}
-	public void mousePressed(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
