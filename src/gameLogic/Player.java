@@ -23,7 +23,7 @@ public class Player implements Character, Serializable {
 	public Player(String name) {
 		this.name = name;
 		setInventory(new Inventory());
-		setSprite(new Sprite("Sprite", 0, 0));
+		sprite = new Sprite("Sprite", 0, 0);
 		setmaxHealth(500);
 		setcurrentHealth(500);
 
@@ -43,17 +43,17 @@ public class Player implements Character, Serializable {
 
 	public void pickUp(Tile tile) {
 		 if (isAlive) {
-		 if (getSprite().getTile().hasItem()) { // has item returns true if it is
+		 if (sprite.getTile().hasItem()) { // has item returns true if it is
 
-		 inventory.add(getSprite().getTile().getItem());
+		 inventory.add(sprite.getTile().getItem());
 		 }
-		 getSprite().getTile().removeItem();
+		 sprite.getTile().removeItem();
 		 }
 	}
 
 	public void dropItem(Item i) {
 		getInventory().remove(i);
-		getSprite().getTile().setItem(i);
+		sprite.getTile().setItem(i);
 	}
 
 	/**
@@ -106,13 +106,5 @@ public class Player implements Character, Serializable {
 
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
-	}
-
-	public Sprite getSprite() {
-		return sprite;
-	}
-
-	public void setSprite(Sprite sprite) {
-		this.sprite = sprite;
 	}
 }

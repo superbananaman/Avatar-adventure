@@ -52,7 +52,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
         contentPane.setLayout(gbl_contentPane);
 
         //Render Window Placeholder
-        renderWindow = new RenderWindow("room1", null, null);
+        renderWindow = new RenderWindow("room1", (ArrayList<Player>) players);
         //renderWindow = new RenderWindow("room1");
         renderWindow.setBackground(Color.BLACK);
         renderWindow.addMouseListener(this);
