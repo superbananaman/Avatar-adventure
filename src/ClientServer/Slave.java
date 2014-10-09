@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import Renderer.Sprite;
 import tests.Circle;
 import gameLogic.Game;
 import tests.Player;
@@ -22,7 +23,7 @@ import gui.*;
  *
  * @author Brendan Smith, Matt Catsburg
  */
-public class Slave extends Thread implements KeyListener {
+public class Slave extends Thread {
 
 	private Socket socket;
 
@@ -161,6 +162,27 @@ public class Slave extends Thread implements KeyListener {
 	}
 
 	public void keyTyped(KeyEvent e) {
+	}
+
+	/**
+	 * Send a keyEvent to the server to send back to all clients
+	 * @param e
+	 */
+	public static void sendKeyEvent(KeyEvent e){
+		try {
+			int code = e.getKeyCode();
+			if (code == KeyEvent.VK_UP) {
+				out.writeObject(new UIDObjectPair(uid, new Integer(1)));
+			} else if (code == KeyEvent.VK_DOWN) {
+				out.writeObject(new UIDObjectPair(uid, new Integer(2)));
+			} else if (code == KeyEvent.VK_LEFT) {
+				out.writeObject(new UIDObjectPair(uid, new Integer(3)));
+			} else if (code == KeyEvent.VK_RIGHT) {
+				out.writeObject(new UIDObjectPair(uid, new Integer(4)));
+			}
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
 	}
 
 	/**
