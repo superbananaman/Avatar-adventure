@@ -151,7 +151,8 @@ public void paint(Graphics g){
 		}
 		if (e.getKeyCode() == KeyEvent.VK_R ) {
 		//rotate room 90 degrees clockwise
-			renderer.rotate(room);
+			room.setTileSet(renderer.rotate(room));
+			firstTime =true;
 			this.repaint();
 			}
 
@@ -179,7 +180,7 @@ public void paint(Graphics g){
 	}
 
 	public void changeRoom(String roomName){
-		firstTime =false;
+		firstTime =true;
 		room = new Room(roomName);
 		this.repaint();
 	}

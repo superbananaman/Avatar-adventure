@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
+import gameLogic.Fruit;
 import gameLogic.Item;
 import gameLogic.Monster;
 import gameLogic.Room;
@@ -28,6 +29,20 @@ public class Renderer {
 	private BufferedImage door = getIso(64*1,64*1);
 	private BufferedImage crate = getIso(64*3,64*5);
 	private BufferedImage skelly = getIso(64*4,64*1);
+	private BufferedImage boss1 = getIso(64*5,64*1);
+	private BufferedImage Banana = getIso(64*5,64*1);
+	private BufferedImage Apple = getIso(64*5,64*1);
+	private BufferedImage Mango = getIso(64*5,64*1);
+	private BufferedImage RedPot = getIso(64*5,64*1);
+	private BufferedImage ArmorHead = getIso(64*5,64*1);
+	private BufferedImage ArmorChest = getIso(64*5,64*1);
+	private BufferedImage ArmorLegs = getIso(64*5,64*1);
+	private BufferedImage KeyRoom2 = getIso(64*5,64*1);
+	private BufferedImage KeyRoom3 = getIso(64*5,64*1);
+	private BufferedImage KeyRoom4 = getIso(64*5,64*1);
+	private BufferedImage KeyRoom5 = getIso(64*5,64*1);
+	
+	
 
 	public void drawLevel(Graphics g, Room r) {
 		Tile[][] ts = r.getTileSet();
@@ -99,6 +114,7 @@ public class Renderer {
 					case 7: case 8:						temp = new Tile(crate);			break;
 					case 9: case 10: case 11:
 					case 12: case 13: case 14:			temp = new Tile(door);	temp.setWalkable(false);		break;
+					case 99:							temp = new Tile(floor); roomName.setSpawnSpots(ts[i][j]); break;
 
 				}
 				ts[i][j] = temp;
@@ -112,9 +128,17 @@ public class Renderer {
 					Item tempItem =null;
 					int tile = scan.nextInt();
 					switch(tile) {
-					//case 0:								temp = empty; 		break;
-					//case 1:								temp = empty;		break;
-
+					case 0: tempItem = new Fruit(ts[i][j], "Banana");		temp = Banana;		break;
+					case 1: tempItem = new Fruit(ts[i][j], "Apple");		temp = Apple;		break;
+					case 2: tempItem = new Fruit(ts[i][j], "Mango");		temp = Mango;		break;
+					case 3: tempItem = new Fruit(ts[i][j], "RedPot");		temp = RedPot;		break;
+					case 4: tempItem = new Fruit(ts[i][j], "ArmorHead");	temp = ArmorHead;	break;
+					case 5: tempItem = new Fruit(ts[i][j], "ArmorChest");	temp = ArmorChest;	break;
+					case 6: tempItem = new Fruit(ts[i][j], "ArmorLegs");	temp = ArmorLegs;	break;
+					case 7: tempItem = new Fruit(ts[i][j], "KeyRoom2");		temp = KeyRoom2;	break;
+					case 8: tempItem = new Fruit(ts[i][j], "KeyRoom3");		temp = KeyRoom3;	break;
+					case 9: tempItem = new Fruit(ts[i][j], "KeyRoom4");		temp = KeyRoom4;	break;
+					case 10: tempItem = new Fruit(ts[i][j], "KeyRoom5");	temp = KeyRoom5;	break;
 					}
 					items.add(tempItem);
 					ts[i][j].setPickUpImage(temp);
@@ -128,11 +152,11 @@ public class Renderer {
 					BufferedImage temp = null;
 					int tile = scan.nextInt();
 					switch(tile) {
-					case 0:								temp = skelly; 		break;
-					case 1:								temp = skelly;		break;
+					case 0:								temp = boss1;  	break; // TODO add new monster
+					case 1:								temp = skelly; monsters.add(new Skeleton(ts[i][j])); break;
 
 					}
-					monsters.add(new Skeleton(ts[i][j]));
+					
 					ts[i][j].setMonsterImage(temp);
 
 				}
@@ -153,6 +177,11 @@ public class Renderer {
 		g2.drawImage(getSpriteIso(testSprite.getStep() %10, testSprite.getFacing(), testSprite.getName()),400, 300,null);
 
 	}
+	public void drawMultiplayerSprite(Graphics2D g2, Sprite sprite,int xoffset, int yoffset) {
+		g2.drawImage(getSpriteIso(sprite.getStep() %10, sprite.getFacing(), sprite.getName()),sprite.getCurrentX()+xoffset, sprite.getCurrentY()+yoffset,null);
+
+	}
+
 	public BufferedImage getSpriteIso(int x, String direction,String currentSpriteName) {
 		BufferedImage spriteSheet = null;
 		try {
@@ -164,16 +193,16 @@ public class Renderer {
 		return spriteSheet.getSubimage(x*(spriteSheet.getWidth()/10), 0, spriteSheet.getWidth()/10, spriteSheet.getHeight());
 	}
 
-	public void rotate(Room room) {
+	public Tile[][] rotate(Room room) {
 		Tile[][] TileSet = room.getTileSet();
 		Tile[][] rotate = new Tile[30][30];
 		for (int i = 0; i < 30; i++) {
 			for (int j = 0; j < 30; j++) {
-				rotate[i][29 - j] = TileSet[j][i];
+				rotate[i][29-j] = TileSet[j][i];
 
 			}
 		}
-		room.setTileSet(rotate);
-	}
+			return rotate;
+		}
 
 }

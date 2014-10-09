@@ -1,6 +1,8 @@
 package Renderer;
 
-public class Sprite{
+import java.io.Serializable;
+
+public class Sprite implements Serializable{
 	private String name;
 	private double currentX;
 	private double currentY;
