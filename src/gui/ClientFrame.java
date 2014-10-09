@@ -102,7 +102,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
         gbc_panel_2.gridy = 0;
         contentPane.add(panel_2, gbc_panel_2);
 
-        GridLayout grid = new GridLayout(3,9);
+        GridLayout grid = new GridLayout(9,3,1,1);
         panel_2.setLayout(grid);
         inventory = new ArrayList<JPanel>();
 
@@ -167,7 +167,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
 	public void keyReleased(KeyEvent e) {
 	}
 
-	//public List<Player> getPlayers(){
-	//	return renderWindow.getPlayers();
-	//}
+	public RenderWindow getRenderWindow(){
+		return renderWindow;
+	}
 }
