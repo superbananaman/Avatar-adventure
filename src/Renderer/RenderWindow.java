@@ -46,7 +46,7 @@ Graphics2D big;
 	Renderer renderer = new Renderer();
 	public int offsetX=-620;
 	public int offsetY =250;
-	Sprite currentSprite = new Sprite("Sprite",-60,70);
+	Sprite currentSprite = new Sprite("sprite",-60,70);
 
 
 	public RenderWindow(String RoomName) {
@@ -58,7 +58,7 @@ Graphics2D big;
 
 		addKeyListener(this);
 		setVisible(true);
-		//room = new Room(30,30,RoomName);                       FIX THIS
+		room = new Room(RoomName);
 		setupTestRoom(room);
 	}
 
@@ -75,10 +75,7 @@ public void paint(Graphics g){
 	    Graphics2D g2 = (Graphics2D) g;
 	    //Draw Background once only
 	    if (firstTime) {
-	      int w = 2500;
-	      int h = 2000;
-	      area = new Rectangle(800,600);
-	      bi = (BufferedImage) createImage(w, h);
+	      bi = (BufferedImage) createImage(2500,2000);
 	      big = bi.createGraphics();
 	      big.setColor(Color.black);
 	      big.fillRect(0, 0, 2500, 2000);
@@ -86,8 +83,7 @@ public void paint(Graphics g){
 	      firstTime = false;
 	    }
 
-	    //Rpeatitive drawing tasks
-
+	    //Repetitive drawing tasks
 	    g2.drawImage(bi,offsetX,offsetY, null);
 		renderer.drawSprite(g2,currentSprite);
 
@@ -106,7 +102,7 @@ public void paint(Graphics g){
 
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-		//move dowwn map
+		//move down map
 			currentSprite.setFacing("Right");
 			if(checkValidMove(currentSprite, 4, 2, room)){
 
@@ -184,7 +180,7 @@ public void paint(Graphics g){
 
 	public void changeRoom(String roomName){
 		firstTime =false;
-		//room = new Room(30,30,roomName);												FIX THIS
+		room = new Room(roomName);
 		this.repaint();
 	}
 

@@ -31,8 +31,8 @@ public class Renderer {
 
 	public void drawLevel(Graphics g, Room r) {
 		Tile[][] ts = r.getTileSet();
-		for (int i = 0; i < r.getWidth(); i++) {
-			for (int j = 0;j <r.getHeight(); j++) {
+		for (int i = 0; i < 30; i++) {
+			for (int j = 0;j <30; j++) {
 				placetile(ts[i][j], twoDToIso(new Point(j,i)),g);
 			}
 		}
