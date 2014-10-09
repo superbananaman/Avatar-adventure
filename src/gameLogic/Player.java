@@ -23,10 +23,14 @@ public class Player implements Character, Serializable {
 	public Player(String name) {
 		this.name = name;
 		setInventory(new Inventory());
-		sprite = new Sprite("Sprite", 0, 0);
+		sprite = new Sprite("sprite", 0, 0);
 		setmaxHealth(500);
 		setcurrentHealth(500);
 
+	}
+
+	public String getUID(){
+		return name;
 	}
 
 	public Room getCurrentRoom() {
@@ -110,5 +114,18 @@ public class Player implements Character, Serializable {
 
 	public Sprite getSprite() {
 		return sprite;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Player)){
+			return false;
+		}
+		Player p = (Player) obj;
+		if (p.getUID().equals(getUID())){
+			return true;
+		}
+		return false;
+
 	}
 }
