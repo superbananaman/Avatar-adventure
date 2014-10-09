@@ -1,5 +1,7 @@
 package gameLogic;
 
+import gui.ClientFrame;
+
 import java.awt.Graphics;
 import java.io.Serializable;
 import java.util.*;
@@ -12,11 +14,13 @@ public class Room implements Serializable{
 	private int width;
 
 	//private List<Player> players = new ArrayList<Player>(); // the current players in this room
+	private List<Tile> spawnSpots = new ArrayList<Tile>(); //spawn spots in a room
 	private List<Monster> monsters = new ArrayList<Monster>();	// the current alive monsters in this room
 	private List<Item> items = new ArrayList<Item>(); // the items on the floor of this room
 	private List<Object> walls = new ArrayList<Object>(); // the walls and doors in the room
 	private Tile[][] TileSet; // the grid setup
 	private String roomName;
+	private ClientFrame clientframe;
 
 	public Room(String roomname){
 //	setHeight(Height);
@@ -86,4 +90,11 @@ public class Room implements Serializable{
 	public void setRoomName(String roomName) {
 		this.roomName = roomName;
 	}
+	public List<Tile> getSpawnSpots() {
+		return spawnSpots;
+	}
+	public void setSpawnSpots(List<Tile> spawnspots) {
+		this.spawnSpots = spawnspots;
+	}
+
 }
