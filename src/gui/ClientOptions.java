@@ -78,8 +78,9 @@ public class ClientOptions extends JFrame implements ActionListener{
 		if(e.getActionCommand().equals("Join")){
 			try{
 				int num = Integer.parseInt(portText.getText());
-				
-				new Slave(addressText.getText(), num, nameText.getText(), null);
+
+				Slave s = new Slave(addressText.getText(), num, nameText.getText(), null);
+				s.start();
 
 				this.setVisible(false);
 				this.setEnabled(false);
