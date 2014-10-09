@@ -12,7 +12,7 @@ import java.util.List;
 import Renderer.Sprite;
 import tests.Circle;
 import gameLogic.Game;
-import tests.Player;
+import gameLogic.Player;
 import gui.*;
 
 /**
@@ -83,7 +83,7 @@ public class Slave extends Thread {
 			// game = new Game(player, players);
 			// frame = new ClientFrame(game);
 
-			frame = new ClientFrame();
+			frame = new ClientFrame(player, players);
 			frame.setVisible(true);
 
 			// while the game is running, recieves info
