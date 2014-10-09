@@ -1,6 +1,8 @@
 package gameLogic;
 
 
+import gui.ClientFrame;
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -10,6 +12,7 @@ public class Game implements Serializable{
 
 	private List<Room> rooms = new ArrayList<Room>();
 	private List<Player> totalPlayers = new ArrayList<Player>();
+	private ClientFrame clientframe;
 
 	public Game(List<Player> players){
 		totalPlayers = players;
@@ -19,6 +22,7 @@ public class Game implements Serializable{
 	public void setUp(){
 		setMonsterHealth(totalPlayers.size());
 		addRoom();
+		clientframe = new ClientFrame();
 
 	}
 

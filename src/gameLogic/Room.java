@@ -20,7 +20,7 @@ public class Room implements Serializable{
 	private List<Object> walls = new ArrayList<Object>(); // the walls and doors in the room
 	private Tile[][] TileSet; // the grid setup
 	private String roomName;
-	private ClientFrame clientframe;
+
 
 	public Room(String roomname){
 //	setHeight(Height);
