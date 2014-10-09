@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import ClientServer.Slave;
 import Renderer.*;
 
 public class RenderWindow extends JPanel implements KeyListener {
@@ -50,13 +51,15 @@ Graphics2D big;
 	public int offsetY =250;
 	Sprite currentSprite = new Sprite("sprite",-60,70);
 	private List<Player> players;
+	private Player clientPlayer;
 
 
-	public RenderWindow(String RoomName, ArrayList<Player> players) {
+	public RenderWindow(String RoomName, Player clientPlayer, ArrayList<Player> players) {
 		setBounds(0, 0, width, height);
 		this.players = players;
 		panel.setLayout(null);
 		panel.setSize(height, width);
+		clientPlayer = clientPlayer;
 
 		addKeyListener(this);
 		setVisible(true);
@@ -92,16 +95,34 @@ public void paint(Graphics g){
 	}
 
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+		Slave.sendKeyEvent(e);
+	}
+	
+	public void receiveKeyEvent(KeyEvent e, Player player){
+		Player currentPlayer = null;
+		for(Player play : players){
+			if(player.equals(play))
+				currentPlayer = player;			
+		}
+		if(currentPlayer == null)
+			throw new Error("Player not found");
+		
+		Sprite currentSprite = currentPlayer.getSprite();
+		// find sprite
+		
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {			
 			currentSprite.setFacing("Right");
 			if(checkValidMove(currentSprite, 4, 2, room)){
 
 			currentSprite.addCurrentX(4); currentSprite.addCurrentY(2);
 			currentSprite.step();
+			if(currentPlayer.equals(clientPlayer)){
 			offsetX-=4; offsetY-=2;
+			}
 			this.repaint();
 			}
 		}
+			
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			//move up map
 			if(checkValidMove(currentSprite, -4, -2, room)){
@@ -109,7 +130,9 @@ public void paint(Graphics g){
 			currentSprite.setFacing("Left");
 			currentSprite.addCurrentX(-4); currentSprite.addCurrentY(-2);
 			currentSprite.step();
+			if(currentPlayer.equals(clientPlayer)){
 			offsetX+=4; offsetY+=2;
+			}
 			this.repaint();
 			}
 
@@ -121,7 +144,9 @@ public void paint(Graphics g){
 			currentSprite.setFacing("Up");
 			currentSprite.addCurrentX(4); currentSprite.addCurrentY(-2);
 			currentSprite.step();
+			if(currentPlayer.equals(clientPlayer)){
 			offsetX-=4; offsetY+=2;
+			}
 			this.repaint();
 			}
 
@@ -133,7 +158,9 @@ public void paint(Graphics g){
 			currentSprite.setFacing("Down");
 			currentSprite.addCurrentX(-4); currentSprite.addCurrentY(2);
 			currentSprite.step();
+			if(currentPlayer.equals(clientPlayer)){
 			offsetX+=4; offsetY-=2;
+			}
 			//test++; System.out.println(test);
 			this.repaint();
 			}

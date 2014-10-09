@@ -14,6 +14,7 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 import gameLogic.Armour;
+import gameLogic.Door;
 import gameLogic.Fruit;
 import gameLogic.Item;
 import gameLogic.Key;
@@ -115,8 +116,8 @@ public class Renderer {
 					case 6:								temp = new Tile(rug);			break;
 					case 7: case 8:						temp = new Tile(crate);			break;
 					case 9: case 10: case 11:
-					case 12: case 13: case 14:			temp = new Tile(door);	temp.setWalkable(false);		break;
-					case 99:							temp = new Tile(floor);  break;//roomName.setSpawnSpots(ts[i][j]);
+					case 12: case 13: case 14:			temp = new Tile(door); roomName.addDoors(new Door(roomName, ""));	temp.setWalkable(false);		break;
+					case 99:							temp = new Tile(floor);  break;
 
 				}
 				ts[i][j] = temp;
@@ -160,6 +161,7 @@ public class Renderer {
 					}
 					
 					ts[i][j].setMonsterImage(temp);
+					ts[i][j].setWalkable(false);
 
 				}
 			}
