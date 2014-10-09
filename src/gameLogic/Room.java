@@ -93,8 +93,8 @@ public class Room implements Serializable{
 	public List<Tile> getSpawnSpots() {
 		return spawnSpots;
 	}
-	public void setSpawnSpots(List<Tile> spawnspots) {
-		this.spawnSpots = spawnspots;
+	public void setSpawnSpots(Tile spawnspots) {
+		spawnSpots.add(spawnspots);
 	}
 
 }

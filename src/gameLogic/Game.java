@@ -14,6 +14,7 @@ public class Game implements Serializable{
 	private List<Player> totalPlayers = new ArrayList<Player>();
 	private ClientFrame clientframe;
 
+
 	public Game(List<Player> players){
 		totalPlayers = players;
 		setUp();
