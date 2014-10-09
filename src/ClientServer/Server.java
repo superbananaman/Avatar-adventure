@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gameLogic.Game;
-import tests.Player;
+import gameLogic.Player;
 import gui.ServerConsoleWindow;
-import tests.*;
+//import tests.*;
 
 /**
  *
@@ -28,7 +28,7 @@ public class Server extends Thread{
 	private static List<ObjectOutputStream> ooses = new ArrayList<ObjectOutputStream>();
 
 	//private ServerFrame frame;
-	private ServerConsoleWindow frame;
+	private static ServerConsoleWindow frame;
 
 	private static List<Player> players = new ArrayList<Player>();
 
@@ -187,8 +187,10 @@ public class Server extends Thread{
 				// send it back out to all clients
 				while (true) {
 					Object o = null;
+
 					try {
 						o = in.readObject();
+						frame.toConsole(o.toString() + " has been sent through");
 					} catch (ClassNotFoundException e) {
 						System.out.println("An object was not sent through");
 						e.printStackTrace();

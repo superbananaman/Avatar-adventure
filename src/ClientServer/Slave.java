@@ -48,6 +48,7 @@ public class Slave extends Thread {
 		uid = charName;
 
 		// TODO Create Player
+		System.out.println("Creating player with: " + charName);
 		player = new Player(charName);
 
 	}
@@ -62,10 +63,12 @@ public class Slave extends Thread {
 			in = new ObjectInputStream(socket.getInputStream());
 
 			// send the player made to the server
+			System.out.println(player.getUID() + " Has Been Written out");
 			out.writeObject(player);
 			// receives player from server
 			while (true) {
 				Object o = in.readObject();
+				System.out.println(o.toString() + " has been read");
 				if (o instanceof Player) {
 					players.add((Player) o);
 				}
@@ -82,7 +85,7 @@ public class Slave extends Thread {
 			// wait for response from server then start frame
 			// game = new Game(player, players);
 			// frame = new ClientFrame(game);
-
+			System.out.println("FRAME: Player: " + player.getUID() + " Players: " + players.size());
 			frame = new ClientFrame(player, players);
 			frame.setVisible(true);
 
@@ -96,17 +99,22 @@ public class Slave extends Thread {
 					String playerUID = pair.getUID();
 					Object ob = pair.getObject();
 					// if integer is sent through, means the player has moved
-					if (ob instanceof Integer) {
-						Integer i = (Integer) ob;
-						if (i.equals(1)) {
-							// TODO Move player up
-						} else if (i.equals(2)) {
-							// TODO Move player down
-						} else if (i.equals(3)) {
-							// TODO Move player left
-						} else if (i.equals(4)) {
-							// TODO Move player right
-						}
+					if (ob instanceof KeyEvent){
+
+						frame.getRenderWindow().receiveKeyEvent((KeyEvent) ob, player);
+
+//					if (ob instanceof Integer) {
+//						Integer i = (Integer) ob;
+//						if (i.equals(1)) {
+//							// TODO Move player up
+//							frame.getRenderWindow()
+//						} else if (i.equals(2)) {
+//							// TODO Move player down
+//						} else if (i.equals(3)) {
+//							// TODO Move player left
+//						} else if (i.equals(4)) {
+//							// TODO Move player right
+//						}
 					} else if (ob instanceof String) {
 						String message = (String) ob;
 						// TODO Give message to Textfield in clientframe to show
@@ -120,6 +128,17 @@ public class Slave extends Thread {
 			e.printStackTrace();
 		}
 	}
+
+	public Player player(String uid){
+		for (Player p : players){
+			if (p.getUID().equals(uid)){
+				return p;
+			}
+		}
+		return null;
+	}
+
+
 
 	/**
 	 * Sends a message to the server to be sent to all other clients playing the
@@ -139,30 +158,6 @@ public class Slave extends Thread {
 		}
 	}
 
-	public void keyPressed(KeyEvent e) {
-		// send an event to the server to write to all clients
-		try {
-			int code = e.getKeyCode();
-			if (code == KeyEvent.VK_UP) {
-				out.writeObject(new UIDObjectPair(uid, new Integer(1)));
-			} else if (code == KeyEvent.VK_DOWN) {
-				out.writeObject(new UIDObjectPair(uid, new Integer(2)));
-			} else if (code == KeyEvent.VK_LEFT) {
-				out.writeObject(new UIDObjectPair(uid, new Integer(3)));
-			} else if (code == KeyEvent.VK_RIGHT) {
-				out.writeObject(new UIDObjectPair(uid, new Integer(4)));
-			}
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		}
-
-	}
-
-	public void keyReleased(KeyEvent e) {
-	}
-
-	public void keyTyped(KeyEvent e) {
-	}
 
 	/**
 	 * Send a keyEvent to the server to send back to all clients
@@ -170,16 +165,17 @@ public class Slave extends Thread {
 	 */
 	public static void sendKeyEvent(KeyEvent e){
 		try {
-			int code = e.getKeyCode();
-			if (code == KeyEvent.VK_UP) {
-				out.writeObject(new UIDObjectPair(uid, new Integer(1)));
-			} else if (code == KeyEvent.VK_DOWN) {
-				out.writeObject(new UIDObjectPair(uid, new Integer(2)));
-			} else if (code == KeyEvent.VK_LEFT) {
-				out.writeObject(new UIDObjectPair(uid, new Integer(3)));
-			} else if (code == KeyEvent.VK_RIGHT) {
-				out.writeObject(new UIDObjectPair(uid, new Integer(4)));
-			}
+			out.writeObject(new UIDObjectPair(uid, e));
+//			int code = e.getKeyCode();
+//			if (code == KeyEvent.VK_UP) {
+//				out.writeObject(new UIDObjectPair(uid, new Integer(1)));
+//			} else if (code == KeyEvent.VK_DOWN) {
+//				out.writeObject(new UIDObjectPair(uid, new Integer(2)));
+//			} else if (code == KeyEvent.VK_LEFT) {
+//				out.writeObject(new UIDObjectPair(uid, new Integer(3)));
+//			} else if (code == KeyEvent.VK_RIGHT) {
+//				out.writeObject(new UIDObjectPair(uid, new Integer(4)));
+//			}
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
