@@ -9,11 +9,11 @@ import Renderer.Tile;
 public class Key implements Item{
 
 	private Tile tile;
-	private Door door;
+	private String roomName;
 
-	public Key(Tile pos, Door door){
+	public Key(Tile pos, String name){
 		tile = pos;
-		setDoor(door);
+
 	}
 
 
@@ -22,11 +22,14 @@ public class Key implements Item{
 
 	}
 
-	public Door getDoor() {
-		return door;
+
+	public String getRoomName() {
+		return roomName;
 	}
 
-	public void setDoor(Door door) {
-		this.door = door;
+
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
 	}
+
 }

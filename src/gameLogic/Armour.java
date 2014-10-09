@@ -12,7 +12,7 @@ public class Armour implements Item{
 	private int health;
 	private String type;
 
-	public Armour(Tile pos, String material, String type){
+	public Armour(Tile pos, String type){
 		setTile(pos);
 		setType(type);
 

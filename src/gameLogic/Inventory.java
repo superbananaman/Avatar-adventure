@@ -18,7 +18,11 @@ public class Inventory {
 	}
 
 	public void add(Item i){
+		if(items.size()<10){
+
+
 		items.add(i);
+		}
 	}
 
 	public void remove(Item i){
@@ -32,6 +36,9 @@ public class Inventory {
 			}
 		}
 		return false;
+	}
+	public Item get(int num){
+		return items.get(num);
 	}
 
 }

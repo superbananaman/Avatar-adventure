@@ -9,12 +9,12 @@ import Renderer.Tile;
 public class Door {
 
 	private Tile tile;
-	private Room room;
-	private Room nextRoom;
+	private Room currentRoom;
+	private String nextRoom;
 	private Key Key;
 
 
-	public Door(Room Room, Room nextroom){
+	public Door(Room Room, String nextroom){
 		setRoom(Room);
 		setNextRoom(nextroom);
 		setTile(getTile());
@@ -37,18 +37,18 @@ public class Door {
 	}
 
 	public Room getRoom() {
-		return room;
+		return currentRoom;
 	}
 
 	public void setRoom(Room room) {
-		this.room = room;
+		this.currentRoom = room;
 	}
 
-	public Room getNextRoom() {
+	public String getNextRoom() {
 		return nextRoom;
 	}
 
-	public void setNextRoom(Room nextRoom) {
+	public void setNextRoom(String nextRoom) {
 		this.nextRoom = nextRoom;
 	}
 
