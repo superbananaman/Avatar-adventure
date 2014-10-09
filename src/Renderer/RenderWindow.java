@@ -90,7 +90,7 @@ public void paint(Graphics g){
 	}
 
 	public static void main(String args[]) {
-		JPanel panel = new RenderWindow("Room1");
+		JPanel panel = new RenderWindow("startroom");
 		JFrame canvas = new JFrame();
 		canvas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		canvas.setContentPane(panel);
