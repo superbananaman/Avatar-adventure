@@ -113,18 +113,17 @@ public class ServerConsoleWindow extends JFrame {//put a mouseListener Here?
      * @param message The message to display
      */
     public void toConsole(String message){
-        currentText = currentText +"\n" +message;
-        textArea.setText(currentText);
+    	currentText = currentText +"<br>" +message;
+    	textArea.append("\n"+message);
     }
 
     /**
      * Displays chat from a player to the console
-     * @param name    The Player saying the message
-     * @param message    The Message
+     * @param name	The Player saying the message
+     * @param message	The Message
      */
     public void toConsole(String name, String message){
-        currentText = currentText +"\n" +name +": \""+ message+"\"";
-        textArea.setText(currentText);
+    	textArea.append("\n" +name +": \""+ message+"\"");
     }
 }
 

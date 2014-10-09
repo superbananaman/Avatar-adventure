@@ -126,7 +126,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
      */
     public void toConsole(String message){
     	currentText = currentText +"<br>" +message;
-    	textArea.setText("<html>"+currentText+"</html>");
+    	textArea.append("\n"+message);
     }
 
     /**
@@ -135,12 +135,11 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
      * @param message	The Message
      */
     public void toConsole(String name, String message){
-    	currentText = currentText +"<br>" +name +": \""+ message+"\"";
-    	textArea.setText("<html>"+currentText+"</html>");
+    	textArea.append("\n" +name +": \""+ message+"\"");
     }
 
 	public void mouseClicked(MouseEvent e) {
-		textArea.append("\n"+e.getSource().getClass().toString());
+		//textArea.append("\n"+e.getSource().getClass().toString());
 		if(e.getSource().getClass().toString().equals("class Renderer.RenderWindow")){
 			((RenderWindow) e.getSource()).requestFocus();
 		}
