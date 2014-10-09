@@ -9,7 +9,7 @@ import gameLogic.Room;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
+import java.util.*;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -29,28 +29,12 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
     private JTextArea textArea;
     private JTextField inputArea;
     private JScrollPane scroll;
-    private ArrayList<Item> inventory;
-
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    ClientFrame frame = new ClientFrame();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+    private ArrayList<JPanel> inventory;
 
     /**
      * Create the frame.
      */
-    public ClientFrame(Player currentPlayer, ArrayList<Player> players) {
+    public ClientFrame(Player currentPlayer, java.util.List<Player> players) {
     	addMouseListener(this);
         setTitle("Avatar Adventure! ");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,7 +52,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
         contentPane.setLayout(gbl_contentPane);
 
         //Render Window Placeholder
-        renderWindow = new RenderWindow("room1", players);
+        renderWindow = new RenderWindow("room1", (ArrayList<Player>) players);
         //renderWindow = new RenderWindow("room1");
         renderWindow.setBackground(Color.BLACK);
         renderWindow.addMouseListener(this);
@@ -122,9 +106,16 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
 
         GridLayout grid = new GridLayout(3,9);
         panel_2.setLayout(grid);
-        //for(int i = 0; i < 9; i++){
-        //	for(int j = 0)
-        //}
+
+        for(int i = 0; i < 9; i++){
+        	for(int j = 0; j < 3; j++){
+        		JPanel toAdd = new JPanel();
+        		toAdd.setBackground(Color.BLACK);
+        		toAdd.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+        		inventory.add(toAdd);
+        		panel_2.add(toAdd);
+        	}
+        }
 
 
 
