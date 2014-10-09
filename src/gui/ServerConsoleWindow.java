@@ -113,8 +113,11 @@ public class ServerConsoleWindow extends JFrame {//put a mouseListener Here?
      * @param message The message to display
      */
     public void toConsole(String message){
-    	currentText = currentText +"<br>" +message;
-    	textArea.append("\n"+message);
+    	if(!textArea.getText().equals(""))textArea.append("\n");
+    	textArea.append(message);
+    	textArea.setCaretPosition(textArea.getDocument().getLength());
+
+
     }
 
     /**
@@ -123,7 +126,9 @@ public class ServerConsoleWindow extends JFrame {//put a mouseListener Here?
      * @param message	The Message
      */
     public void toConsole(String name, String message){
-    	textArea.append("\n" +name +": \""+ message+"\"");
+    	if(!textArea.getText().equals(""))textArea.append("\n");
+    	textArea.append(name +": \""+ message+"\"");
+    	textArea.setCaretPosition(textArea.getDocument().getLength());
     }
 }
 

@@ -23,9 +23,9 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
     private JPanel contentPane;
     private JPanel renderWindow;
 
-    JTextArea textArea;
-    JTextField inputArea;
-    String currentText = "";
+    private JTextArea textArea;
+    private JTextField inputArea;
+    private JScrollPane scroll;
 
     /**
      * Launch the application.
@@ -75,16 +75,6 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
         contentPane.add(renderWindow, gbc_panel);
         renderWindow.setFocusable(true);
 
-        //Inventory Place Holder
-        JPanel panel_2 = new JPanel();
-        panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-        GridBagConstraints gbc_panel_2 = new GridBagConstraints();
-        gbc_panel_2.fill = GridBagConstraints.BOTH;
-        gbc_panel_2.insets = new Insets(0, 0, 5, 0);
-        gbc_panel_2.gridx = 1;
-        gbc_panel_2.gridy = 0;
-        contentPane.add(panel_2, gbc_panel_2);
-
         //Consoleoutput placeholder
         textArea = new JTextArea();
         GridBagConstraints gbc_textArea = new GridBagConstraints();
@@ -92,7 +82,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
         textArea.setBackground(Color.WHITE);
         textArea.setOpaque(true);
         textArea.setFocusable(false);
-        JScrollPane scroll = new JScrollPane(textArea);
+        scroll = new JScrollPane(textArea);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         gbc_textArea.insets = new Insets(0, 0, 0, 5);
         gbc_textArea.fill = GridBagConstraints.BOTH;
@@ -115,8 +105,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
 
         setVisible(true);
 
-        currentText += "I'm a console window!";
-        textArea.setText("<html>"+currentText+"</html>");
+        inputArea.getWidth();
 
     }
 
@@ -125,8 +114,11 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
      * @param message The message to display
      */
     public void toConsole(String message){
-    	currentText = currentText +"<br>" +message;
-    	textArea.append("\n"+message);
+    	if(!textArea.getText().equals(""))textArea.append("\n");
+    	textArea.append(message);
+    	textArea.setCaretPosition(textArea.getDocument().getLength());
+
+
     }
 
     /**
@@ -135,7 +127,9 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
      * @param message	The Message
      */
     public void toConsole(String name, String message){
-    	textArea.append("\n" +name +": \""+ message+"\"");
+    	if(!textArea.getText().equals(""))textArea.append("\n");
+    	textArea.append(name +": \""+ message+"\"");
+    	textArea.setCaretPosition(textArea.getDocument().getLength());
     }
 
 	public void mouseClicked(MouseEvent e) {
