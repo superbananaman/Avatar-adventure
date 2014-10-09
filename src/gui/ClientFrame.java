@@ -92,8 +92,6 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
         gbc_inputArea.gridy = 2;
         contentPane.add(inputArea, gbc_inputArea);
 
-        setVisible(true);
-
       //Inventory Place Holder
         JPanel panel_2 = new JPanel();
         panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -106,19 +104,18 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
 
         GridLayout grid = new GridLayout(3,9);
         panel_2.setLayout(grid);
+        inventory = new ArrayList<JPanel>();
 
         for(int i = 0; i < 9; i++){
         	for(int j = 0; j < 3; j++){
         		JPanel toAdd = new JPanel();
         		toAdd.setBackground(Color.BLACK);
-        		toAdd.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
         		inventory.add(toAdd);
         		panel_2.add(toAdd);
         	}
         }
 
-
-
+        setVisible(true);
     }
 
     /**
