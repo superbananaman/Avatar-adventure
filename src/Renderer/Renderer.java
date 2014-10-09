@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -19,6 +20,7 @@ import gameLogic.Fruit;
 import gameLogic.Item;
 import gameLogic.Key;
 import gameLogic.Monster;
+import gameLogic.Player;
 import gameLogic.Room;
 import gameLogic.Skeleton;
 
@@ -176,9 +178,12 @@ public class Renderer {
 		return ts;
 	}
 
-	public void drawSprite(Graphics2D g2, Sprite testSprite) {
-		g2.drawImage(getSpriteIso(testSprite.getStep() %10, testSprite.getFacing(), testSprite.getName()),400, 300,null);
-
+	public void drawSprite(Graphics2D g2, List<Player> players) {
+		// TODO render sprites acccording to there x and y values
+		for(Player player : players){
+			Sprite spire = player.getSprite();
+		g2.drawImage(getSpriteIso(spire.getStep() %10, spire.getFacing(), spire.getName()),400, 300,null);
+		}
 	}
 	public void drawMultiplayerSprite(Graphics2D g2, Sprite sprite,int xoffset, int yoffset) {
 		g2.drawImage(getSpriteIso(sprite.getStep() %10, sprite.getFacing(), sprite.getName()),sprite.getCurrentX()+xoffset, sprite.getCurrentY()+yoffset,null);

@@ -90,7 +90,7 @@ public void paint(Graphics g){
 
 	    //Repetitive drawing tasks
 	    g2.drawImage(bi,offsetX,offsetY, null);
-		renderer.drawSprite(g2,currentSprite);
+		renderer.drawSprite(g2,players);
 
 	}
 
@@ -201,6 +201,11 @@ public void paint(Graphics g){
 		room = new Room(roomName);
 		this.repaint();
 	}
-
+	
+	public Tile getTile(int x, int y){
+		x+=offsetX; y+=offsetY;
+		Point cart = renderer.isoTo2D(new Point(x,y));
+	return room.getTileSet()[cart.y][cart.x];
+	}
 }
 
