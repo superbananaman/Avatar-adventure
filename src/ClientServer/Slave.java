@@ -29,7 +29,7 @@ public class Slave extends Thread {
 
 	private static String uid;
 	// the player that this person chose
-	private static Player player;
+	private Player player;
 	private static List<Player> players = new ArrayList<Player>();
 
 	private static Game game;
@@ -68,9 +68,11 @@ public class Slave extends Thread {
 			// receives player from server
 			while (true) {
 				Object o = in.readObject();
-				System.out.println(o.toString() + " has been read");
+				//System.out.println(o.toString() + " has been read");
 				if (o instanceof Player) {
-					players.add((Player) o);
+					Player p = (Player)o;
+					System.out.println(p.getUID() + " has been added");
+					players.add(p);
 				}
 				// TESTING
 				else if (o instanceof Circle) {
@@ -184,9 +186,9 @@ public class Slave extends Thread {
 	/**
 	 * @return the current player of this client
 	 */
-	public static Player getCurrent() {
-		return player;
-	}
+//	public static Player getCurrent() {
+//		return player;
+//	}
 
 	public static List<Player> getPlayers() {
 		return players;
