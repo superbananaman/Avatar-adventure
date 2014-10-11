@@ -102,8 +102,12 @@ public class Slave extends Thread {
 					Object ob = pair.getObject();
 					// if integer is sent through, means the player has moved
 					if (ob instanceof KeyEvent){
-
-						frame.getRenderWindow().receiveKeyEvent((KeyEvent) ob, player);
+						for (Player p : players){
+							if (p.getUID().equals(playerUID)){
+								frame.getRenderWindow().receiveKeyEvent((KeyEvent) ob, p);
+							}
+						}
+						
 
 //					if (ob instanceof Integer) {
 //						Integer i = (Integer) ob;
