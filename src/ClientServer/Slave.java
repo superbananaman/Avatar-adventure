@@ -88,7 +88,7 @@ public class Slave extends Thread {
 			// game = new Game(player, players);
 			// frame = new ClientFrame(game);
 			System.out.println("FRAME: Player: " + player.getUID() + " Players: " + players.size());
-			frame = new ClientFrame(player, players);
+			frame = new ClientFrame(uid, players);
 			frame.setVisible(true);
 
 			// while the game is running, recieves info
@@ -171,6 +171,7 @@ public class Slave extends Thread {
 	 */
 	public static void sendKeyEvent(KeyEvent e){
 		try {
+			
 			System.out.println("UID : " + uid);
 			out.writeObject(new UIDObjectPair(uid, e));
 //			int code = e.getKeyCode();

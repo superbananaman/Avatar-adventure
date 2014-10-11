@@ -34,7 +34,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
     /**
      * Create the frame.
      */
-    public ClientFrame(Player currentPlayer, java.util.List<Player> players) {
+    public ClientFrame(String UID, java.util.List<Player> players) {
     	addMouseListener(this);
         setTitle("Avatar Adventure! ");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,7 +52,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
         contentPane.setLayout(gbl_contentPane);
 
         //Render Window Placeholder
-        renderWindow = new RenderWindow("room1", currentPlayer, (ArrayList<Player>) players);
+        renderWindow = new RenderWindow("room1", UID, (ArrayList<Player>) players);
         renderWindow.setBackground(Color.BLACK);
         renderWindow.addMouseListener(this);
         GridBagConstraints gbc_panel = new GridBagConstraints();
