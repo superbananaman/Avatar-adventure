@@ -64,10 +64,10 @@ Graphics2D big;
 		addKeyListener(this);
 		setVisible(true);
 		room = new Room(RoomName);
-		setupTestRoom(room);
+		setupTileset(room);
 	}
 
-private void setupTestRoom(Room currentRoom) {
+private void setupTileset(Room currentRoom) {
 	room.setTileSet(renderer.parseTileSet(currentRoom));
 	}
 
@@ -98,11 +98,11 @@ public void paint(Graphics g){
 		Slave.sendKeyEvent(e);
 	}
 	
-	public void receiveKeyEvent(KeyEvent e, Player player){
+	public void receiveKeyEvent(KeyEvent e, Player player){ 
 		Player currentPlayer = null;
 		for(Player play : players){
 			if(player.equals(play))
-				currentPlayer = player;			
+				currentPlayer = player;		
 		}
 		if(currentPlayer == null)
 			throw new Error("Player not found");
@@ -113,12 +113,11 @@ public void paint(Graphics g){
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {			
 			currentSprite.setFacing("Right");
 			if(checkValidMove(currentSprite, 4, 2, room)){
-
 			currentSprite.addCurrentX(4); currentSprite.addCurrentY(2);
-			currentSprite.step();
-			if(currentPlayer.equals(clientPlayer)){
+			currentSprite.step();System.out.println("checking right");
+			//if(currentPlayer.equals(clientPlayer)){
 			offsetX-=4; offsetY-=2;
-			}
+			//}
 			this.repaint();
 			}
 		}
@@ -130,9 +129,9 @@ public void paint(Graphics g){
 			currentSprite.setFacing("Left");
 			currentSprite.addCurrentX(-4); currentSprite.addCurrentY(-2);
 			currentSprite.step();
-			if(currentPlayer.equals(clientPlayer)){
+			//if(currentPlayer.equals(clientPlayer)){
 			offsetX+=4; offsetY+=2;
-			}
+			//}
 			this.repaint();
 			}
 
@@ -144,9 +143,9 @@ public void paint(Graphics g){
 			currentSprite.setFacing("Up");
 			currentSprite.addCurrentX(4); currentSprite.addCurrentY(-2);
 			currentSprite.step();
-			if(currentPlayer.equals(clientPlayer)){
+			//if(currentPlayer.equals(clientPlayer)){
 			offsetX-=4; offsetY+=2;
-			}
+			//}
 			this.repaint();
 			}
 
@@ -158,9 +157,9 @@ public void paint(Graphics g){
 			currentSprite.setFacing("Down");
 			currentSprite.addCurrentX(-4); currentSprite.addCurrentY(2);
 			currentSprite.step();
-			if(currentPlayer.equals(clientPlayer)){
+			//if(currentPlayer.equals(clientPlayer)){
 			offsetX+=4; offsetY-=2;
-			}
+			//}
 			//test++; System.out.println(test);
 			this.repaint();
 			}
@@ -180,9 +179,11 @@ public void paint(Graphics g){
 
 	private boolean checkValidMove(Sprite currrentSprite, int x, int y, Room room) {
 		Point cartesian = renderer.isoTo2D(new Point(currrentSprite.getCurrentX()+x,currentSprite.getCurrentY()+y));
-		//System.out.println("Iso "+currentSprite.getCurrentX()+"  :  "+currentSprite.getCurrentY()+"  to   "+cartesian.x+"   :   "+cartesian.y);
 		Tile[][] proposedTile = room.getTileSet();
-		return	proposedTile[cartesian.y][cartesian.x].isWalkable();
+		
+		//System.out.println("Iso "+currentSprite.getCurrentX()+"  :  "+currentSprite.getCurrentY()+"  to   "+cartesian.x+"   :   "+cartesian.y);
+		//	proposedTile[cartesian.y][cartesian.x].isWalkable();
+		return true;
 
 		}
 
