@@ -59,7 +59,7 @@ Graphics2D big;
 		this.players = players;
 		panel.setLayout(null);
 		panel.setSize(height, width);
-		clientPlayer = clientPlayer;
+		this.clientPlayer = clientPlayer;
 
 		addKeyListener(this);
 		setVisible(true);
@@ -171,8 +171,13 @@ public void paint(Graphics g){
 			firstTime =true;
 			this.repaint();
 			}
-
-
+		for (Player p : players){
+			if (p.equals(currentPlayer)){
+				p.setSprite(currentSprite);
+			}
+		}
+		
+		//Slave.sendPlayer(currentPlayer);
 
 
 	}

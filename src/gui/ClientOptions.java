@@ -5,6 +5,8 @@ package gui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import javax.swing.*;
 
@@ -76,18 +78,26 @@ public class ClientOptions extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Join")){
-			try{
-				int num = Integer.parseInt(portText.getText());
+//			try{
+//				int num = Integer.parseInt(portText.getText());
 
-				Slave s = new Slave(addressText.getText(), num, nameText.getText(), null);
-				s.start();
+				Slave s;
+				try {
+					s = new Slave(InetAddress.getLocalHost().getHostAddress(), 14141, nameText.getText(), null);
+					s.start();
+				} catch (UnknownHostException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					return;
+				}
+				
 
 				this.setVisible(false);
 				this.setEnabled(false);
 
-			} catch (NumberFormatException nfe) {
-
-			}
+//			} catch (NumberFormatException nfe) {
+//
+//			}
 		}
 	}
 }

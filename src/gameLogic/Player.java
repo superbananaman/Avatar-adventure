@@ -112,6 +112,10 @@ public class Player implements Character, Serializable {
 		this.inventory = inventory;
 	}
 
+	public void setSprite(Sprite s){
+		this.sprite = s;
+	}
+	
 	public Sprite getSprite() {
 		return sprite;
 	}

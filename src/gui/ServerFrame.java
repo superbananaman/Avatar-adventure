@@ -80,19 +80,20 @@ public class ServerFrame extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Start")){
-			try{
-				int num = Integer.parseInt(portText.getText());
-				int cli = Integer.parseInt(clientText.getText());
-				System.out.println("Starting server on port "+num+" with max clients "+cli);
-				server = new Server(cli, num);
+//			try{
+//				int num = Integer.parseInt(portText.getText());
+//				int cli = Integer.parseInt(clientText.getText());
+//				System.out.println("Starting server on port "+num+" with max clients "+cli);
+				server = new Server(2, 14141);
 				server.start();
-			} catch (NumberFormatException nfe) {
-				//System.out.println("Starting server on port "+defaultPort);
-				//server = new Server(defaultPort);
-			} finally{
+//			} catch (NumberFormatException nfe) {
+//				//System.out.println("Starting server on port "+defaultPort);
+//				//server = new Server(defaultPort);
+//			}
+//		finally{
 				this.setVisible(false);
 				this.setEnabled(false);
-			}
+//			}
 		}
 	}
 }
