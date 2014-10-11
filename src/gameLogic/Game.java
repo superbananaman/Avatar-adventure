@@ -23,7 +23,7 @@ public class Game implements Serializable{
 	public void setUp(){
 		setMonsterHealth(totalPlayers.size());
 		addRoom();
-		clientframe = new ClientFrame();
+		//clientframe = new ClientFrame();
 
 	}
 

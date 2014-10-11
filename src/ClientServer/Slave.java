@@ -167,6 +167,7 @@ public class Slave extends Thread {
 	 */
 	public static void sendKeyEvent(KeyEvent e){
 		try {
+			System.out.println("UID : " + uid);
 			out.writeObject(new UIDObjectPair(uid, e));
 //			int code = e.getKeyCode();
 //			if (code == KeyEvent.VK_UP) {
@@ -194,7 +195,11 @@ public class Slave extends Thread {
 		return players;
 	}
 	
-	
+	/**
+	 * Receive a player and update that player in the list
+	 * to the given player
+	 * @param player
+	 */	
 	public static void sendPlayer(Player player){
 		for (Player p : players){
 			if (p.equals(player)){
