@@ -193,5 +193,14 @@ public class Slave extends Thread {
 	public static List<Player> getPlayers() {
 		return players;
 	}
+	
+	
+	public static void sendPlayer(Player player){
+		for (Player p : players){
+			if (p.equals(player)){
+				p = player;
+			}
+		}
+	}
 
 }
