@@ -23,7 +23,7 @@ public class Player implements Character, Serializable {
 	public Player(String name) {
 		this.name = name;
 		setInventory(new Inventory());
-		sprite = new Sprite("sprite", 0, 0);
+		sprite = new Sprite("sprite",-60,70);
 		setmaxHealth(500);
 		setcurrentHealth(500);
 

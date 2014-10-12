@@ -195,7 +195,7 @@ public class Renderer {
 	public void drawSpriteNonClientPlayer(Graphics2D g2, Player player,Sprite c) {
 		
 			Sprite sprite = player.getSprite();
-			g2.drawImage(getSpriteIso(sprite.getStep()%10, sprite.getFacing(), sprite.getName()),sprite.getCurrentX()+480-c.getOffsetX(), sprite.getCurrentY()+260+10-c.getOffsetY(),null);
+			g2.drawImage(getSpriteIso(sprite.getStep()%10, sprite.getFacing(), sprite.getName()),sprite.getCurrentX()+463-c.getOffsetX(), sprite.getCurrentY()+227-c.getOffsetY(),null);
 			
 		
 	}
