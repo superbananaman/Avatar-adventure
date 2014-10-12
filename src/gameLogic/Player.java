@@ -33,6 +33,10 @@ public class Player implements Character, Serializable {
 		return name;
 	}
 
+	public void setName(String n){
+		this.name = n;
+	}
+
 	public Room getCurrentRoom() {
 		return currentRoom;
 	}
@@ -46,7 +50,7 @@ public class Player implements Character, Serializable {
 	 */
 
 	public void pickUp(Tile tile) {
-		 if (isAlive) {
+		 if (isAlive()) {
 		 if (sprite.getTile().hasItem()) { // has item returns true if it is
 
 		 inventory.add(sprite.getTile().getItem());
@@ -80,25 +84,25 @@ public class Player implements Character, Serializable {
 	}
 
 	public void Die() {
-		isAlive = false;
+		setAlive(false);
 
 	}
 
 	public void setmaxHealth(int h) {
-		if (isAlive) {
+		if (isAlive()) {
 			maxHealth = maxHealth + h;
 		}
 	}
 
 	public int attack1() {
-		if (isAlive) {
+		if (isAlive()) {
 			return 200;
 		}
 		return 0;
 	}
 
 	public int attack2() {
-		if (isAlive) {
+		if (isAlive()) {
 			return 350;
 		}
 		return 0;
@@ -115,7 +119,7 @@ public class Player implements Character, Serializable {
 	public void setSprite(Sprite s){
 		this.sprite = s;
 	}
-	
+
 	public Sprite getSprite() {
 		return sprite;
 	}
@@ -131,5 +135,21 @@ public class Player implements Character, Serializable {
 		}
 		return false;
 
+	}
+
+	public String getNation() {
+		return nation;
+	}
+
+	public void setNation(String nation) {
+		this.nation = nation;
+	}
+
+	public boolean isAlive() {
+		return isAlive;
+	}
+
+	public void setAlive(boolean isAlive) {
+		this.isAlive = isAlive;
 	}
 }
