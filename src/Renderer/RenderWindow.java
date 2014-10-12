@@ -55,13 +55,15 @@ Graphics2D big;
 
 
 	Sprite currentSprite = new Sprite("sprite",-60,70);
+	private List<Player> playersNonClient;
 	private List<Player> players;
 	private Player clientPlayer;
 
 
 	public RenderWindow(String RoomName, String uID, ArrayList<Player> players) {
-		setBounds(0, 0, width, height);
 		this.players = players;
+	
+		setBounds(0, 0, width, height);
 		panel.setLayout(null);
 		panel.setSize(height, width);
 
@@ -69,8 +71,9 @@ Graphics2D big;
 			if(player.getUID().equals(uID))
 				this.clientPlayer = player;
 		}
-
-
+		System.out.println(clientPlayer.getUID());
+		this.playersNonClient = players;
+		//playersNonClient.remove(clientPlayer);
 		addKeyListener(this);
 		setVisible(true);
 		room = new Room(RoomName);
@@ -93,15 +96,15 @@ public void paint(Graphics g){
 	      bi = (BufferedImage) createImage(2500,2000);
 	      big = bi.createGraphics();
 	      big.setColor(Color.black);
-	      big.fillRect(0, 0, 2500, 2000);
-	      renderer.drawLevel(big, room);
+	      big.fillRect(0, 0, 2500, 2000);	      
+	      renderer.drawLevel(big, room);	   
 	      firstTime = false;
 	    }
 
 	    //Repetitive drawing tasks
 	    g2.drawImage(bi,offsetX,offsetY, null);
-		renderer.drawSprite(g2,players);
-
+		renderer.drawSprite(g2,playersNonClient,clientPlayer);
+	    //renderer.drawSpriteClientPlayer(g2, clientPlayer);
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -110,14 +113,15 @@ public void paint(Graphics g){
 
 	public void receiveKeyEvent(KeyEvent e, Player player){
 		Player currentPlayer = null;
-		for(Player play : players){
-			if(player.equals(play))
+		
+		for(Player p : players){
+			if(player.equals(p))
 				currentPlayer = player;
 		}
 		if(currentPlayer == null)
 			throw new Error("Player not found");
 
-		Sprite currentSprite = currentPlayer.getSprite();
+		currentSprite = currentPlayer.getSprite();
 		// find sprite
 
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
@@ -125,10 +129,10 @@ public void paint(Graphics g){
 			if(checkValidMove(currentSprite, 4, 2, room)){
 			currentSprite.addCurrentX(4); currentSprite.addCurrentY(2);
 			currentSprite.step();
-			if(currentPlayer.equals(clientPlayer))
+			if(currentPlayer.equals(clientPlayer)){
 			cameraOffsetX=4; cameraOffsetY=2;
 			offsetX-=4; offsetY-=2;
-			//}
+			}
 			this.repaint();
 			}
 		}
@@ -140,10 +144,10 @@ public void paint(Graphics g){
 			currentSprite.setFacing("Left");
 			currentSprite.addCurrentX(-4); currentSprite.addCurrentY(-2);
 			currentSprite.step();
-			if(currentPlayer.equals(clientPlayer))
+			if(currentPlayer.equals(clientPlayer)){
 			cameraOffsetX=-4; cameraOffsetY=-2;
 			offsetX+=4; offsetY+=2;
-			//}
+			}
 			this.repaint();
 			}
 
@@ -155,10 +159,10 @@ public void paint(Graphics g){
 			currentSprite.setFacing("Up");
 			currentSprite.addCurrentX(4); currentSprite.addCurrentY(-2);
 			currentSprite.step();
-			if(currentPlayer.equals(clientPlayer))
+			if(currentPlayer.equals(clientPlayer)){
 			cameraOffsetX=4; cameraOffsetY=-2;
 			offsetX-=4; offsetY+=2;
-			//}
+			}
 			this.repaint();
 			}
 
@@ -170,10 +174,10 @@ public void paint(Graphics g){
 			currentSprite.setFacing("Down");
 			currentSprite.addCurrentX(-4); currentSprite.addCurrentY(2);
 			currentSprite.step();
-			if(currentPlayer.equals(clientPlayer))
+			if(currentPlayer.equals(clientPlayer)){
 			cameraOffsetX=-4; cameraOffsetY=2;
 			offsetX+=4; offsetY-=2;
-			//}
+			}
 			//test++; System.out.println(test);
 			this.repaint();
 			}
@@ -185,24 +189,17 @@ public void paint(Graphics g){
 			firstTime =true;
 			this.repaint();
 			}
-		for (Player p : players){
-			if (p.equals(clientPlayer)){
-				p.setSprite(currentSprite);
-			}
-		}
 
-		for (Player p : players){
-			if (p.equals(clientPlayer)){
-				Sprite s = p.getSprite();
-				s.addCurrentX(-cameraOffsetX);
-				s.addCurrentY(-cameraOffsetY);
+		
+			if (currentPlayer.equals(clientPlayer)){
+				currentSprite.addOffsetX(cameraOffsetX);
+				currentSprite.addOffsetY(cameraOffsetY);
 				this.repaint();
-
-			}
-
 		}
-		for(int i=0; i <players.size();i++){
-			System.out.println("Player:"+i+"  "+ players.get(i).getSprite().getCurrentX()+"   :   "+players.get(i).getSprite().getCurrentY()+"end");
+			
+		for(int i=0; i <playersNonClient.size();i++){
+			System.out.print("Player:"+i+"  "+player.getUID()+"  "+ playersNonClient.get(i).getSprite().getCurrentX()+"   :   "+playersNonClient.get(i).getSprite().getCurrentY()+" to TILE[x][y]  ->  ");
+			System.out.println(renderer.isoTo2D(new Point(playersNonClient.get(i).getSprite().getCurrentX(),playersNonClient.get(i).getSprite().getCurrentY())));
 
 		}
 

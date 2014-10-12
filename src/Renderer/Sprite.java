@@ -8,6 +8,8 @@ public class Sprite implements Serializable{
 	private double currentY;
 	private String facing;
 	private int step;
+	private int offsetX;
+	private int offsetY;
 	public Sprite(String name, int x, int y ){
 		currentX = x; 	currentY = y;
 		facing = "Up";
@@ -68,6 +70,18 @@ public class Sprite implements Serializable{
 	public Tile getTile(){
 
 		return null;
+	}
+	public int getOffsetX() {
+		return offsetX;
+	}
+	public void addOffsetX(int offsetX) {
+		this.offsetX += offsetX;
+	}
+	public int getOffsetY() {
+		return offsetY;
+	}
+	public void addOffsetY(int offsetY) {
+		this.offsetY += offsetY;
 	}
 
 }

@@ -178,15 +178,26 @@ public class Renderer {
 		return ts;
 	}
 
-	public void drawSprite(Graphics2D g2, List<Player> players) {
+	public void drawSprite(Graphics2D g2, List<Player> players, Player clientPlayer) {
 		for(Player player : players){
-			Sprite spire = player.getSprite();
-			g2.drawImage(getSpriteIso(spire.getStep()%10, spire.getFacing(), spire.getName()),spire.getCurrentX()+480, spire.getCurrentY()+260,null);
+			if(player.equals(clientPlayer))
+				drawSpriteClientPlayer(g2, player);			
+			else
+				drawSpriteNonClientPlayer(g2, player,clientPlayer.getSprite());		
 		}
 	}
-	public void drawMultiplayerSprite(Graphics2D g2, Sprite sprite,int xoffset, int yoffset) {
-		g2.drawImage(getSpriteIso(sprite.getStep() %10, sprite.getFacing(), sprite.getName()),sprite.getCurrentX()+xoffset, sprite.getCurrentY()+yoffset,null);
-
+	public void drawSpriteClientPlayer(Graphics2D g2, Player player) {		
+			Sprite sprite = player.getSprite();
+			g2.drawImage(getSpriteIso(sprite.getStep()%10, sprite.getFacing(), sprite.getName()),400,300,null);
+			
+		
+	}
+	public void drawSpriteNonClientPlayer(Graphics2D g2, Player player,Sprite c) {
+		
+			Sprite sprite = player.getSprite();
+			g2.drawImage(getSpriteIso(sprite.getStep()%10, sprite.getFacing(), sprite.getName()),sprite.getCurrentX()+480-c.getOffsetX(), sprite.getCurrentY()+260+10-c.getOffsetY(),null);
+			
+		
 	}
 
 	public BufferedImage getSpriteIso(int x, String direction,String currentSpriteName) {
