@@ -86,8 +86,8 @@ private void setupRoom(Room currentRoom) {
 	offsetY=250 + currentRoom.getOffSet().y;
 	Point spawn = room.getSpawnSpots().getLocation();
 	for(Player p : players){
-		p.getSprite().setCurrentX(spawn.x);
-		p.getSprite().setCurrentY(spawn.y);
+		p.getSprite().setCurrentX(renderer.twoDToIso(new Point(spawn.x,spawn.y)).x);
+		p.getSprite().setCurrentY(renderer.twoDToIso(new Point(spawn.x,spawn.y)).y);
 	}
 	
 	}
@@ -199,7 +199,7 @@ public void paint(Graphics g){
 			}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE ) {
 		
-			changeRoom("room2");
+			changeRoom();
 			this.repaint();
 			}
 
@@ -222,8 +222,8 @@ public void paint(Graphics g){
 
 	}
 
-	private boolean checkValidMove(Sprite currrentSprite, int x, int y, Room room) {
-		Point cartesian = renderer.isoTo2D(new Point(currrentSprite.getCurrentX()+x,currentSprite.getCurrentY()+y));
+	private boolean checkValidMove(Sprite currentSprite, int x, int y, Room room) {
+		Point cartesian = renderer.isoTo2D(new Point(currentSprite.getCurrentX()+x,currentSprite.getCurrentY()+y));
 		Tile[][] proposedTile = room.getTileSet();
 
 		//System.out.println("Iso "+currentSprite.getCurrentX()+"  :  "+currentSprite.getCurrentY()+"  to   "+cartesian.x+"   :   "+cartesian.y);
@@ -242,11 +242,25 @@ public void paint(Graphics g){
 
 	}
 
-	public void changeRoom(String roomName){
+	public void changeRoom(){
+		String nextRoom =null;
+		for(Door d : room.getDoors()){
+			Point door = d.getTile().getLocation();
+			Point player = renderer.isoTo2D(new Point(currentSprite.getCurrentX(),currentSprite.getCurrentY()));
+			System.out.println("Checking door in " +d.getRoom().getRoomName()+" to "+d.getNextRoom()+"  "+ door.toString() + "  " + player.toString()+door.distance(player));
+			boolean hasKey =(clientPlayer.getInventory().hasKey(d.getNextRoom())|| d.getNextRoom().equals("room1")|| d.getNextRoom().equals("startroom"));
+			if(door.distance(player) < 3&& hasKey){ 
+				nextRoom = d.getNextRoom();
+				System.out.println("Changing to room : " +nextRoom.toString());
+				break;
+			}
+		}
+		if(nextRoom !=null){
 		firstTime =true;
-		room = new Room(roomName);
+		room = new Room(nextRoom);
 		this.setupRoom(room);
 		this.repaint();
+		}
 	}
 
 	public Tile getTile(int x, int y){

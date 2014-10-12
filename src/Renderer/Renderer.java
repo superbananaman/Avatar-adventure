@@ -119,8 +119,11 @@ public class Renderer {
 					case 5: 						 	temp = new Tile(Barrel,p);		break;
 					case 6:								temp = new Tile(rug,p);			break;
 					case 7: case 8:						temp = new Tile(crate,p);			break;
-					case 9: case 10: case 11:
-					case 12: case 13: case 14:			temp = new Tile(door,p); room.addDoors(new Door(room, ""));	temp.setWalkable(false);		break;
+					case 9:				temp = new Tile(door,p); room.addDoors(new Door(room, "bossroom",temp));	temp.setWalkable(false);		break;
+					case 10:			temp = new Tile(door,p); room.addDoors(new Door(room, "startroom",temp));	temp.setWalkable(false);		break;
+					case 11:			temp = new Tile(door,p); room.addDoors(new Door(room, "room1",temp));	temp.setWalkable(false);		break;
+					case 12:			temp = new Tile(door,p); room.addDoors(new Door(room, "room2",temp));	temp.setWalkable(false);		break;
+					case 13:			temp = new Tile(door,p); room.addDoors(new Door(room, "room4",temp));	temp.setWalkable(false);		break;
 					case 99:							temp = new Tile(floor,p); room.setSpawnSpots(temp);  break;
 
 				}
@@ -145,7 +148,7 @@ public class Renderer {
 					case 7: tempItem = new Key(ts[i][j], "Room2");		temp = KeyRoom2;	break;
 					case 8: tempItem = new Key(ts[i][j], "Room3");		temp = KeyRoom3;	break;
 					case 9: tempItem = new Key(ts[i][j], "Room4");		temp = KeyRoom4;	break;
-					case 10: tempItem = new Key(ts[i][j],"Room5");		temp = KeyRoom5;	break;
+					case 10: tempItem = new Key(ts[i][j],"bossroom");		temp = KeyRoom5;	break;
 					}
 					items.add(tempItem);
 					ts[i][j].setPickUpImage(temp);

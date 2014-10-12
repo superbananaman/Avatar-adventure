@@ -14,10 +14,10 @@ public class Door {
 	private Key Key;
 
 
-	public Door(Room Room, String nextroom){
+	public Door(Room Room, String nextroom,Tile tile){
 		setRoom(Room);
 		setNextRoom(nextroom);
-		setTile(getTile());
+		this.tile = tile;
 	}
 
 	public boolean use(Player player){

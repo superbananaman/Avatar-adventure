@@ -38,6 +38,17 @@ public class Inventory implements Serializable{
 		}
 		return false;
 	}
+	
+	public boolean hasKey(String keyRoom){
+		for(Item i : items){
+			if(i instanceof Key){
+				if(((Key) i).getRoomName().equalsIgnoreCase(keyRoom)){
+				return true;
+				}
+			}
+		}
+		return false;
+	}
 	public Item get(int num){
 		return items.get(num);
 	}
