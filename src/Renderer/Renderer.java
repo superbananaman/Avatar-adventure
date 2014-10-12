@@ -179,11 +179,9 @@ public class Renderer {
 	}
 
 	public void drawSprite(Graphics2D g2, List<Player> players) {
-		// TODO render sprites acccording to there x and y values
 		for(Player player : players){
 			Sprite spire = player.getSprite();
 			g2.drawImage(getSpriteIso(spire.getStep()%10, spire.getFacing(), spire.getName()),spire.getCurrentX()+480, spire.getCurrentY()+260,null);
-		System.out.println(spire.getCurrentX() + "  :   " + spire.getCurrentY());
 		}
 	}
 	public void drawMultiplayerSprite(Graphics2D g2, Sprite sprite,int xoffset, int yoffset) {

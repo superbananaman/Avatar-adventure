@@ -49,17 +49,27 @@ Graphics2D big;
 	Renderer renderer = new Renderer();
 	public int offsetX=-620;
 	public int offsetY =250;
+
+	public int cameraOffsetX=0;
+	public int cameraOffsetY=0;
+
+
 	Sprite currentSprite = new Sprite("sprite",-60,70);
 	private List<Player> players;
 	private Player clientPlayer;
 
 
-	public RenderWindow(String RoomName, Player clientPlayer, ArrayList<Player> players) {
+	public RenderWindow(String RoomName, String uID, ArrayList<Player> players) {
 		setBounds(0, 0, width, height);
 		this.players = players;
 		panel.setLayout(null);
 		panel.setSize(height, width);
-		this.clientPlayer = clientPlayer;
+
+		for(Player player : players){
+			if(player.getUID().equals(uID))
+				this.clientPlayer = player;
+		}
+
 
 		addKeyListener(this);
 		setVisible(true);
@@ -97,31 +107,32 @@ public void paint(Graphics g){
 	public void keyPressed(KeyEvent e) {
 		Slave.sendKeyEvent(e);
 	}
-	
-	public void receiveKeyEvent(KeyEvent e, Player player){ 
+
+	public void receiveKeyEvent(KeyEvent e, Player player){
 		Player currentPlayer = null;
 		for(Player play : players){
 			if(player.equals(play))
-				currentPlayer = player;		
+				currentPlayer = player;
 		}
 		if(currentPlayer == null)
 			throw new Error("Player not found");
-		
+
 		Sprite currentSprite = currentPlayer.getSprite();
 		// find sprite
-		
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {			
+
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			currentSprite.setFacing("Right");
 			if(checkValidMove(currentSprite, 4, 2, room)){
 			currentSprite.addCurrentX(4); currentSprite.addCurrentY(2);
-			currentSprite.step();System.out.println("checking right");
-			//if(currentPlayer.equals(clientPlayer)){
+			currentSprite.step();
+			if(currentPlayer.equals(clientPlayer))
+			cameraOffsetX=4; cameraOffsetY=2;
 			offsetX-=4; offsetY-=2;
 			//}
 			this.repaint();
 			}
 		}
-			
+
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			//move up map
 			if(checkValidMove(currentSprite, -4, -2, room)){
@@ -129,7 +140,8 @@ public void paint(Graphics g){
 			currentSprite.setFacing("Left");
 			currentSprite.addCurrentX(-4); currentSprite.addCurrentY(-2);
 			currentSprite.step();
-			//if(currentPlayer.equals(clientPlayer)){
+			if(currentPlayer.equals(clientPlayer))
+			cameraOffsetX=-4; cameraOffsetY=-2;
 			offsetX+=4; offsetY+=2;
 			//}
 			this.repaint();
@@ -143,7 +155,8 @@ public void paint(Graphics g){
 			currentSprite.setFacing("Up");
 			currentSprite.addCurrentX(4); currentSprite.addCurrentY(-2);
 			currentSprite.step();
-			//if(currentPlayer.equals(clientPlayer)){
+			if(currentPlayer.equals(clientPlayer))
+			cameraOffsetX=4; cameraOffsetY=-2;
 			offsetX-=4; offsetY+=2;
 			//}
 			this.repaint();
@@ -157,7 +170,8 @@ public void paint(Graphics g){
 			currentSprite.setFacing("Down");
 			currentSprite.addCurrentX(-4); currentSprite.addCurrentY(2);
 			currentSprite.step();
-			//if(currentPlayer.equals(clientPlayer)){
+			if(currentPlayer.equals(clientPlayer))
+			cameraOffsetX=-4; cameraOffsetY=2;
 			offsetX+=4; offsetY-=2;
 			//}
 			//test++; System.out.println(test);
@@ -172,11 +186,27 @@ public void paint(Graphics g){
 			this.repaint();
 			}
 		for (Player p : players){
-			if (p.equals(currentPlayer)){
+			if (p.equals(clientPlayer)){
 				p.setSprite(currentSprite);
 			}
 		}
-		
+
+		for (Player p : players){
+			if (p.equals(clientPlayer)){
+				Sprite s = p.getSprite();
+				s.addCurrentX(-cameraOffsetX);
+				s.addCurrentY(-cameraOffsetY);
+				this.repaint();
+
+			}
+
+		}
+		for(int i=0; i <players.size();i++){
+			System.out.println("Player:"+i+"  "+ players.get(i).getSprite().getCurrentX()+"   :   "+players.get(i).getSprite().getCurrentY()+"end");
+
+		}
+
+
 		//Slave.sendPlayer(currentPlayer);
 
 
@@ -185,7 +215,7 @@ public void paint(Graphics g){
 	private boolean checkValidMove(Sprite currrentSprite, int x, int y, Room room) {
 		Point cartesian = renderer.isoTo2D(new Point(currrentSprite.getCurrentX()+x,currentSprite.getCurrentY()+y));
 		Tile[][] proposedTile = room.getTileSet();
-		
+
 		//System.out.println("Iso "+currentSprite.getCurrentX()+"  :  "+currentSprite.getCurrentY()+"  to   "+cartesian.x+"   :   "+cartesian.y);
 		//	proposedTile[cartesian.y][cartesian.x].isWalkable();
 		return true;
@@ -207,7 +237,7 @@ public void paint(Graphics g){
 		room = new Room(roomName);
 		this.repaint();
 	}
-	
+
 	public Tile getTile(int x, int y){
 		x+=offsetX; y+=offsetY;
 		Point cart = renderer.isoTo2D(new Point(x,y));
