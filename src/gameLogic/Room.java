@@ -3,6 +3,7 @@ package gameLogic;
 import gui.ClientFrame;
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.io.Serializable;
 import java.util.*;
 
@@ -11,9 +12,10 @@ import Renderer.Tile;
 public class Room implements Serializable{
 
 	//private List<Player> players = new ArrayList<Player>(); // the current players in this room
-	private List<Tile> spawnSpots = new ArrayList<Tile>(); //spawn spots in a room
+	private Tile spawnSpot; //spawn spots in a room
 	private List<Monster> monsters = new ArrayList<Monster>();	// the current alive monsters in this room
 	private List<Door> doors = new ArrayList<Door>();
+	private Point offSet;
 
 	private Tile[][] TileSet; // the grid setup
 	private String roomName;
@@ -49,11 +51,11 @@ public class Room implements Serializable{
 	public void setRoomName(String roomName) {
 		this.roomName = roomName;
 	}
-	public List<Tile> getSpawnSpots() {
-		return spawnSpots;
+	public Tile getSpawnSpots() {
+		return spawnSpot;
 	}
 	public void setSpawnSpots(Tile spawnspots) {
-		spawnSpots.add(spawnspots);
+		spawnSpot= spawnspots;
 	}
 
 	public List<Door> getDoors() {
@@ -62,6 +64,14 @@ public class Room implements Serializable{
 
 	public void addDoors(Door door) {
 		doors.add(door);
+	}
+
+	public Point getOffSet() {
+		return offSet;
+	}
+
+	public void setOffSet(Point offSet) {
+		this.offSet = offSet;
 	}
 
 }
