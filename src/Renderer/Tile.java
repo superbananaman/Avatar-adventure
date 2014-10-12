@@ -3,6 +3,7 @@ package Renderer;
 import gameLogic.Item;
 
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,10 +18,12 @@ private BufferedImage pickUpImage;
 private BufferedImage monsterImage;
 private boolean isWalkable = true;
 private Item item = null;
+private Point location;
 
 /*Use this class if the tile just has a background Image*/
-public Tile(BufferedImage backGroundImg){
+public Tile(BufferedImage backGroundImg,Point location){
 this.backGroundImage = backGroundImg;
+this.location = location;
 }
 
 public Image getBackGroundImage() {
@@ -103,6 +106,14 @@ public boolean isWalkable() {
  */
 public void setWalkable(boolean isWalkeable) {
 	this.isWalkable = isWalkeable;
+}
+
+public Point getLocation() {
+	return location;
+}
+
+public void setLocation(Point location) {
+	this.location = location;
 }
 
 
