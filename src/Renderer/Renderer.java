@@ -98,28 +98,30 @@ public class Renderer {
 		return tilesheet.getSubimage(x, y, 64, 64);
 	}
 
-	public Tile[][] parseTileSet(Room roomName){ System.out.println(roomName.getRoomName());
+	public Tile[][] parseTileSet(Room room){ System.out.println(room.getRoomName());
 		Tile[][] ts = new Tile[30][30];
 		try {
-			FileReader roomFile = new FileReader("maps/"+roomName.getRoomName()+".txt");
+			FileReader roomFile = new FileReader("maps/"+room.getRoomName()+".txt");
 			Scanner scan = new Scanner(roomFile);
-
-
+			System.out.println(scan.next()+"  Loading");
+			room.setOffSet(new Point(scan.nextInt(),scan.nextInt()));
+			
 			System.out.println(scan.next()+"  Loading");
 			for(int i =0; i <30; i++){
 				for(int j = 0; j <30; j++){
 					Tile temp = null;
 				int tile = scan.nextInt();
+				Point p = new Point(i,j);
 				switch(tile) {
-					case 0:								temp = new Tile(empty); 		break;
-					case 1: case 2: case 3:  			temp = new Tile(wall); temp.setWalkable(false); 	break;
-					case 4:							 	temp = new Tile(floor);			break;
-					case 5: 						 	temp = new Tile(Barrel);		break;
-					case 6:								temp = new Tile(rug);			break;
-					case 7: case 8:						temp = new Tile(crate);			break;
+					case 0:								temp = new Tile(empty,p); 		break;
+					case 1: case 2: case 3:  			temp = new Tile(wall,p); temp.setWalkable(false); 	break;
+					case 4:							 	temp = new Tile(floor,p);			break;
+					case 5: 						 	temp = new Tile(Barrel,p);		break;
+					case 6:								temp = new Tile(rug,p);			break;
+					case 7: case 8:						temp = new Tile(crate,p);			break;
 					case 9: case 10: case 11:
-					case 12: case 13: case 14:			temp = new Tile(door); roomName.addDoors(new Door(roomName, ""));	temp.setWalkable(false);		break;
-					case 99:							temp = new Tile(floor);  break;
+					case 12: case 13: case 14:			temp = new Tile(door,p); room.addDoors(new Door(room, ""));	temp.setWalkable(false);		break;
+					case 99:							temp = new Tile(floor,p); room.setSpawnSpots(temp);  break;
 
 				}
 				ts[i][j] = temp;
@@ -167,7 +169,7 @@ public class Renderer {
 
 				}
 			}
-			roomName.setMonsters(monsters);
+			room.setMonsters(monsters);
 
 		scan.close();
 

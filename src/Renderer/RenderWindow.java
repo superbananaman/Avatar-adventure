@@ -47,7 +47,7 @@ Graphics2D big;
 
 	Tile[][] testtileset;
 	Renderer renderer = new Renderer();
-	public int offsetX=-620;
+	public int offsetX=-620;  //default offset values
 	public int offsetY =250;
 
 	public int cameraOffsetX=0;
@@ -77,11 +77,19 @@ Graphics2D big;
 		addKeyListener(this);
 		setVisible(true);
 		room = new Room(RoomName);
-		setupTileset(room);
+		setupRoom(room);
 	}
 
-private void setupTileset(Room currentRoom) {
+private void setupRoom(Room currentRoom) {
 	room.setTileSet(renderer.parseTileSet(currentRoom));
+	offsetX=-620 + currentRoom.getOffSet().x;
+	offsetY=250 + currentRoom.getOffSet().y;
+	Point spawn = room.getSpawnSpots().getLocation();
+	for(Player p : players){
+		p.getSprite().setCurrentX(spawn.x);
+		p.getSprite().setCurrentY(spawn.y);
+	}
+	
 	}
 
 public void paint(Graphics g){
@@ -189,6 +197,11 @@ public void paint(Graphics g){
 			firstTime =true;
 			this.repaint();
 			}
+		if (e.getKeyCode() == KeyEvent.VK_SPACE ) {
+		
+			changeRoom("room2");
+			this.repaint();
+			}
 
 		
 			if (currentPlayer.equals(clientPlayer)){
@@ -232,6 +245,7 @@ public void paint(Graphics g){
 	public void changeRoom(String roomName){
 		firstTime =true;
 		room = new Room(roomName);
+		this.setupRoom(room);
 		this.repaint();
 	}
 

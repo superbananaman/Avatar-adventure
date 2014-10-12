@@ -28,6 +28,9 @@ public class Sprite implements Serializable{
 	public void addCurrentX(double d) {
 		this.currentX += d;
 	}
+	public void setCurrentX(double d) {
+		this.currentX = d;
+	}
 	/**
 	 * @return the currentY
 	 */
@@ -39,6 +42,9 @@ public class Sprite implements Serializable{
 	 */
 	public void addCurrentY(double d) {
 		this.currentY += d;
+	}
+	public void setCurrentY(double d) {
+		this.currentY = d;
 	}
 	/**
 	 * @return the facing
