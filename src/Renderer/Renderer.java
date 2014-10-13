@@ -111,20 +111,20 @@ public class Renderer {
 				for(int j = 0; j <30; j++){
 					Tile temp = null;
 				int tile = scan.nextInt();
-				Point p = new Point(i,j);
+				Point p = new Point(j,i);
 				switch(tile) {
-					case 0:								temp = new Tile(empty,p); 		break;
-					case 1: case 2: case 3:  			temp = new Tile(wall,p); temp.setWalkable(false); 	break;
-					case 4:							 	temp = new Tile(floor,p);			break;
-					case 5: 						 	temp = new Tile(Barrel,p);		break;
-					case 6:								temp = new Tile(rug,p);			break;
-					case 7: case 8:						temp = new Tile(crate,p);			break;
-					case 9:				temp = new Tile(door,p); room.addDoors(new Door(room, "bossroom",temp));	temp.setWalkable(false);		break;
-					case 10:			temp = new Tile(door,p); room.addDoors(new Door(room, "startroom",temp));	temp.setWalkable(false);		break;
-					case 11:			temp = new Tile(door,p); room.addDoors(new Door(room, "room1",temp));	temp.setWalkable(false);		break;
-					case 12:			temp = new Tile(door,p); room.addDoors(new Door(room, "room2",temp));	temp.setWalkable(false);		break;
-					case 13:			temp = new Tile(door,p); room.addDoors(new Door(room, "room4",temp));	temp.setWalkable(false);		break;
-					case 99:							temp = new Tile(floor,p); room.setSpawnSpots(temp);  break;
+					case 0:								temp = new Tile(empty,p,false); 												break;
+					case 1: case 2: case 3:  			temp = new Tile(wall,p,true);													break;
+					case 4:							 	temp = new Tile(floor,p,true);													break;
+					case 5: 						 	temp = new Tile(Barrel,p,true);													break;
+					case 6:								temp = new Tile(rug,p,true);													break;
+					case 7: case 8:						temp = new Tile(crate,p,true);													break;
+					case 9:								temp = new Tile(door,p,false); room.addDoors(new Door(room, "bossroom",temp));	break;
+					case 10:							temp = new Tile(door,p,false); room.addDoors(new Door(room, "startroom",temp));	break;
+					case 11:							temp = new Tile(door,p,false); room.addDoors(new Door(room, "room1",temp));		break;
+					case 12:							temp = new Tile(door,p,false); room.addDoors(new Door(room, "room2",temp));		break;
+					case 13:							temp = new Tile(door,p,false); room.addDoors(new Door(room, "room4",temp));		break;
+					case 99:							temp = new Tile(floor,p,true); room.setSpawnSpots(temp);  						break;
 
 				}
 				ts[i][j] = temp;
@@ -167,8 +167,7 @@ public class Renderer {
 
 					}
 					
-					ts[i][j].setMonsterImage(temp);
-					ts[i][j].setWalkable(false);
+					ts[i][j].setMonsterImage(temp);					
 
 				}
 			}
@@ -200,7 +199,8 @@ public class Renderer {
 	public void drawSpriteNonClientPlayer(Graphics2D g2, Player player,Sprite c) {
 		
 			Sprite sprite = player.getSprite();
-			g2.drawImage(getSpriteIso(sprite.getStep()%10, sprite.getFacing(), sprite.getName()),sprite.getCurrentX()+463-67-c.getOffsetX(), sprite.getCurrentY()+227+70-c.getOffsetY(),null);
+			g2.drawImage(getSpriteIso(sprite.getStep()%10, sprite.getFacing(), sprite.getName()),sprite.getCurrentX()+400-c.getOffsetX(), sprite.getCurrentY()+300-c.getOffsetY(),null);
+			//System.out.print((sprite.getCurrentX()+463-67-c.getOffsetX())+"  ;  "+( sprite.getCurrentY()+227+70-c.getOffsetY()));
 			
 		
 	}

@@ -83,11 +83,17 @@ public class Sprite implements Serializable{
 	public void addOffsetX(int offsetX) {
 		this.offsetX += offsetX;
 	}
+	public void setOffsetX(int offsetX) {
+		this.offsetX = offsetX;
+	}
 	public int getOffsetY() {
 		return offsetY;
 	}
 	public void addOffsetY(int offsetY) {
 		this.offsetY += offsetY;
+	}
+	public void setOffsetY(int offsetY) {
+		this.offsetY = offsetY;
 	}
 
 }

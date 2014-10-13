@@ -21,9 +21,10 @@ private Item item = null;
 private Point location;
 
 /*Use this class if the tile just has a background Image*/
-public Tile(BufferedImage backGroundImg,Point location){
+public Tile(BufferedImage backGroundImg,Point location, boolean walk){
 this.backGroundImage = backGroundImg;
 this.location = location;
+this.isWalkable = walk;
 }
 
 public Image getBackGroundImage() {

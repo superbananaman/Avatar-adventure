@@ -86,8 +86,9 @@ private void setupRoom(Room currentRoom) {
 	offsetY=250 + currentRoom.getOffSet().y;
 	Point spawn = room.getSpawnSpots().getLocation();
 	for(Player p : players){
-		p.getSprite().setCurrentX(renderer.twoDToIso(new Point(spawn.x,spawn.y)).x);
-		p.getSprite().setCurrentY(renderer.twoDToIso(new Point(spawn.x,spawn.y)).y);
+		p.getSprite().setCurrentX(0);
+		p.getSprite().setCurrentY(0);
+		p.getSprite().setOffsetX(currentRoom.getSpawnSpots().getLocation().x); p.getSprite().setOffsetY(currentRoom.getSpawnSpots().getLocation().y);
 	}
 	
 	}
@@ -142,6 +143,11 @@ public void paint(Graphics g){
 			offsetX-=4; offsetY-=2;
 			}
 			this.repaint();
+			if (currentPlayer.equals(clientPlayer)){
+				currentSprite.addOffsetX(cameraOffsetX);
+				currentSprite.addOffsetY(cameraOffsetY);
+				this.repaint();
+		}
 			}
 		}
 
@@ -157,6 +163,11 @@ public void paint(Graphics g){
 			offsetX+=4; offsetY+=2;
 			}
 			this.repaint();
+			if (currentPlayer.equals(clientPlayer)){
+				currentSprite.addOffsetX(cameraOffsetX);
+				currentSprite.addOffsetY(cameraOffsetY);
+				this.repaint();
+		}
 			}
 
 		}
@@ -172,6 +183,11 @@ public void paint(Graphics g){
 			offsetX-=4; offsetY+=2;
 			}
 			this.repaint();
+			if (currentPlayer.equals(clientPlayer)){
+				currentSprite.addOffsetX(cameraOffsetX);
+				currentSprite.addOffsetY(cameraOffsetY);
+				this.repaint();
+		}
 			}
 
 		}
@@ -188,6 +204,11 @@ public void paint(Graphics g){
 			}
 			//test++; System.out.println(test);
 			this.repaint();
+			if (currentPlayer.equals(clientPlayer)){
+				currentSprite.addOffsetX(cameraOffsetX);
+				currentSprite.addOffsetY(cameraOffsetY);
+				this.repaint();
+		}
 			}
 
 		}
@@ -204,17 +225,13 @@ public void paint(Graphics g){
 			}
 
 		
-			if (currentPlayer.equals(clientPlayer)){
-				currentSprite.addOffsetX(cameraOffsetX);
-				currentSprite.addOffsetY(cameraOffsetY);
-				this.repaint();
-		}
-			
-		for(int i=0; i <playersNonClient.size();i++){
-			System.out.print("Player:"+i+"  "+player.getUID()+"  "+ playersNonClient.get(i).getSprite().getCurrentX()+"   :   "+playersNonClient.get(i).getSprite().getCurrentY()+" to TILE[x][y]  ->  ");
-			System.out.println(renderer.isoTo2D(new Point(playersNonClient.get(i).getSprite().getCurrentX(),playersNonClient.get(i).getSprite().getCurrentY())));
 
-		}
+			
+		/*for(int i=0; i <playersNonClient.size();i++){
+			System.out.print("Player:"+i+"  "+player.getUID()+"  "+ playersNonClient.get(i).getSprite().getCurrentX()+"   :   "+playersNonClient.get(i).getSprite().getCurrentY()+" to TILE[x][y]  ->  ");
+			System.out.println(getTile(playersNonClient.get(i).getSprite().getCurrentX(),playersNonClient.get(i).getSprite().getCurrentY()).getLocation());
+
+		}*/
 
 
 		//Slave.sendPlayer(currentPlayer);
@@ -223,12 +240,14 @@ public void paint(Graphics g){
 	}
 
 	private boolean checkValidMove(Sprite currentSprite, int x, int y, Room room) {
-		Point cartesian = renderer.isoTo2D(new Point(currentSprite.getCurrentX()+x,currentSprite.getCurrentY()+y));
+		Point playerPoint = renderer.isoTo2D(new Point(currentSprite.getCurrentX()+x+20,currentSprite.getCurrentY()+y+20)); playerPoint.x += room.getSpawnSpots().getLocation().x; playerPoint.y += room.getSpawnSpots().getLocation().y;
+		if(playerPoint.x > 29 || playerPoint.y >29 ||playerPoint.x < 0 || playerPoint.y <0){
+			return false;
+			}
 		Tile[][] proposedTile = room.getTileSet();
-
-		//System.out.println("Iso "+currentSprite.getCurrentX()+"  :  "+currentSprite.getCurrentY()+"  to   "+cartesian.x+"   :   "+cartesian.y);
-		//	proposedTile[cartesian.y][cartesian.x].isWalkable();
-		return true;
+		//System.out.println("proposed tile is location : "+playerPoint);
+		return proposedTile[playerPoint.y][playerPoint.x].isWalkable();
+		
 
 		}
 
@@ -244,18 +263,23 @@ public void paint(Graphics g){
 
 	public void changeRoom(){
 		String nextRoom =null;
-		for(Door d : room.getDoors()){
-			Point door = d.getTile().getLocation();
-			Point player = renderer.isoTo2D(new Point(currentSprite.getCurrentX(),currentSprite.getCurrentY()));
-			System.out.println("Checking door in " +d.getRoom().getRoomName()+" to "+d.getNextRoom()+"  "+ door.toString() + "  " + player.toString()+door.distance(player));
-			boolean hasKey =(clientPlayer.getInventory().hasKey(d.getNextRoom())|| d.getNextRoom().equals("room1")|| d.getNextRoom().equals("startroom"));
-			if(door.distance(player) < 3&& hasKey){ 
-				nextRoom = d.getNextRoom();
+		for(Door door : room.getDoors()){
+			Point doorPoint = door.getTile().getLocation();
+			Point playerPoint = renderer.isoTo2D(new Point(currentSprite.getCurrentX(),currentSprite.getCurrentY())); playerPoint.x += room.getSpawnSpots().getLocation().x; playerPoint.y += room.getSpawnSpots().getLocation().y;
+			  
+			
+			
+					
+			System.out.println("Checking door in " +door.getRoom().getRoomName()+" to "+door.getNextRoom()+"\t  "+ doorPoint.toString() + "  " + playerPoint.toString()+"\t"+doorPoint.distance(playerPoint));
+			boolean hasKey =(clientPlayer.getInventory().hasKey(door.getNextRoom())|| door.getNextRoom().equals("room1")|| door.getNextRoom().equals("startroom"));
+			if(doorPoint.distance(playerPoint) < 3&& hasKey){ 
+				nextRoom = door.getNextRoom();
 				System.out.println("Changing to room : " +nextRoom.toString());
 				break;
 			}
 		}
 		if(nextRoom !=null){
+			System.out.println("Changing rooom now");
 		firstTime =true;
 		room = new Room(nextRoom);
 		this.setupRoom(room);
@@ -264,9 +288,14 @@ public void paint(Graphics g){
 	}
 
 	public Tile getTile(int x, int y){
-		x+=offsetX; y+=offsetY;
+		//Add the screen offset to get map position on canvas
+		
 		Point cart = renderer.isoTo2D(new Point(x,y));
-	return room.getTileSet()[cart.y][cart.x];
+		// Add the spawn offset
+		cart.x += room.getSpawnSpots().getLocation().x;
+		cart.y += room.getSpawnSpots().getLocation().y;
+
+	return room.getTileSet()[cart.x][cart.y];
 	}
 }
 
