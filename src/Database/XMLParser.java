@@ -40,6 +40,7 @@ public class XMLParser {
 				player.setmaxHealth(Integer.parseInt(playerElement.getChildText("maxHealth")));
 				player.setcurrentHealth(Integer.parseInt(playerElement.getChildText("currentHealth")));
 				player.setAlive(playerElement.getChildText("alive").equals("true"));
+				//do inventory items
 			}
 			//print all the player information
 			for (Player e : playerList){
@@ -50,7 +51,12 @@ public class XMLParser {
 			}
 	}
 
-
+	/**
+	 * @param filename to read game from
+	 * @return a jdom document
+	 * @throws JDOMException
+	 * @throws IOException
+	 */
 	public Document useSAXParser(String filename) throws JDOMException, IOException {
 	// creating JDOM document from SAX parser
 	SAXBuilder saxBuilder = new SAXBuilder();
