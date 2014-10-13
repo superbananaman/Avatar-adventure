@@ -34,18 +34,18 @@ public class Renderer {
 	private BufferedImage door = getIso(64*1,64*1);
 	private BufferedImage crate = getIso(64*3,64*5);
 	private BufferedImage skelly = getIso(64*4,64*1);
-	private BufferedImage boss1 = getIso(64*5,64*1);
-	private BufferedImage Banana = getIso(64*5,64*1);
-	private BufferedImage Apple = getIso(64*5,64*1);
-	private BufferedImage Mango = getIso(64*5,64*1);
-	private BufferedImage RedPot = getIso(64*5,64*1);
-	private BufferedImage ArmorHead = getIso(64*5,64*1);
-	private BufferedImage ArmorChest = getIso(64*5,64*1);
-	private BufferedImage ArmorLegs = getIso(64*5,64*1);
-	private BufferedImage KeyRoom2 = getIso(64*5,64*1);
-	private BufferedImage KeyRoom3 = getIso(64*5,64*1);
-	private BufferedImage KeyRoom4 = getIso(64*5,64*1);
-	private BufferedImage KeyRoom5 = getIso(64*5,64*1);
+	private BufferedImage boss1 = getIso(64*2,64*2);
+	private BufferedImage Banana = getIso(64*3,64*2);
+	private BufferedImage Apple = getIso(64*4,64*2);
+	private BufferedImage Mango = getIso(64,64*3);
+	private BufferedImage RedPot = getIso(64*2,64*3);
+	private BufferedImage ArmorHead = getIso(64*3,64*3);
+	private BufferedImage ArmorChest = getIso(64*4,64*3);
+	private BufferedImage ArmorLegs = getIso(64*5,64*3);
+	private BufferedImage KeyRoom2 = getIso(64*2,64*2);
+	private BufferedImage KeyRoom3 = getIso(64*2,64*2);
+	private BufferedImage KeyRoom4 = getIso(64*2,64*2);
+	private BufferedImage KeyRoom5 = getIso(64*2,64*2);
 	
 	
 
