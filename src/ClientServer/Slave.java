@@ -28,7 +28,7 @@ public class Slave extends Thread {
 	private Socket socket;
 
 	private static String uid;
-	// the player that this person chose
+	// the ClientPlayer
 	private Player player;
 	private static List<Player> players = new ArrayList<Player>();
 
@@ -46,11 +46,8 @@ public class Slave extends Thread {
 			e.printStackTrace();
 		}
 		uid = charName;
-
-		// TODO Create Player
 		System.out.println("Creating player with: " + charName);
 		player = new Player(charName);
-
 	}
 
 	/**
@@ -107,7 +104,7 @@ public class Slave extends Thread {
 								frame.getRenderWindow().receiveKeyEvent((KeyEvent) ob, p);
 							}
 						}
-						
+
 
 //					if (ob instanceof Integer) {
 //						Integer i = (Integer) ob;
@@ -135,6 +132,11 @@ public class Slave extends Thread {
 		}
 	}
 
+	/**
+	 * Returns the player with the UID given in the parameter
+	 * @param uid
+	 * @return
+	 */
 	public Player player(String uid){
 		for (Player p : players){
 			if (p.getUID().equals(uid)){
@@ -171,8 +173,8 @@ public class Slave extends Thread {
 	 */
 	public static void sendKeyEvent(KeyEvent e){
 		try {
-			
-			System.out.println("UID : " + uid);
+
+			//System.out.println("UID : " + uid);
 			out.writeObject(new UIDObjectPair(uid, e));
 //			int code = e.getKeyCode();
 //			if (code == KeyEvent.VK_UP) {
@@ -199,12 +201,12 @@ public class Slave extends Thread {
 	public static List<Player> getPlayers() {
 		return players;
 	}
-	
+
 	/**
 	 * Receive a player and update that player in the list
 	 * to the given player
 	 * @param player
-	 */	
+	 */
 	public static void sendPlayer(Player player){
 		for (Player p : players){
 			if (p.equals(player)){
