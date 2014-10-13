@@ -16,12 +16,12 @@ public class Game implements Serializable{
 
 
 	public Game(List<Player> players){
-		totalPlayers = players;
+		setTotalPlayers(players);
 		setUp();
 	}
 
 	public void setUp(){
-		setMonsterHealth(totalPlayers.size());
+		setMonsterHealth(getTotalPlayers().size());
 		addRoom();
 		//clientframe = new ClientFrame();
 
@@ -42,6 +42,14 @@ public void setMonsterHealth(int size) {
 		rooms.add(new Room("Room2"));
 		rooms.add(new Room("Room3"));
 		rooms.add(new Room("Bossroom"));
+	}
+
+	public List<Player> getTotalPlayers() {
+		return totalPlayers;
+	}
+
+	public void setTotalPlayers(List<Player> totalPlayers) {
+		this.totalPlayers = totalPlayers;
 	}
 
 

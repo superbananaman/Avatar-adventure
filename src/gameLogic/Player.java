@@ -72,12 +72,12 @@ public class Player implements Character, Serializable {
 	 */
 
 	public void setcurrentHealth(int h) {
-		if ((currentHealth + h) < maxHealth) {
-			currentHealth = currentHealth + h;
-		} else if ((currentHealth + h) > maxHealth) {
-			currentHealth = maxHealth;
-		} else if ((currentHealth + h) < 0) {
-			currentHealth = 0;
+		if ((getCurrentHealth() + h) < getMaxHealth()) {
+			setCurrentHealth(getCurrentHealth() + h);
+		} else if ((getCurrentHealth() + h) > getMaxHealth()) {
+			setCurrentHealth(getMaxHealth());
+		} else if ((getCurrentHealth() + h) < 0) {
+			setCurrentHealth(0);
 			Die();
 		}
 
@@ -90,7 +90,7 @@ public class Player implements Character, Serializable {
 
 	public void setmaxHealth(int h) {
 		if (isAlive()) {
-			maxHealth = maxHealth + h;
+			setMaxHealth(getMaxHealth() + h);
 		}
 	}
 
@@ -151,5 +151,21 @@ public class Player implements Character, Serializable {
 
 	public void setAlive(boolean isAlive) {
 		this.isAlive = isAlive;
+	}
+
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+
+	public void setMaxHealth(int maxHealth) {
+		this.maxHealth = maxHealth;
+	}
+
+	public int getCurrentHealth() {
+		return currentHealth;
+	}
+
+	public void setCurrentHealth(int currentHealth) {
+		this.currentHealth = currentHealth;
 	}
 }
