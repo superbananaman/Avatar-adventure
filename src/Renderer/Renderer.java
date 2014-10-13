@@ -49,6 +49,10 @@ public class Renderer {
 	
 	
 
+	/**Draws each Tile on the graphics pane from the tileset inside the Room r
+	 * @param g
+	 * @param r
+	 */
 	public void drawLevel(Graphics g, Room r) {
 		Tile[][] ts = r.getTileSet();
 		for (int i = 0; i < 30; i++) {
@@ -58,6 +62,11 @@ public class Renderer {
 		}
 	}
 
+	/**draws the tile and point isoPoint on Graphics g
+	 * @param tile
+	 * @param isoPoint
+	 * @param g
+	 */
 	private void placetile(Tile tile, Point isoPoint, Graphics g) {
 	if(tile != null){
 		g.drawImage(tile.getBackGroundImage(), isoPoint.x+1100, isoPoint.y+10, null);
@@ -75,12 +84,20 @@ public class Renderer {
 
 	}
 
+	/** Returns Point pt in 2D form on a cartesian grid
+	 * @param pt
+	 * @return
+	 */
 	public Point isoTo2D(Point pt) {
 		Point tempPt = new Point(0, 0);
 		tempPt.x = (pt.x / 32 + pt.y / 16)  /2;
 		tempPt.y = (pt.y / 16 -(pt.x / 32)) /2;
 		return (tempPt);
 	}
+	/** Returns Point pt in cartesian form to an isometric point on screen
+	 * @param pt
+	 * @return
+	 */
 	public Point twoDToIso(Point pt) {
 		Point tempPt = new Point(0, 0);
 		tempPt.x = ((pt.x - pt.y)*32);
@@ -88,6 +105,11 @@ public class Renderer {
 		return (tempPt);
 	}
 
+	/**Returns the subimage on the tile sheet at x,y
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public BufferedImage getIso(int x, int y) {
 		BufferedImage tilesheet = null;
 		try {
@@ -98,6 +120,10 @@ public class Renderer {
 		return tilesheet.getSubimage(x, y, 64, 64);
 	}
 
+	/**Populates the rooms tilesheet through a parses from room.txt
+	 * @param room
+	 * @return
+	 */
 	public Tile[][] parseTileSet(Room room){ System.out.println(room.getRoomName());
 		Tile[][] ts = new Tile[30][30];
 		try {
@@ -182,6 +208,12 @@ public class Renderer {
 		return ts;
 	}
 
+	/**
+	 * Takes all the players on the screen and sends to correct Draw method
+	 * @param g2
+	 * @param players
+	 * @param clientPlayer
+	 */
 	public void drawSprite(Graphics2D g2, List<Player> players, Player clientPlayer) {
 		for(Player player : players){
 			if(player.equals(clientPlayer))
@@ -190,12 +222,21 @@ public class Renderer {
 				drawSpriteNonClientPlayer(g2, player,clientPlayer.getSprite());		
 		}
 	}
+	/**Draws the sprite with client offsets
+	 * @param g2
+	 * @param player
+	 */
 	public void drawSpriteClientPlayer(Graphics2D g2, Player player) {		
 			Sprite sprite = player.getSprite();
 			g2.drawImage(getSpriteIso(sprite.getStep()%10, sprite.getFacing(), sprite.getName()),400,300,null);
 			
 		
 	}
+	/** Draws the sprite with non client offsetts
+  	 * @param g2
+	 * @param player
+	 * @param c
+	 */
 	public void drawSpriteNonClientPlayer(Graphics2D g2, Player player,Sprite c) {
 		
 			Sprite sprite = player.getSprite();
@@ -205,6 +246,12 @@ public class Renderer {
 		
 	}
 
+	/** Returns the image of the sprite according to step,direction and name
+	 * @param x
+	 * @param direction
+	 * @param currentSpriteName
+	 * @return
+	 */
 	public BufferedImage getSpriteIso(int x, String direction,String currentSpriteName) {
 		BufferedImage spriteSheet = null;
 		try {
@@ -216,6 +263,10 @@ public class Renderer {
 		return spriteSheet.getSubimage(x*(spriteSheet.getWidth()/10), 0, spriteSheet.getWidth()/10, spriteSheet.getHeight());
 	}
 
+	/** Rotates the tileset and returns the rotated tileset
+	 * @param room
+	 * @return
+	 */
 	public Tile[][] rotate(Room room) {
 		Tile[][] TileSet = room.getTileSet();
 		Tile[][] rotate = new Tile[30][30];

@@ -20,17 +20,29 @@ private boolean isWalkable = true;
 private Item item = null;
 private Point location;
 
-/*Use this class if the tile just has a background Image*/
+/**
+ * Create a new Tile with background Image location and walkable
+ * @param backGroundImg
+ * @param location
+ * @param walk
+ */
 public Tile(BufferedImage backGroundImg,Point location, boolean walk){
 this.backGroundImage = backGroundImg;
 this.location = location;
 this.isWalkable = walk;
 }
 
+/**
+ * @return the background Image
+ */
 public Image getBackGroundImage() {
 	return backGroundImage;
 }
 
+/**
+ * Set the background image
+ * @param img
+ */
 public void setBackGroundImage(BufferedImage img) {
 	this.backGroundImage = img;
 }
@@ -109,10 +121,17 @@ public void setWalkable(boolean isWalkeable) {
 	this.isWalkable = isWalkeable;
 }
 
+/**
+ * @return Location of the Tile
+ */
 public Point getLocation() {
 	return location;
 }
 
+/**
+ * Set the Location of the tile
+ * @param location
+ */
 public void setLocation(Point location) {
 	this.location = location;
 }

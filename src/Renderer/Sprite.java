@@ -70,30 +70,55 @@ public class Sprite implements Serializable{
 	public void step() {
 		this.step++;
 	}
+	/**
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
-	public Tile getTile(){
 
-		return null;
-	}
+	/** 
+	 * @return the offset x value
+	 */
 	public int getOffsetX() {
 		return offsetX;
 	}
+	/** adds offsetX to the current  offset
+	 * @param offsetX
+	 */
 	public void addOffsetX(int offsetX) {
 		this.offsetX += offsetX;
 	}
+	/**Replaces the offset X
+	 * @param offsetX
+	 */
 	public void setOffsetX(int offsetX) {
 		this.offsetX = offsetX;
 	}
+	/**
+	 * @return the offset Y
+	 */
 	public int getOffsetY() {
 		return offsetY;
 	}
+	/**Adds to the offset Y
+	 * @param offsetY
+	 */
 	public void addOffsetY(int offsetY) {
 		this.offsetY += offsetY;
 	}
+	/** Replaces the offsetY
+	 * @param offsetY
+	 */
 	public void setOffsetY(int offsetY) {
 		this.offsetY = offsetY;
+	}
+	
+	/**
+	 * @return null dont use, use renderer.getTile()
+	 */
+	public Tile getTile() {
+		return null;
 	}
 
 }

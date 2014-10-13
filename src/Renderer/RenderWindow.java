@@ -59,7 +59,12 @@ Graphics2D big;
 	private List<Player> players;
 	private Player clientPlayer;
 
-
+/**
+ * 
+ * @param RoomName
+ * @param uID
+ * @param players
+ */
 	public RenderWindow(String RoomName, String uID, ArrayList<Player> players) {
 		this.players = players;
 	
@@ -80,6 +85,9 @@ Graphics2D big;
 		setupRoom(room);
 	}
 
+/**Sets up the current room to be rendered to all sprites
+ * @param currentRoom
+ */
 private void setupRoom(Room currentRoom) {
 	room.setTileSet(renderer.parseTileSet(currentRoom));
 	offsetX=-620 + currentRoom.getOffSet().x;
@@ -92,12 +100,19 @@ private void setupRoom(Room currentRoom) {
 	}
 	
 	}
-
+/**The default method called each time the window is to be painted, Draws the background then calls update(g) to draw the level + sprites
+ * @param Graphics
+ */
 public void paint(Graphics g){
 	g.setColor(Color.black);
 	g.fillRect(0, 0, 2500, 2500);
 	update(g);
 }
+
+
+	/* (non-Javadoc)
+	 * @see javax.swing.JComponent#update(java.awt.Graphics)
+	 */
 	public void update(Graphics g) {
 	    Graphics2D g2 = (Graphics2D) g;
 	    //Draw Background once only
@@ -116,10 +131,17 @@ public void paint(Graphics g){
 	    //renderer.drawSpriteClientPlayer(g2, clientPlayer);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+	 */
 	public void keyPressed(KeyEvent e) {
 		Slave.sendKeyEvent(e);
 	}
 
+	/**Receives the key event from slave and process it for the specific client updating the player fields
+	 * @param e
+	 * @param player
+	 */
 	public void receiveKeyEvent(KeyEvent e, Player player){
 		Player currentPlayer = null;
 		
@@ -239,6 +261,13 @@ public void paint(Graphics g){
 
 	}
 
+	/**Returns if the tile the sprite is about to walk on is walkable
+	 * @param currentSprite
+	 * @param x
+	 * @param y
+	 * @param room
+	 * @return
+	 */
 	private boolean checkValidMove(Sprite currentSprite, int x, int y, Room room) {
 		Point playerPoint = renderer.isoTo2D(new Point(currentSprite.getCurrentX()+x+20,currentSprite.getCurrentY()+y+20)); playerPoint.x += room.getSpawnSpots().getLocation().x; playerPoint.y += room.getSpawnSpots().getLocation().y;
 		if(playerPoint.x > 29 || playerPoint.y >29 ||playerPoint.x < 0 || playerPoint.y <0){
@@ -261,6 +290,9 @@ public void paint(Graphics g){
 
 	}
 
+	/**
+	 * Changes the room, Checks if player is near a door then if the player has the key to unlock the door
+	 */
 	public void changeRoom(){
 		String nextRoom =null;
 		for(Door door : room.getDoors()){
@@ -287,6 +319,12 @@ public void paint(Graphics g){
 		}
 	}
 
+	/**
+	 * Returns the tile on x,y
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public Tile getTile(int x, int y){
 		//Add the screen offset to get map position on canvas
 		
