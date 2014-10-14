@@ -28,5 +28,9 @@ public class Potion implements Item {
 		p.setcurrentHealth(health);
 	}
 
+	public String getName() {
+		return type;
+	}
+
 
 }

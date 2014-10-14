@@ -38,4 +38,10 @@ public class Fruit implements Item{
 		this.type = type;
 	}
 
+
+	public String getName() {
+		return type;
+
+	}
+
 }

@@ -42,4 +42,8 @@ public class Armour implements Item{
 		this.type = type;
 	}
 
+	public String getName() {
+		return type;
+	}
+
 }

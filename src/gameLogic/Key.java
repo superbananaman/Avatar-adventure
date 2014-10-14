@@ -32,4 +32,9 @@ public class Key implements Item{
 		this.roomName = roomName;
 	}
 
+
+	public String getName() {
+		return roomName;
+	}
+
 }

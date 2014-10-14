@@ -6,6 +6,7 @@ public interface Item {
 
 	public void use(Player player);
 
+	public String getName();
 
 
 }

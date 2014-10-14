@@ -50,7 +50,10 @@ public class Inventory implements Serializable{
 		return false;
 	}
 	public Item get(int num){
+		if(getItems().size() > num){
 		return getItems().get(num);
+		}
+		return null;
 	}
 
 	public List<Item> getItems() {

@@ -53,20 +53,22 @@ public class Player implements Character, Serializable {
 	public void pickUp(Tile tile) {
 		 if (isAlive()) {
 		 if (tile.hasItem()) { // has item returns true if it is
-			 System.out.println("Item picked up");
-		 inventory.add(tile.getItem());
+			 System.out.println("Item picked up" + tile.getItem().getName());
 
+		 inventory.add(tile.getItem());
+		 Slave.sendPickupItem(tile.getItem(), tile);
 		 }
-		 tile.removeItem();
+
 
 		 }
 	}
 
 	public void dropItem(Item i ,Tile tile) {
-		tile.setItem(i);
+		if(i != null){
+		Slave.sendDropItem(i, tile);
 		getInventory().remove(i);
 		System.out.println("Removed item");
-
+		}
 	}
 
 	/**
