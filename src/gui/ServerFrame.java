@@ -84,7 +84,7 @@ public class ServerFrame extends JFrame implements ActionListener{
 //				int num = Integer.parseInt(portText.getText());
 //				int cli = Integer.parseInt(clientText.getText());
 //				System.out.println("Starting server on port "+num+" with max clients "+cli);
-				server = new Server(2, 14141);
+				server = new Server(1, 14141);
 				server.start();
 //			} catch (NumberFormatException nfe) {
 //				//System.out.println("Starting server on port "+defaultPort);

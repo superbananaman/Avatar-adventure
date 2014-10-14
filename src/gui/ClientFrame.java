@@ -158,6 +158,8 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
 		}
 		else if(e.getSource() instanceof JPanel){
 			textArea.append("\n" + ((JPanel) e.getSource()).getName());
+			int number = Integer.parseInt(((JPanel) e.getSource()).getName());
+			renderWindow.setSelectedSpace(number);
 			//currentPlayer.getInventory(parse int -> e.getSource().getName());
 		}
 	}
