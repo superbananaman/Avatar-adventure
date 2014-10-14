@@ -67,6 +67,10 @@ public class MainFrame extends JFrame {
 		b = new JButton("About");
 		b.setLocation((width-buttonWidth)/2,fromTop+buttonHeight*numButtons+spacing*numButtons);
 		b.setSize(buttonWidth,buttonHeight);
+		b.addActionListener(new ActionListener(){
+		      public void actionPerformed(ActionEvent evt) {
+		           new AboutFrame();
+				}});
 		numButtons++;
 		pane.add(b);
 

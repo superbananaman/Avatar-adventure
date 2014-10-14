@@ -8,11 +8,13 @@ public class Boss implements Monster{
 
 	private Tile tile;
 	private int health;
+	private String name;
 
 
 	public Boss(Tile tile, int players){
 		setTile(tile);
 		health = players*5000;
+		setName("Boss");
 	}
 
 
@@ -41,6 +43,16 @@ public class Boss implements Monster{
 	}
 	public int ulti(){
 		return 9001;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 

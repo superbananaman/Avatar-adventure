@@ -7,11 +7,13 @@ import Renderer.Tile;
 public class Skeleton implements Monster{
 
 	private Tile tile;
+	private String name;
 	private int health;
 
 
 	public Skeleton(Tile tile){
 		setTile(tile);
+		setName("Skeleton");
 
 
 	}
@@ -42,6 +44,16 @@ public class Skeleton implements Monster{
 
 	public int bite(){
 		return 150;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 
