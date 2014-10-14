@@ -25,7 +25,7 @@ public class MainFrame extends JFrame {
 
 		BufferedImage img = null;
 		try {
-			img = ImageIO.read(new File("background/mainBackground.jpg"));
+			img = ImageIO.read(new File("background/betterBackground.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
