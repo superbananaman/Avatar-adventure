@@ -164,19 +164,19 @@ public class Renderer {
 					Item tempItem =null;
 					int tile = scan.nextInt();
 					switch(tile) {
-					case 0: tempItem = new Fruit(ts[i][j], "Banana");		temp = Banana;		break;
-					case 1: tempItem = new Fruit(ts[i][j], "Apple");		temp = Apple;		break;
-					case 2: tempItem = new Fruit(ts[i][j], "Mango");		temp = Mango;		break;
-					case 3: tempItem = new Fruit(ts[i][j], "RedPot");		temp = RedPot;		break;
-					case 4: tempItem = new Armour(ts[i][j], "ArmorHead");	temp = ArmorHead;	break;
-					case 5: tempItem = new Armour(ts[i][j], "ArmorChest");	temp = ArmorChest;	break;
-					case 6: tempItem = new Armour(ts[i][j], "ArmorLegs");	temp = ArmorLegs;	break;
-					case 7: tempItem = new Key(ts[i][j], "Room2");		temp = KeyRoom2;	break;
-					case 8: tempItem = new Key(ts[i][j], "Room3");		temp = KeyRoom3;	break;
-					case 9: tempItem = new Key(ts[i][j], "Room4");		temp = KeyRoom4;	break;
-					case 10: tempItem = new Key(ts[i][j],"bossroom");		temp = KeyRoom5;	break;
+					case 0: tempItem = new Fruit(ts[i][j], "Banana");		temp = Banana;	items.add(tempItem);	break;
+					case 1: tempItem = new Fruit(ts[i][j], "Apple");		temp = Apple;		items.add(tempItem);	break;
+					case 2: tempItem = new Fruit(ts[i][j], "Mango");		temp = Mango;		items.add(tempItem);	break;
+					case 3: tempItem = new Fruit(ts[i][j], "RedPot");		temp = RedPot;		items.add(tempItem);	break;
+					case 4: tempItem = new Armour(ts[i][j], "ArmorHead");	temp = ArmorHead;	items.add(tempItem);	break;
+					case 5: tempItem = new Armour(ts[i][j], "ArmorChest");	temp = ArmorChest;	items.add(tempItem);	break;
+					case 6: tempItem = new Armour(ts[i][j], "ArmorLegs");	temp = ArmorLegs;	items.add(tempItem);	break;
+					case 7: tempItem = new Key(ts[i][j], "Room2");		temp = KeyRoom2;	items.add(tempItem);	break;
+					case 8: tempItem = new Key(ts[i][j], "Room3");		temp = KeyRoom3;	items.add(tempItem);	break;
+					case 9: tempItem = new Key(ts[i][j], "Room4");		temp = KeyRoom4;	items.add(tempItem);	break;
+					case 10: tempItem = new Key(ts[i][j],"bossroom");		temp = KeyRoom5;	items.add(tempItem);	break;
 					}
-					items.add(tempItem);
+
 					ts[i][j].setPickUpImage(temp);
 					ts[i][j].setItem(tempItem);
 
@@ -199,6 +199,7 @@ public class Renderer {
 				}
 			}
 			room.setMonsters(monsters);
+			room.setItems(items);
 
 		scan.close();
 

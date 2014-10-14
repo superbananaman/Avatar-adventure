@@ -19,6 +19,7 @@ import java.awt.image.BufferedImageOp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -292,13 +293,36 @@ public class RenderWindow extends JPanel implements KeyListener {
 			this.repaint();
 		}
 		if (e.getKeyCode() == KeyEvent.VK_O) {
+
 			Point playerPoint = renderer.isoTo2D(new Point(currentSprite.getCurrentX(), currentSprite.getCurrentY())); playerPoint.x += room.getSpawnSpots().getLocation().x; playerPoint.y += room.getSpawnSpots().getLocation().y;
 			if (selectedSpace != -1) {
 				Item item = currentPlayer.getInventory().get(selectedSpace);
 				currentPlayer.dropItem(item,room.getTileSet()[playerPoint.x][playerPoint.y]);
 				item.getTile().setLocation(new Point(playerPoint.x,playerPoint.y));
 				room.getItems().add(item);
-				room.getTileSet()[playerPoint.x][playerPoint.y].setPickUpImage(renderer.item.getName());
+
+				String name = item.getName();
+
+				BufferedImage temp = null;
+				if(name.equals("Apple")){
+					temp = renderer.Apple;
+	        	}else if(name.equals("Banana")){
+	        		temp = renderer.Banana;
+	        	}else if(name.equals("Mango")){
+	        		temp = renderer.Mango;
+	        	}else if(name.equals("RedPot")){
+	        		temp = renderer.RedPot;
+	        	}else if(name.equals("ArmorHead")){
+	        		temp = renderer.ArmorHead;
+	        	}else if(name.equals("ArmorChest")){
+	        		temp = renderer.ArmorChest;
+	        	}else if(name.equals("ArmorLegs")){
+	        		temp = renderer.ArmorLegs;
+	        	}else {
+	        		temp = renderer.KeyRoom2;
+	        	}
+				room.getTileSet()[playerPoint.y][playerPoint.x].setPickUpImage(temp);
+
 			}
 			firstTime = true;
 			this.repaint();
