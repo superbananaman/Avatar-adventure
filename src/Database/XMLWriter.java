@@ -6,6 +6,7 @@ import java.util.List;
 
 import gameLogic.Game;
 import gameLogic.Item;
+import gameLogic.Monster;
 import gameLogic.Player;
 
 import org.jdom2.Document;
@@ -29,7 +30,6 @@ public class XMLWriter {
 	 * states, as well as the rooms, monsters etc.
 	 */
 	public void writeToXML() {
-
 		try {
 			Element game = new Element("game");
 			Document doc = new Document(game);
@@ -41,6 +41,27 @@ public class XMLWriter {
 				player.addContent(new Element("maxHealth").setText(Integer.toString(p.getMaxHealth())));
 				player.addContent(new Element("currentHealth").setText(Integer.toString(p.getCurrentHealth())));
 				player.addContent(new Element("alive").setText(Boolean.toString(p.isAlive())));
+
+				Element sprite = new Element("sprite");
+				sprite.addContent(new Element("spriteName").setText(p.getSprite().getName()));
+				sprite.addContent(new Element("spriteX").setText(Integer.toString(p.getSprite().getCurrentX())));
+				sprite.addContent(new Element("spriteY").setText(Integer.toString(p.getSprite().getCurrentY())));
+				player.addContent(sprite);
+
+				//Loops through the room the player is in
+				Element rm = new Element("room");
+				rm.addContent(new Element("roomName").setText(p.getCurrentRoom().getRoomName()));
+				Element monst = new Element("monsters");
+				for(Monster m : p.getCurrentRoom().getMonsters()){
+					Element monster = new Element("monster");
+					monster.addContent(new Element("monsterType").setText(m.getName()));
+					monster.addContent(new Element("positionX").setText(Double.toString(m.getTile().getLocation().getX())));
+					monster.addContent(new Element("positionY").setText(Double.toString(m.getTile().getLocation().getY())));
+					monster.addContent(new Element("playerCount").setText(Integer.toString(currentPlayers.size())));
+					monst.addContent(monster);
+				}
+				rm.addContent(monst);
+				player.addContent(rm);
 				Element inv = new Element("inventory");
 				//for each player goes through their inventory
 				for (Item item : p.getInventory().getItems()) {
