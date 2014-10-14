@@ -11,6 +11,9 @@ public interface Item extends Serializable{
 
 	public String getName();
 	public Tile getTile();
+	public void setTile(Tile t);
+
+
 
 
 }

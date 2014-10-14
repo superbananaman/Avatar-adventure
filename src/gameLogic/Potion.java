@@ -30,6 +30,10 @@ public class Potion implements Item {
 	public Tile getTile() {
 		return tile;
 	}
+	public void setTile(Tile t) {
+		this.tile = t;
+	}
+
 
 
 }

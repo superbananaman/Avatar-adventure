@@ -298,8 +298,10 @@ public class RenderWindow extends JPanel implements KeyListener {
 			if (selectedSpace != -1) {
 
 				Item item = currentPlayer.getInventory().get(selectedSpace);
-				currentPlayer.dropItem(item,room.getTileSet()[playerPoint.x][playerPoint.y]);
-				item.getTile().setLocation(new Point(playerPoint.x,playerPoint.y));
+				if(item != null){
+				currentPlayer.dropItem(item,room.getTileSet()[playerPoint.y][playerPoint.x]);
+
+				item.setTile(room.getTileSet()[playerPoint.y][playerPoint.x]);
 				room.getItems().add(item);
 
 				String name = item.getName();
@@ -328,6 +330,7 @@ public class RenderWindow extends JPanel implements KeyListener {
 			firstTime = true;
 			this.repaint();
 			currentPlayer.getInventory().setSelectedSpace(-1);
+			}
 		}
 
 		/*

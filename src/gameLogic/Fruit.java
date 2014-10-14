@@ -33,6 +33,9 @@ public class Fruit implements Item{
 		return type;
 	}
 
+	public void setTile(Tile t) {
+		this.tile = t;
+	}
 
 	public void setType(String type) {
 		this.type = type;

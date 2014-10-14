@@ -39,8 +39,12 @@ public class Key implements Item{
 
 
 	public Tile getTile() {
-		// TODO Auto-generated method stub
 		return tile;
+	}
+
+
+	public void setTile(Tile t) {
+		this.tile = t;
 	}
 
 }
