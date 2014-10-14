@@ -302,6 +302,7 @@ public class RenderWindow extends JPanel implements KeyListener {
 				currentPlayer.dropItem(item,room.getTileSet()[playerPoint.y][playerPoint.x]);
 
 				item.setTile(room.getTileSet()[playerPoint.y][playerPoint.x]);
+				room.getTileSet()[playerPoint.y][playerPoint.x].setItem(item);
 				room.getItems().add(item);
 
 				String name = item.getName();
