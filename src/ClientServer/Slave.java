@@ -1,5 +1,6 @@
 package ClientServer;
 
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
@@ -121,7 +122,7 @@ public class Slave extends Thread {
 				else if (o instanceof String){
 					String command = (String)o;
 					UIDObjectPair itemPair = (UIDObjectPair)in.readObject();
-					UIDObjectPair tilePair = (UIDObjectPair)in.readObject();
+					UIDObjectPair tileLocationPair = (UIDObjectPair)in.readObject();
 					if (command.equals("Pickup")){
 						// TODO Pickup item
 					}
@@ -194,12 +195,18 @@ public class Slave extends Thread {
 			ioe.printStackTrace();
 		}
 	}
-
-	public static void sendPickupItem(Item i, Tile t){
+	/**
+	 * Sends a String to the server which represents that an item has been picked up,
+	 * then sends the item being picked up and a location that represents the position
+	 * of the tile
+	 * @param i
+	 * @param location
+	 */
+	public static void sendPickupItem(Item i, Point location){
 		try {
 			out.writeObject(new String("Pickup"));
 			out.writeObject(new UIDObjectPair(uid, i));
-			out.writeObject(new UIDObjectPair(uid, t));
+			out.writeObject(new UIDObjectPair(uid, location));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -207,11 +214,18 @@ public class Slave extends Thread {
 
 	}
 
-	public static void sendDropItem(Item i, Tile t){
+	/**
+	 * Sends a String to the server which represents that an item has been picked up,
+	 * then sends the item being picked up and a location that represents the position
+	 * of the tile
+	 * @param i
+	 * @param location
+	 */
+	public static void sendDropItem(Item i, Point location){
 		try {
 			out.writeObject(new String("Drop"));
 			out.writeObject(new UIDObjectPair(uid, i));
-			out.writeObject(new UIDObjectPair(uid, t));
+			out.writeObject(new UIDObjectPair(uid, location));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
