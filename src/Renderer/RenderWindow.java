@@ -293,9 +293,10 @@ public class RenderWindow extends JPanel implements KeyListener {
 			this.repaint();
 		}
 		if (e.getKeyCode() == KeyEvent.VK_O) {
-
+			selectedSpace = currentPlayer.getInventory().getSelectedSpace();
 			Point playerPoint = renderer.isoTo2D(new Point(currentSprite.getCurrentX(), currentSprite.getCurrentY())); playerPoint.x += room.getSpawnSpots().getLocation().x; playerPoint.y += room.getSpawnSpots().getLocation().y;
 			if (selectedSpace != -1) {
+
 				Item item = currentPlayer.getInventory().get(selectedSpace);
 				currentPlayer.dropItem(item,room.getTileSet()[playerPoint.x][playerPoint.y]);
 				item.getTile().setLocation(new Point(playerPoint.x,playerPoint.y));
@@ -326,6 +327,7 @@ public class RenderWindow extends JPanel implements KeyListener {
 			}
 			firstTime = true;
 			this.repaint();
+			currentPlayer.getInventory().setSelectedSpace(-1);
 		}
 
 		/*
@@ -434,11 +436,4 @@ public class RenderWindow extends JPanel implements KeyListener {
 		return room.getTileSet()[cart.y][cart.x];
 	}
 
-	public int getSelectedSpace() {
-		return selectedSpace;
-	}
-
-	public void setSelectedSpace(int selectedSpace) {
-		this.selectedSpace = selectedSpace;
-	}
 }
