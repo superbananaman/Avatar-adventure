@@ -102,6 +102,10 @@ public class Slave extends Thread {
 					Object ob = pair.getObject();
 					// A player had pressed a key
 					if (ob instanceof KeyEvent){
+						KeyEvent ke = (KeyEvent)ob;
+						if (ke.getKeyCode() == KeyEvent.VK_P || ke.getKeyCode() == KeyEvent.VK_O){
+							frame.updateInventory();
+						}
 						for (Player p : players){
 							if (p.getUID().equals(playerUID)){
 								frame.getRenderWindow().receiveKeyEvent((KeyEvent) ob, p);
