@@ -26,26 +26,26 @@ import gameLogic.Skeleton;
 
 public class Renderer {
 //BufferedImages for ISO tiles
-	private BufferedImage empty= getIso(64,64*2);
-	private BufferedImage wall= getIso(0,0);
-	private BufferedImage floor = getIso(0,64*5);
-	private BufferedImage Barrel = getIso(64*9,64*5);
-	private BufferedImage rug = getIso(64*4,64*0);
-	private BufferedImage door = getIso(64*1,64*1);
-	private BufferedImage crate = getIso(64*3,64*5);
-	private BufferedImage skelly = getIso(64*4,64*1);
-	private BufferedImage boss1 = getIso(64*2,64*2);
-	private BufferedImage Banana = getIso(64*3,64*2);
-	private BufferedImage Apple = getIso(64*4,64*2);
-	private BufferedImage Mango = getIso(64,64*3);
-	private BufferedImage RedPot = getIso(64*2,64*3);
-	private BufferedImage ArmorHead = getIso(64*3,64*3);
-	private BufferedImage ArmorChest = getIso(64*4,64*3);
-	private BufferedImage ArmorLegs = getIso(64*5,64*3);
-	private BufferedImage KeyRoom2 = getIso(64*2,64*2);
-	private BufferedImage KeyRoom3 = getIso(64*2,64*2);
-	private BufferedImage KeyRoom4 = getIso(64*2,64*2);
-	private BufferedImage KeyRoom5 = getIso(64*2,64*2);
+	final BufferedImage empty= getIso(64,64*2);
+	final BufferedImage wall= getIso(0,0);
+	final BufferedImage floor = getIso(0,64*5);
+	final BufferedImage Barrel = getIso(64*9,64*5);
+	final BufferedImage rug = getIso(64*4,64*0);
+	final BufferedImage door = getIso(64*1,64*1);
+	final BufferedImage crate = getIso(64*3,64*5);
+	final BufferedImage skelly = getIso(64*4,64*1);
+	final BufferedImage boss1 = getIso(64*2,64*2);
+	public final BufferedImage Banana = getIso(64*3,64*2);
+	public final BufferedImage Apple = getIso(64*4,64*2);
+	public final BufferedImage Mango = getIso(64,64*3);
+	public final BufferedImage RedPot = getIso(64*2,64*3);
+	public final BufferedImage ArmorHead = getIso(64*3,64*3);
+	public final BufferedImage ArmorChest = getIso(64*4,64*3);
+	public final BufferedImage ArmorLegs = getIso(64*5,64*3);
+	public final BufferedImage KeyRoom2 = getIso(64*2,64*2);
+	public final BufferedImage KeyRoom3 = getIso(64*2,64*2);
+	public final BufferedImage KeyRoom4 = getIso(64*2,64*2);
+	public final BufferedImage KeyRoom5 = getIso(64*2,64*2);
 
 
 

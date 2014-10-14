@@ -19,7 +19,7 @@ public class Inventory implements Serializable{
 	}
 
 	public void add(Item i){
-		if(getItems().size()<10){
+		if(getItems().size()<27){
 
 
 		getItems().add(i);
