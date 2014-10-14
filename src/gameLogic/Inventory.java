@@ -8,6 +8,7 @@ import java.util.List;
 public class Inventory implements Serializable{
 
 	private List<Item> items = new ArrayList<Item>();
+	public int selectedSpace = -1;
 
 
 	public Inventory(){
@@ -62,6 +63,14 @@ public class Inventory implements Serializable{
 
 	public void setItems(List<Item> items) {
 		this.items = items;
+	}
+
+	public int getSelectedSpace() {
+		return selectedSpace;
+	}
+
+	public void setSelectedSpace(int selectedSpace) {
+		this.selectedSpace = selectedSpace;
 	}
 
 }

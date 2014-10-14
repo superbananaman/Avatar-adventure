@@ -166,7 +166,8 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
         else if(e.getSource() instanceof JLabel){
             textArea.append("\n" + ((JLabel) e.getSource()).getName());
             int number = Integer.parseInt(((JLabel) e.getSource()).getName());
-            renderWindow.setSelectedSpace(number);
+            currentPlayer.getInventory().setSelectedSpace(number);
+            inventory.get(number).setBorder(BorderFactory.createLineBorder(Color.YELLOW));
             updateInventory();
             //this.selectedItem = number;
         }
