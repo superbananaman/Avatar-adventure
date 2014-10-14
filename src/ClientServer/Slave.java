@@ -121,13 +121,16 @@ public class Slave extends Thread {
 				// if the item has been picked up or dropped
 				else if (o instanceof String){
 					String command = (String)o;
-					UIDObjectPair itemPair = (UIDObjectPair)in.readObject();
-					UIDObjectPair tileLocationPair = (UIDObjectPair)in.readObject();
+					//UIDObjectPair itemPair = (UIDObjectPair)in.readObject();
+
 					if (command.equals("Pickup")){
 						// TODO Pickup item
+						UIDObjectPair tileLocationPair = (UIDObjectPair)in.readObject();
 					}
 					else if(command.equals("Drop")){
 						// TODO Drop item
+						UIDObjectPair ItemNamePair  = (UIDObjectPair)in.readObject();
+						UIDObjectPair tileLocationPair = (UIDObjectPair)in.readObject();
 					}
 				}
 			}
@@ -202,10 +205,10 @@ public class Slave extends Thread {
 	 * @param i
 	 * @param location
 	 */
-	public static void sendPickupItem(Item i, Point location){
+	public static void sendPickupItem(Point location){
 		try {
 			out.writeObject(new String("Pickup"));
-			out.writeObject(new UIDObjectPair(uid, i));
+		//out.writeObject(new UIDObjectPair(uid, i));
 			out.writeObject(new UIDObjectPair(uid, location));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -221,10 +224,10 @@ public class Slave extends Thread {
 	 * @param i
 	 * @param location
 	 */
-	public static void sendDropItem(Item i, Point location){
+	public static void sendDropItem(String name, Point location){
 		try {
 			out.writeObject(new String("Drop"));
-			out.writeObject(new UIDObjectPair(uid, i));
+			out.writeObject(new UIDObjectPair(uid, name));
 			out.writeObject(new UIDObjectPair(uid, location));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
