@@ -2,6 +2,7 @@ package Database;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 import gameLogic.Game;
 import gameLogic.Item;
@@ -15,11 +16,12 @@ import org.jdom2.output.XMLOutputter;
 public class XMLWriter {
 
 	private String fileName;
-	private Game currentGame;
+	private List<Player> currentPlayers;
 
-	public XMLWriter(String filename, Game g) {
+	public XMLWriter(String filename, List<Player> players) {
 		fileName = filename;
-		currentGame = g;
+		currentPlayers = players;
+		writeToXML();
 	}
 
 	/**
@@ -32,7 +34,7 @@ public class XMLWriter {
 			Element game = new Element("game");
 			Document doc = new Document(game);
 			//loops through all the players in the game
-			for (Player p : currentGame.getTotalPlayers()) {
+			for (Player p : currentPlayers) {
 				Element player = new Element("player");
 				player.addContent(new Element("nation").setText(p.getNation()));
 				player.addContent(new Element("name").setText(p.getUID()));
@@ -42,7 +44,7 @@ public class XMLWriter {
 				Element inv = new Element("inventory");
 				//for each player goes through their inventory
 				for (Item item : p.getInventory().getItems()) {
-					inv.addContent(new Element("item").setText(item.toString()));
+					inv.addContent(new Element("item").setText(item.getName()));
 				}
 				player.addContent(inv);
 				doc.getRootElement().addContent(player);
