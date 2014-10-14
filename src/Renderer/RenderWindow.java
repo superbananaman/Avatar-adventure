@@ -46,7 +46,7 @@ public class RenderWindow extends JPanel implements KeyListener {
 	Room room;
 
 	Tile[][] testtileset;
-	Renderer renderer = new Renderer();
+	public Renderer renderer = new Renderer();
 	public int offsetX = -620; // default offset values
 	public int offsetY = 250;
 
@@ -274,17 +274,34 @@ public class RenderWindow extends JPanel implements KeyListener {
 			this.repaint();
 		}
 		if (e.getKeyCode() == KeyEvent.VK_P) {
-			currentPlayer.pickUp(getTile(currentSprite.getCurrentX(),
-					currentSprite.getCurrentY()));
+			Tile itemTile = null;
+			Point playerPoint = renderer.isoTo2D(new Point(currentSprite.getCurrentX(), currentSprite.getCurrentY())); playerPoint.x += room.getSpawnSpots().getLocation().x; playerPoint.y += room.getSpawnSpots().getLocation().y;
+			for(Item i : room.getItems()){
+				Point location = i.getTile().getLocation();
+				if(location.distance(playerPoint) < 2){
+					itemTile = i.getTile();
+					room.getItems().remove(i);
+					i.getTile().setPickUpImage(null);
+					currentPlayer.pickUp(itemTile);
+					break;
+
+				}
+
+			}
+			firstTime=true;
 			this.repaint();
 		}
 		if (e.getKeyCode() == KeyEvent.VK_O) {
+			Point playerPoint = renderer.isoTo2D(new Point(currentSprite.getCurrentX(), currentSprite.getCurrentY())); playerPoint.x += room.getSpawnSpots().getLocation().x; playerPoint.y += room.getSpawnSpots().getLocation().y;
 			if (selectedSpace != -1) {
-				currentPlayer.dropItem(
-						currentPlayer.getInventory().get(selectedSpace),
-						getTile(currentSprite.getCurrentX(),
-								currentSprite.getCurrentY()));
+				Item item = currentPlayer.getInventory().get(selectedSpace);
+				currentPlayer.dropItem(item,room.getTileSet()[playerPoint.x][playerPoint.y]);
+				item.getTile().setLocation(new Point(playerPoint.x,playerPoint.y));
+				room.getItems().add(item);
+				room.getTileSet()[playerPoint.x][playerPoint.y].setPickUpImage(renderer.item.getName());
 			}
+			firstTime = true;
+			this.repaint();
 		}
 
 		/*
@@ -314,8 +331,7 @@ public class RenderWindow extends JPanel implements KeyListener {
 	 * @return
 	 */
 	private boolean checkValidMove(Sprite currentSprite, int x, int y, Room room) {
-		Point playerPoint = renderer.isoTo2D(new Point(currentSprite
-				.getCurrentX() + x + 20, currentSprite.getCurrentY() + y + 20));
+		Point playerPoint = renderer.isoTo2D(new Point(currentSprite.getCurrentX() + x + 20, currentSprite.getCurrentY() + y + 20));
 		playerPoint.x += room.getSpawnSpots().getLocation().x;
 		playerPoint.y += room.getSpawnSpots().getLocation().y;
 		if (playerPoint.x > 29 || playerPoint.y > 29 || playerPoint.x < 0

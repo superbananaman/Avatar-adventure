@@ -37,4 +37,10 @@ public class Key implements Item{
 		return roomName;
 	}
 
+
+	public Tile getTile() {
+		// TODO Auto-generated method stub
+		return tile;
+	}
+
 }

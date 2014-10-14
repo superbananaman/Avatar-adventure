@@ -15,6 +15,7 @@ public class Room implements Serializable{
 	private Tile spawnSpot; //spawn spots in a room
 	private List<Monster> monsters = new ArrayList<Monster>();	// the current alive monsters in this room
 	private List<Door> doors = new ArrayList<Door>();
+	private List<Item> items = new ArrayList<Item>();
 	private Point offSet;
 
 	private Tile[][] TileSet; // the grid setup
@@ -72,6 +73,14 @@ public class Room implements Serializable{
 
 	public void setOffSet(Point offSet) {
 		this.offSet = offSet;
+	}
+
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
 	}
 
 }

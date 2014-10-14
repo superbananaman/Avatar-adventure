@@ -44,4 +44,10 @@ public class Fruit implements Item{
 
 	}
 
+
+	public Tile getTile() {
+		// TODO Auto-generated method stub
+		return tile;
+	}
+
 }

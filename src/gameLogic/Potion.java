@@ -15,13 +15,8 @@ public class Potion implements Item {
 	public Potion(Tile pos, String Type){
 		tile = pos;
 		type = Type;
-		if(type == "average"){ // types of potions
-			health = 200;
-		}else if(type == "mega"){
-			health = 500;
-		}else if(type == "ultimate"){
-			health = 1000;
-		}
+		health = 700;
+
 	}
 
 	public void use(Player p){
@@ -30,6 +25,10 @@ public class Potion implements Item {
 
 	public String getName() {
 		return type;
+	}
+
+	public Tile getTile() {
+		return tile;
 	}
 
 
