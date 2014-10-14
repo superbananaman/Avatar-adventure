@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Renderer.Sprite;
+import Renderer.Tile;
 import tests.Circle;
 import gameLogic.Game;
 import gameLogic.Item;
@@ -116,6 +117,18 @@ public class Slave extends Thread {
 						//TODO Send the item to the game so it can be picked up
 					}
 				}
+				// if the item has been picked up or dropped
+				else if (o instanceof String){
+					String command = (String)o;
+					UIDObjectPair itemPair = (UIDObjectPair)in.readObject();
+					UIDObjectPair tilePair = (UIDObjectPair)in.readObject();
+					if (command.equals("Pickup")){
+						// TODO Pickup item
+					}
+					else if(command.equals("Drop")){
+						// TODO Drop item
+					}
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -152,7 +165,7 @@ public class Slave extends Thread {
 		try {
 			out.writeObject(message);
 		} catch (IOException e) {
-			// something went wrong, ignore it for now			
+			// something went wrong, ignore it for now
 			e.printStackTrace();
 		}
 	}
@@ -179,6 +192,29 @@ public class Slave extends Thread {
 //			}
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
+		}
+	}
+
+	public static void sendPickupItem(Item i, Tile t){
+		try {
+			out.writeObject(new String("Pickup"));
+			out.writeObject(new UIDObjectPair(uid, i));
+			out.writeObject(new UIDObjectPair(uid, t));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void sendDropItem(Item i, Tile t){
+		try {
+			out.writeObject(new String("Drop"));
+			out.writeObject(new UIDObjectPair(uid, i));
+			out.writeObject(new UIDObjectPair(uid, t));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
