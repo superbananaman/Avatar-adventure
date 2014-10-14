@@ -56,7 +56,7 @@ public class Player implements Character, Serializable {
 			 System.out.println("Item picked up" + tile.getItem().getName());
 
 		 inventory.add(tile.getItem());
-		 Slave.sendPickupItem(tile.getItem(), tile.getLocation());
+		 Slave.sendPickupItem(tile.getLocation());
 		 }
 
 
@@ -65,7 +65,7 @@ public class Player implements Character, Serializable {
 
 	public void dropItem(Item i ,Tile tile) {
 		if(i != null){
-		Slave.sendDropItem(i, tile.getLocation());
+		Slave.sendDropItem(i.getName() ,tile.getLocation());
 		getInventory().remove(i);
 		System.out.println("Removed item");
 		}
