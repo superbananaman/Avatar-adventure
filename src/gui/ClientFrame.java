@@ -35,7 +35,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
      * Create the frame.
      */
     public ClientFrame(String UID, java.util.List<Player> players) {
-    	addMouseListener(this);
+    	//addMouseListener(this);
         setTitle("Avatar Adventure! ");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1000, 720);
@@ -146,10 +146,17 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
 
 	public void mouseClicked(MouseEvent e) {}
 	public void mousePressed(MouseEvent e) {
-		if(e.getSource().getClass().toString().equals("class Renderer.RenderWindow")){
+		if(e.getSource() instanceof RenderWindow){
 			((RenderWindow) e.getSource()).requestFocus();
+			Tile t = ((RenderWindow) e.getSource()).getTile(e.getX(), e.getY());
+			toConsole(t.getLocation().toString());
+			if(t.hasItem()){
+				toConsole(t.getItem().getClass().toString());
+			}else{
+				toConsole("null");
+			}
 		}
-		else if(e.getSource().getClass().toString().equals("class javax.swing.JPanel")){
+		else if(e.getSource() instanceof JPanel){
 			textArea.append("\n" + ((JPanel) e.getSource()).getName());
 			//currentPlayer.getInventory(parse int -> e.getSource().getName());
 		}

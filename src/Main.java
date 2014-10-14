@@ -1,3 +1,5 @@
+import gui.MainFrame;
+
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -22,6 +24,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		//NetworkSetup ns = new NetworkSetup(1,40070);
-		NetworkSetup client = new NetworkSetup("130.195.6.139",40070);
+		//NetworkSetup client = new NetworkSetup("130.195.6.139",40070);
+		MainFrame main = new MainFrame();
 	}
 }
