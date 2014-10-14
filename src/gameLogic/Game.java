@@ -15,9 +15,11 @@ public class Game implements Serializable{
 	private ClientFrame clientframe;
 
 
-	public Game(List<Player> players){
+	public Game(String UID ,List<Player> players){
 		setTotalPlayers(players);
 		setUp();
+		clientframe = new ClientFrame(UID, players);
+		clientframe.setVisible(true);
 	}
 
 	public void setUp(){
