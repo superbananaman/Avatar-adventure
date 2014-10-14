@@ -212,6 +212,8 @@ public class Server extends Thread {
 				if (out != null) {
 					ooses.remove(out);
 				}
+
+				frame.toConsole("A player has disconnected");
 				threads.remove(this);
 				try {
 					socket.close();

@@ -12,6 +12,7 @@ import java.util.List;
 import Renderer.Sprite;
 import tests.Circle;
 import gameLogic.Game;
+import gameLogic.Item;
 import gameLogic.Player;
 import gui.*;
 
@@ -97,31 +98,22 @@ public class Slave extends Thread {
 					UIDObjectPair pair = (UIDObjectPair) o;
 					String playerUID = pair.getUID();
 					Object ob = pair.getObject();
-					// if integer is sent through, means the player has moved
+					// A player had pressed a key
 					if (ob instanceof KeyEvent){
 						for (Player p : players){
 							if (p.getUID().equals(playerUID)){
 								frame.getRenderWindow().receiveKeyEvent((KeyEvent) ob, p);
 							}
 						}
-
-
-//					if (ob instanceof Integer) {
-//						Integer i = (Integer) ob;
-//						if (i.equals(1)) {
-//							// TODO Move player up
-//							frame.getRenderWindow()
-//						} else if (i.equals(2)) {
-//							// TODO Move player down
-//						} else if (i.equals(3)) {
-//							// TODO Move player left
-//						} else if (i.equals(4)) {
-//							// TODO Move player right
-//						}
-					} else if (ob instanceof String) {
+					}
+					// A player has sent a message
+					else if (ob instanceof String) {
 						String message = (String) ob;
-						// TODO Give message to Textfield in clientframe to show
 						frame.toConsole(playerUID, message);
+					}
+					// A player has picked up or dropped an item
+					else if (ob instanceof Item){
+						//TODO Send the item to the game so it can be picked up
 					}
 				}
 			}
@@ -160,8 +152,7 @@ public class Slave extends Thread {
 		try {
 			out.writeObject(message);
 		} catch (IOException e) {
-			// something went wrong, ignore it for now
-			// TODO
+			// something went wrong, ignore it for now			
 			e.printStackTrace();
 		}
 	}
@@ -188,6 +179,20 @@ public class Slave extends Thread {
 //			}
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
+		}
+	}
+
+	/**
+	 * When a player picks up an item, sends that item to
+	 * the server and sends it back to all clients to pick up that item
+	 *
+	 */
+	public static void sendItem(Item i){
+		try {
+			out.writeObject(new UIDObjectPair(uid, i));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
