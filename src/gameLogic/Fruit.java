@@ -13,11 +13,11 @@ public class Fruit implements Item{
 	public Fruit(Tile pos, String Type){
 		tile = pos;
 		setType(Type);
-		if(getType() == "Banana"){
+		if(getType().equals("Banana")){
 			health = 200;
-		}else if(getType() == "Apple"){
+		}else if(getType().equals("Apple")){
 			health = 300;
-		}else if(getType() == "Mango"){
+		}else if(getType().equals("Mango")){
 			health = 400;
 		}
 	}

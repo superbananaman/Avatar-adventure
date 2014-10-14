@@ -18,7 +18,7 @@ public class MainFrame extends JFrame {
 	int fromTop = 125;
 	int spacing = 8;
 	int width = 550;
-	int height = 800;
+	int height = 707;
 
 	public MainFrame(){
 		super("Frame 1");
