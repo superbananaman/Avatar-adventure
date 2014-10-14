@@ -46,8 +46,8 @@ public class Renderer {
 	private BufferedImage KeyRoom3 = getIso(64*2,64*2);
 	private BufferedImage KeyRoom4 = getIso(64*2,64*2);
 	private BufferedImage KeyRoom5 = getIso(64*2,64*2);
-	
-	
+
+
 
 	/**Draws each Tile on the graphics pane from the tileset inside the Room r
 	 * @param g
@@ -131,7 +131,7 @@ public class Renderer {
 			Scanner scan = new Scanner(roomFile);
 			System.out.println(scan.next()+"  Loading");
 			room.setOffSet(new Point(scan.nextInt(),scan.nextInt()));
-			
+
 			System.out.println(scan.next()+"  Loading");
 			for(int i =0; i <30; i++){
 				for(int j = 0; j <30; j++){
@@ -178,6 +178,7 @@ public class Renderer {
 					}
 					items.add(tempItem);
 					ts[i][j].setPickUpImage(temp);
+					ts[i][j].setItem(tempItem);
 
 				}
 			}
@@ -192,8 +193,8 @@ public class Renderer {
 					case 1:								temp = skelly; monsters.add(new Skeleton(ts[i][j])); break;
 
 					}
-					
-					ts[i][j].setMonsterImage(temp);					
+
+					ts[i][j].setMonsterImage(temp);
 
 				}
 			}
@@ -217,20 +218,20 @@ public class Renderer {
 	public void drawSprite(Graphics2D g2, List<Player> players, Player clientPlayer) {
 		for(Player player : players){
 			if(player.equals(clientPlayer))
-				drawSpriteClientPlayer(g2, player);			
+				drawSpriteClientPlayer(g2, player);
 			else
-				drawSpriteNonClientPlayer(g2, player,clientPlayer.getSprite());		
+				drawSpriteNonClientPlayer(g2, player,clientPlayer.getSprite());
 		}
 	}
 	/**Draws the sprite with client offsets
 	 * @param g2
 	 * @param player
 	 */
-	public void drawSpriteClientPlayer(Graphics2D g2, Player player) {		
+	public void drawSpriteClientPlayer(Graphics2D g2, Player player) {
 			Sprite sprite = player.getSprite();
 			g2.drawImage(getSpriteIso(sprite.getStep()%10, sprite.getFacing(), sprite.getName()),400,300,null);
-			
-		
+
+
 	}
 	/** Draws the sprite with non client offsetts
   	 * @param g2
@@ -238,12 +239,12 @@ public class Renderer {
 	 * @param c
 	 */
 	public void drawSpriteNonClientPlayer(Graphics2D g2, Player player,Sprite c) {
-		
+
 			Sprite sprite = player.getSprite();
 			g2.drawImage(getSpriteIso(sprite.getStep()%10, sprite.getFacing(), sprite.getName()),sprite.getCurrentX()+400-c.getOffsetX(), sprite.getCurrentY()+300-c.getOffsetY(),null);
 			//System.out.print((sprite.getCurrentX()+463-67-c.getOffsetX())+"  ;  "+( sprite.getCurrentY()+227+70-c.getOffsetY()));
-			
-		
+
+
 	}
 
 	/** Returns the image of the sprite according to step,direction and name
