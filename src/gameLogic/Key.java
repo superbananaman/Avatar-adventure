@@ -13,7 +13,7 @@ public class Key implements Item{
 
 	public Key(Tile pos, String name){
 		tile = pos;
-
+		roomName = name;
 	}
 
 
