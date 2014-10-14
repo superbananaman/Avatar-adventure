@@ -30,6 +30,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
     private JTextArea textArea;
     private JTextField inputArea;
     private JScrollPane scroll;
+    private int selectedItem;
     private ArrayList<JPanel> inventory;
 
     /**
@@ -149,19 +150,19 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
 	public void mousePressed(MouseEvent e) {
 		if(e.getSource() instanceof RenderWindow){
 			((RenderWindow) e.getSource()).requestFocus();
-			Tile t = ((RenderWindow) e.getSource()).getTile(e.getX(), e.getY());
-			toConsole(t.getLocation().toString());
-			if(t.hasItem()){
-				toConsole(t.getItem().getClass().toString());
-			}else{
-				toConsole("null");
-			}
+			//Tile t = ((RenderWindow) e.getSource()).getTile(e.getX(), e.getY());
+			//toConsole(t.getLocation().toString());
+			//if(t.hasItem()){
+			//	toConsole(t.getItem().getClass().toString());
+			//}else{
+			//	toConsole("null");
+			//}
 		}
 		else if(e.getSource() instanceof JPanel){
 			textArea.append("\n" + ((JPanel) e.getSource()).getName());
 			int number = Integer.parseInt(((JPanel) e.getSource()).getName());
 			renderWindow.setSelectedSpace(number);
-			//currentPlayer.getInventory(parse int -> e.getSource().getName());
+			//this.selectedItem = number;
 		}
 	}
 	public void mouseReleased(MouseEvent e) {}
@@ -187,6 +188,8 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
 	}
 
 	public void updateInventory(){
+		for(int i = 0; i < inventory.size(); i++){
 
+		}
 	}
 }
