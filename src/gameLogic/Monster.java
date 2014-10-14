@@ -14,6 +14,5 @@ public interface Monster extends Character {
 
 	public Tile getTile();
 
-
-
+	public String getName();
 }
