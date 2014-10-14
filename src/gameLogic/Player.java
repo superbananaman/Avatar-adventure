@@ -6,6 +6,7 @@ import java.io.Serializable;
 import javax.swing.JOptionPane;
 import javax.swing.text.Position;
 
+import ClientServer.Slave;
 import Renderer.Sprite;
 import Renderer.Tile;
 
@@ -65,6 +66,7 @@ public class Player implements Character, Serializable {
 		tile.setItem(i);
 		getInventory().remove(i);
 		System.out.println("Removed item");
+
 	}
 
 	/**

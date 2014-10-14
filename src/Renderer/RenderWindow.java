@@ -356,11 +356,11 @@ public class RenderWindow extends JPanel implements KeyListener {
 					+ door.getNextRoom() + "\t  " + doorPoint.toString() + "  "
 					+ playerPoint.toString() + "\t"
 					+ doorPoint.distance(playerPoint));
-			// boolean hasKey
-			// =(clientPlayer.getInventory().hasKey(door.getNextRoom())||
-			// door.getNextRoom().equals("room1")||
-			// door.getNextRoom().equals("startroom"));
-			boolean hasKey = true;
+			boolean hasKey = (clientPlayer.getInventory().hasKey(
+					door.getNextRoom())
+					|| door.getNextRoom().equals("room1") || door.getNextRoom()
+					.equals("startroom"));
+
 			if (doorPoint.distance(playerPoint) < 3 && hasKey) {
 				nextRoom = door.getNextRoom();
 				System.out.println("Changing to room : " + nextRoom.toString());
