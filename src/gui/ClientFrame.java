@@ -125,9 +125,30 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
             }
         }
 
+        //bottom right
+        JPanel panel_3 = new JPanel();
+        panel_3.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+        GridBagConstraints gbc_panel_3 = new GridBagConstraints();
+        gbc_panel_3.fill = GridBagConstraints.BOTH;
+        gbc_panel_3.insets = new Insets(0, 0, 5, 0);
+        gbc_panel_3.gridx = 1;
+        gbc_panel_3.gridy = 1;
+        panel_3.setLayout(new BorderLayout());
+        contentPane.add(panel_3, gbc_panel_3);
+
+        JButton saveButton = new JButton("Save");
+        saveButton.setPreferredSize(new Dimension(150,40));
+        panel_3.add(saveButton, BorderLayout.PAGE_END);
+
+        JLabel barBack = new JLabel();
+        barBack.setPreferredSize(new Dimension(150,20));
+        barBack.setBackground(Color.WHITE);
+        barBack.setBorder(BorderFactory.createLineBorder(Color.RED));
+        barBack.setOpaque(true);
+        panel_3.add(barBack, BorderLayout.PAGE_START);
+
         setVisible(true);
     }
-
     /**
      * Displays a message on the console
      * @param message The message to display
