@@ -28,7 +28,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
     private JPanel contentPane;
     private RenderWindow renderWindow;
     private Player currentPlayer;
-
+    private int selected = 0;
     private JTextArea textArea;
     private JTextField inputArea;
     private JScrollPane scroll;
@@ -165,9 +165,10 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
         }
         else if(e.getSource() instanceof JLabel){
             textArea.append("\n" + ((JLabel) e.getSource()).getName());
-            int number = Integer.parseInt(((JLabel) e.getSource()).getName());
-            currentPlayer.getInventory().setSelectedSpace(number);
-            inventory.get(number).setBorder(BorderFactory.createLineBorder(Color.YELLOW));
+            inventory.get(selected).setBorder(null);
+            selected = Integer.parseInt(((JLabel) e.getSource()).getName());
+            currentPlayer.getInventory().setSelectedSpace(selected);
+            inventory.get(selected).setBorder(BorderFactory.createLineBorder(Color.YELLOW));
             updateInventory();
             //this.selectedItem = number;
         }
@@ -200,33 +201,30 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
         for(int i = 0; i < inventory.size(); i++){
             if(curInventory.size() > i){
                 JLabel temp = inventory.get(i);
-            	String name = curInventory.get(i).getName();
-            	if(name.equals("Apple")){
-            		temp.setIcon(new ImageIcon(renderWindow.renderer.Apple));
-            	}else if(name.equals("Banana")){
-            		temp.setIcon(new ImageIcon(renderWindow.renderer.Banana));
-            	}else if(name.equals("Mango")){
-            		temp.setIcon(new ImageIcon(renderWindow.renderer.Mango));
-            	}else if(name.equals("RedPot")){
-            		temp.setIcon(new ImageIcon(renderWindow.renderer.RedPot));
-            	}else if(name.equals("ArmorHead")){
-            		temp.setIcon(new ImageIcon(renderWindow.renderer.ArmorHead));
-            	}else if(name.equals("ArmorChest")){
-            		temp.setIcon(new ImageIcon(renderWindow.renderer.ArmorChest));
-            	}else if(name.equals("ArmorLegs")){
-            		temp.setIcon(new ImageIcon(renderWindow.renderer.ArmorLegs));
-            	}else {
-            		temp.setIcon(new ImageIcon(renderWindow.renderer.KeyRoom2));
-            	}
+                String name = curInventory.get(i).getName();
+                if(name.equals("Apple")){
+                    temp.setIcon(new ImageIcon(renderWindow.renderer.Apple));
+                }else if(name.equals("Banana")){
+                    temp.setIcon(new ImageIcon(renderWindow.renderer.Banana));
+                }else if(name.equals("Mango")){
+                    temp.setIcon(new ImageIcon(renderWindow.renderer.Mango));
+                }else if(name.equals("RedPot")){
+                    temp.setIcon(new ImageIcon(renderWindow.renderer.RedPot));
+                }else if(name.equals("ArmorHead")){
+                    temp.setIcon(new ImageIcon(renderWindow.renderer.ArmorHead));
+                }else if(name.equals("ArmorChest")){
+                    temp.setIcon(new ImageIcon(renderWindow.renderer.ArmorChest));
+                }else if(name.equals("ArmorLegs")){
+                    temp.setIcon(new ImageIcon(renderWindow.renderer.ArmorLegs));
+                }else {
+                    temp.setIcon(new ImageIcon(renderWindow.renderer.KeyRoom2));
+                }
                 toConsole(name);
             }
             else {
-            	JLabel toAdd = inventory.get(i);
+                JLabel toAdd = inventory.get(i);
                 toAdd.setIcon(null);
             }
         }
     }
 }
-
-
-
