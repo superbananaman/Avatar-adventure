@@ -25,6 +25,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
 
     private JPanel contentPane;
     private RenderWindow renderWindow;
+    private Player currentPlayer;
 
     private JTextArea textArea;
     private JTextField inputArea;
@@ -52,7 +53,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
         contentPane.setLayout(gbl_contentPane);
 
         //Render Window Placeholder
-        renderWindow = new RenderWindow("room1", UID, (ArrayList<Player>) players);
+        renderWindow = new RenderWindow("startroom", UID, (ArrayList<Player>) players);
         renderWindow.setBackground(Color.BLACK);
         renderWindow.addMouseListener(this);
         GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -183,5 +184,9 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
 
 	public RenderWindow getRenderWindow(){
 		return renderWindow;
+	}
+
+	public void updateInventory(){
+
 	}
 }
