@@ -146,7 +146,7 @@ public class Slave extends Thread {
 				// if the item has been picked up or dropped
 				else if (o instanceof String){
 					String message = (String)o;
-					game.getClientFrame().toConsole(message);
+					//game.getClientFrame().toConsole(message);
 
 				}
 			}
