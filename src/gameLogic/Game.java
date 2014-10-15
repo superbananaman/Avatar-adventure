@@ -3,6 +3,7 @@ package gameLogic;
 
 import gui.ClientFrame;
 
+import java.awt.Point;
 import java.io.Serializable;
 import java.util.*;
 
@@ -98,5 +99,15 @@ public void setMonsterHealth(int size) {
 		return totalPlayers.get(0).getCurrentRoom();
 	}
 
+	public void updateMonsters(Point location){
+		Room currentroom = totalPlayers.get(0).getCurrentRoom();
+		for(Monster m: currentroom.getMonsters()){
+			if(m.getTile().getLocation().equals(location)){
+				currentroom.getMonsters().remove(m);
+
+			}
+		}
+
+	}
 
 }

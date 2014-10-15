@@ -2,6 +2,7 @@ package gameLogic;
 
 import java.awt.Graphics;
 
+import ClientServer.Slave;
 import Renderer.Tile;
 
 public class Skeleton implements Monster{
@@ -68,6 +69,7 @@ public class Skeleton implements Monster{
 
 	public void Die() {
 		isAlive = false;
+		Slave.sendMonster(tile.getLocation());
 
 	}
 
