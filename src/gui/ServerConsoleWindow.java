@@ -5,7 +5,12 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class ServerConsoleWindow extends JFrame {//put a mouseListener Here?
+/**
+ *
+ * @author Devlin Mahoney
+ *
+ */
+public class ServerConsoleWindow extends JFrame {
 
     private JPanel contentPane;
 

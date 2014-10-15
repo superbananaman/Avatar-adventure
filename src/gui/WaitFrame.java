@@ -17,7 +17,7 @@ import ClientServer.Slave;
 
 /**
  * Represents the frame that will be displayed for clients while waiting
- * @author mahonedevl
+ * @author Devlin Mahoney
  *
  */
 public class WaitFrame extends JFrame implements KeyListener, ActionListener{

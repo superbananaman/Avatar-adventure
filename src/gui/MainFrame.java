@@ -9,6 +9,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+/**
+ *
+ * @author Devlin Mahoney
+ *
+ */
 public class MainFrame extends JFrame {
 
 	JPanel pane;
