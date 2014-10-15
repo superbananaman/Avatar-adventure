@@ -1,18 +1,19 @@
 package Renderer;
-/**
- * @author parkerliam
- */
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 import javax.imageio.ImageIO;
+
 import gameLogic.Armour;
 import gameLogic.Boss;
 import gameLogic.Door;
@@ -125,15 +126,15 @@ public class Renderer {
 	 * @param room
 	 * @return
 	 */
-	public Tile[][] parseTileSet(Room room){ //System.out.println(room.getRoomName());
+	public Tile[][] parseTileSet(Room room){ System.out.println(room.getRoomName());
 		Tile[][] ts = new Tile[30][30];
 		try {
 			FileReader roomFile = new FileReader("maps/"+room.getRoomName()+".txt");
 			Scanner scan = new Scanner(roomFile);
-			//System.out.println(scan.next()+"  Loading");
+			System.out.println(scan.next()+"  Loading");
 			room.setOffSet(new Point(scan.nextInt(),scan.nextInt()));
 
-			//System.out.println(scan.next()+"  Loading");
+			System.out.println(scan.next()+"  Loading");
 			for(int i =0; i <30; i++){
 				for(int j = 0; j <30; j++){
 					Tile temp = null;
@@ -157,7 +158,7 @@ public class Renderer {
 				ts[i][j] = temp;
 				}
 			}
-			//System.out.println(scan.next()+"  Loading");
+			System.out.println(scan.next()+"  Loading");
 			ArrayList<Item> items = new ArrayList<Item>();
 			for(int i =0; i <30; i++){
 				for(int j = 0; j <30; j++){
