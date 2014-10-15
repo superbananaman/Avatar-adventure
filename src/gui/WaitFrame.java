@@ -95,7 +95,8 @@ public class WaitFrame extends JFrame implements KeyListener{
         if(e.getKeyCode() == 10){
             //they presed enter
             //Slave.sendMessage(inputArea.getText());
-            inputArea.setText("");
+            Slave.sendMessage(inputArea.getText());
+
         };
     }
 
