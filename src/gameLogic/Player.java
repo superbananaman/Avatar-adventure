@@ -105,6 +105,8 @@ public class Player implements Character, Serializable {
 
 	public void Die() {
 		setAlive(false);
+		System.out.println("Player Died");
+
 	}
 
 	public void addmaxHealth(int h) {

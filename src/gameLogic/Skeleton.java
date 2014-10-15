@@ -41,7 +41,7 @@ public class Skeleton implements Monster{
 	}
 
 	public int attack(){
-		return 300; // to all players
+		return 200; // to all players
 	}
 
 	public int bite(){
@@ -60,7 +60,7 @@ public class Skeleton implements Monster{
 
 
 	public void takeDamage(int damage) {
-		if((health-damage) <0){
+		if((health-damage) <= 0){
 			Die();
 		}
 		health = health-damage;
@@ -69,6 +69,7 @@ public class Skeleton implements Monster{
 
 	public void Die() {
 		isAlive = false;
+		System.out.println("Monster died");
 		Slave.sendMonster(tile.getLocation());
 
 	}

@@ -96,14 +96,32 @@ public class Game implements Serializable {
 		return totalPlayers.get(0).getCurrentRoom();
 	}
 
-	public void updateMonsters(Point location) {
+	public void updateDamageMonsters(Point location, int damage){
 		Room currentroom = totalPlayers.get(0).getCurrentRoom();
-		List<Monster> steve = currentroom.getMonsters();
-		synchronized (steve) {
-			for (Monster m : steve) {
+		List<Monster> monsters = currentroom.getMonsters();
+		synchronized (monsters) {
+			for (Monster m : monsters) {
+				if (m.getTile().getLocation().equals(location)) {
+					currentroom.getMonsters().get(m);
+
+					break;
+				}
+			}
+		}
+
+	}
+
+
+	public void updateDeadMonsters(Point location) {
+		Room currentroom = totalPlayers.get(0).getCurrentRoom();
+		List<Monster> monsters = currentroom.getMonsters();
+		synchronized (monsters) {
+			for (Monster m : monsters) {
 				if (m.getTile().getLocation().equals(location)) {
 					currentroom.getMonsters().remove(m);
-
+					m.getTile().setMonsterImage(null);
+					System.out.println("Monster is deleted");
+					break;
 				}
 			}
 		}

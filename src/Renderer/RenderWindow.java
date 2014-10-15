@@ -345,9 +345,12 @@ public class RenderWindow extends JPanel implements KeyListener {
 				if(selectedItem instanceof Armour){
 
 					selectedItem.use(currentPlayer);
+					game.getClientFrame().updateInventory();
 				}
 				else if(selectedItem instanceof Fruit || selectedItem instanceof Potion){
 					selectedItem.use(currentPlayer);
+					currentPlayer.getInventory().remove(selectedItem);
+					game.getClientFrame().updateInventory();
 				}
 			}
 		}
@@ -356,9 +359,16 @@ public class RenderWindow extends JPanel implements KeyListener {
 			for(Monster m : room.getMonsters()){
 				Point location = m.getTile().getLocation();
 				if(location.distance(playerPoint) < 2){
-					m.takeDamage(currentPlayer.attack1());
-					currentPlayer.updateCurrentHealth(m.attack());
 
+					m.takeDamage(currentPlayer.attack1());
+					currentPlayer.updateCurrentHealth(-(m.attack()));
+					Slave.sendMonsterAttack(currentPlayer.attack1());
+
+
+
+
+					game.getClientFrame().updateInventory();
+					this.repaint();
 					break;
 				}
 			}

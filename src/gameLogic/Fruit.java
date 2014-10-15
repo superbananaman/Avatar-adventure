@@ -25,6 +25,7 @@ public class Fruit implements Item{
 
 	public void use(Player player) {
 		player.updateCurrentHealth(health);
+		
 
 	}
 
