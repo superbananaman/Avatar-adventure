@@ -20,8 +20,8 @@ public class Game implements Serializable {
 	private Renderer renderer = new Renderer();
 
 	public Game(String UID, List<Player> players) {
-		setUp();
 		setTotalPlayers(players);
+		setUp();
 		clientframe = new ClientFrame(UID, players, this);
 
 	}
