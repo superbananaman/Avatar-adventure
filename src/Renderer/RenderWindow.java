@@ -290,6 +290,7 @@ public class RenderWindow extends JPanel implements KeyListener {
 				}
 
 			}
+			game.getClientFrame().updateInventory();
 			firstTime=true;
 			this.repaint();
 		}
@@ -332,6 +333,7 @@ public class RenderWindow extends JPanel implements KeyListener {
 			firstTime = true;
 			this.repaint();
 			currentPlayer.getInventory().setSelectedSpace(-1);
+			game.getClientFrame().updateInventory();
 			}
 		}
 

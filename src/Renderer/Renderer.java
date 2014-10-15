@@ -149,7 +149,7 @@ public class Renderer {
 					case 10:							temp = new Tile(door,p,false); room.addDoors(new Door(room, "startroom",temp));	break;
 					case 11:							temp = new Tile(door,p,false); room.addDoors(new Door(room, "room1",temp));		break;
 					case 12:							temp = new Tile(door,p,false); room.addDoors(new Door(room, "room2",temp));		break;
-					case 13:							temp = new Tile(door,p,false); room.addDoors(new Door(room, "room4",temp));		break;
+					case 13:							temp = new Tile(door,p,false); room.addDoors(new Door(room, "room3",temp));		break;
 					case 99:							temp = new Tile(floor,p,true); room.setSpawnSpots(temp);  						break;
 
 				}
