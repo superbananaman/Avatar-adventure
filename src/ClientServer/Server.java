@@ -190,10 +190,6 @@ public class Server extends Thread {
 							oos.writeObject(o);
 						}
 					}
-					// TESTING
-					// if (o instanceof Circle){
-					// players.add((Circle)o);
-					// }
 				} while (!allPlayers);
 
 				// all clients have accepted send players to slaves
@@ -201,10 +197,6 @@ public class Server extends Thread {
 					for (Player p : players) {
 						oos.writeObject(p);
 					}
-					// TESTING
-					// for (Circle c : players){
-					// oos.writeObject(c);
-					// }
 				}
 				// send a string which indicated the game can begin
 				for (ObjectOutputStream oos : ooses) {
@@ -222,7 +214,6 @@ public class Server extends Thread {
 						o = in.readObject();
 						frame.toConsole(o.toString() + " has been sent through");
 					} catch (ClassNotFoundException e) {
-						System.out.println("An object was not sent through");
 						e.printStackTrace();
 					}
 					// the object has not been sent, destroy connection for now
@@ -238,7 +229,6 @@ public class Server extends Thread {
 					}
 				}
 			} catch (IOException e) {
-				System.out.println(e);
 			} finally {
 				// The client is going down! remove the ObjectoutputStream
 				// from the list and close the socket

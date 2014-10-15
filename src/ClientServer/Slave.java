@@ -47,7 +47,6 @@ public class Slave extends Thread {
 			e.printStackTrace();
 		}
 		uid = charName;
-		System.out.println("Creating player with: " + charName);
 		player = new Player(charName);
 	}
 
@@ -64,13 +63,11 @@ public class Slave extends Thread {
 			waitframe.setVisible(true);
 
 			// send the player made to the server
-			//System.out.println(player.getUID() + " Has Been Written out");
 			waitframe.toConsole(player.getUID() + " has joined the server");
 			out.writeObject(player);
 			// receives player from server
 			while (true) {
 				Object o = in.readObject();
-				//System.out.println(o.toString() + " has been read");
 				if (o instanceof Player) {
 					Player p = (Player)o;
 					players.add(p);
@@ -94,9 +91,6 @@ public class Slave extends Thread {
 			}
 
 			// wait for response from server then start frame
-			// game = new Game(player, players);
-			// frame = new ClientFrame(game);
-			System.out.println("FRAME: Player: " + player.getUID() + " Players: " + players.size());
 
 			sleepThread(waitframe);
 			waitframe.stopMusic();
