@@ -54,7 +54,7 @@ public class Player implements Character, Serializable {
 	public void pickUp(Tile tile) {
 		 if (isAlive) {
 		 if (tile.hasItem()) { // has item returns true if it is
-			 System.out.println("Item picked up" + tile.getItem().getName());
+
 
 		 inventory.add(tile.getItem());
 		 Slave.sendPickupItem(tile.getLocation());
@@ -80,7 +80,7 @@ public class Player implements Character, Serializable {
 			}
 			Slave.sendDropItem(i.getName() ,tile.getLocation());
 			inventory.remove(i);
-			System.out.println("Removed item");
+
 		}
 	}
 
@@ -105,7 +105,7 @@ public class Player implements Character, Serializable {
 
 	public void Die() {
 		setAlive(false);
-		System.out.println("Player Died");
+
 		Slave.sendDeadPlayer(name);
 
 	}

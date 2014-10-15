@@ -59,7 +59,7 @@ public class Game implements Serializable {
 	 */
 
 	public void addRoom() {
-		System.out.println("adding rooms");
+
 		rooms.add(new Room("startroom"));
 		rooms.add(new Room("room1"));
 		rooms.add(new Room("room2"));
@@ -68,7 +68,7 @@ public class Game implements Serializable {
 		for (Room r : rooms) {
 
 			r.setTileSet(renderer.parseTileSet(r));
-			System.out.println(r.getRoomName() + " ADDED");
+
 		}
 	}
 
@@ -85,7 +85,7 @@ public class Game implements Serializable {
 
 	public Room getRoom(String name) {
 		for (Room r : rooms) {
-			System.out.println(r.getRoomName());
+
 			if (r.getRoomName().equalsIgnoreCase(name)) {
 				return r;
 			}
@@ -141,7 +141,7 @@ public class Game implements Serializable {
 			for (Monster m : monsters) {
 				if (m.getTile().getLocation().equals(location)) {
 					currentroom.getMonsters().remove(m);
-					System.out.println(m.isAlive());
+
 					if(!m.isAlive()){m.getTile().setMonster(null);}
 					if(m instanceof Boss && currentroom.getRoomName().equals("bossroom")){
 						JOptionPane.showMessageDialog(clientframe,
@@ -149,7 +149,7 @@ public class Game implements Serializable {
 						System.exit(0);
 					}
 					clientframe.getRenderWindow().repaintBackground();
-					System.out.println("Monster is deleted");
+
 					break;
 				}
 			}
