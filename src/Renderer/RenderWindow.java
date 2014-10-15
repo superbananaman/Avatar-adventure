@@ -58,6 +58,7 @@ public class RenderWindow extends JPanel implements KeyListener {
 	private List<Player> playersNonClient;
 	private List<Player> players;
 	private Player clientPlayer;
+	private Game game;
 
 	private int selectedSpace = -1;
 
@@ -67,8 +68,9 @@ public class RenderWindow extends JPanel implements KeyListener {
 	 * @param uID
 	 * @param players
 	 */
-	public RenderWindow(String RoomName, String uID, ArrayList<Player> players) {
+	public RenderWindow(String RoomName, String uID, ArrayList<Player> players, Game game) {
 		this.players = players;
+		this.game = game;
 
 		setBounds(0, 0, width, height);
 		panel.setLayout(null);
@@ -83,8 +85,8 @@ public class RenderWindow extends JPanel implements KeyListener {
 		// playersNonClient.remove(clientPlayer);
 		addKeyListener(this);
 		setVisible(true);
-		room = new Room(RoomName);
-		setupRoom(room);
+		room = game.getRoom(roomname);
+		setupPlayersInRoom(room);
 	}
 
 	/**
@@ -92,8 +94,7 @@ public class RenderWindow extends JPanel implements KeyListener {
 	 *
 	 * @param currentRoom
 	 */
-	private void setupRoom(Room currentRoom) {
-		room.setTileSet(renderer.parseTileSet(currentRoom));
+	private void setupPlayersInRoom(Room currentRoom) {
 		offsetX = -620 + currentRoom.getOffSet().x;
 		offsetY = 250 + currentRoom.getOffSet().y;
 		Point spawn = room.getSpawnSpots().getLocation();
@@ -409,6 +410,7 @@ public class RenderWindow extends JPanel implements KeyListener {
 
 			if (doorPoint.distance(playerPoint) < 3 && hasKey) {
 				nextRoom = door.getNextRoom();
+				room = game.getRoom(nextRoom);
 				System.out.println("Changing to room : " + nextRoom.toString());
 				break;
 			}
@@ -416,8 +418,8 @@ public class RenderWindow extends JPanel implements KeyListener {
 		if (nextRoom != null) {
 			System.out.println("Changing rooom now");
 			firstTime = true;
-			room = new Room(nextRoom);
-			this.setupRoom(room);
+			room = nxtRoom;
+			this.setupPlayersInRoom(room);
 			this.repaint();
 		}
 	}

@@ -140,7 +140,7 @@ public class Renderer {
 				Point p = new Point(j,i);
 				switch(tile) {
 					case 0:								temp = new Tile(empty,p,false); 												break;
-					case 1: case 2: case 3:  			temp = new Tile(wall,p,true);													break;
+					case 1: case 2: case 3:  			temp = new Tile(wall,p,false);													break;
 					case 4:							 	temp = new Tile(floor,p,true);													break;
 					case 5: 						 	temp = new Tile(Barrel,p,true);													break;
 					case 6:								temp = new Tile(rug,p,true);													break;
