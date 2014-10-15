@@ -10,11 +10,15 @@ import gameLogic.Boss;
 import gameLogic.Door;
 import gameLogic.Fruit;
 import gameLogic.Game;
+import gameLogic.Inventory;
 import gameLogic.Key;
 import gameLogic.Player;
 import gameLogic.Room;
 
 import org.junit.*;
+
+import Renderer.Renderer;
+import Renderer.Tile;
 
 public class GameLogicTests {
 
@@ -97,33 +101,51 @@ public class GameLogicTests {
 
 		List<Room> rooms = new ArrayList<Room>();
 		rooms.add(new Room("startroom"));
-		game.setRooms(rooms);
-		System.out.println(rooms.size());
-		game.setTotalPlayers(players);
+		//game.setRooms(rooms);
 
-		assertTrue(game.getTotalPlayers().size() == 0);
+
+
+		assertTrue(game.getTotalPlayers().size() == players.size());
 	}
 
 	@Test
-	public void testGame2(){
+	public void testInventory(){
+		Inventory inventory = new Inventory();
+		Key key = new Key(null, "Awesome");
+		inventory.add(key);
+		inventory.remove(key);
+		inventory.add(key);
+		assertTrue(inventory.has(key));
+	}
+
+	@Test
+	public void testPlayer(){
+		Player player = new Player("Awesome");
+		Tile tile = new Tile(null, null, true);
+		player.pickUp(tile);
+
 
 	}
 
 	@Test
-	public void testGame3(){
-
+	public void testPlayerAttack1(){
+		Player player = new Player("Awesome");
+		assertTrue(player.attack1() == 350);
 	}
 
 	@Test
-	public void testGame4(){
-
+	public void testPlayerAttack2(){
+		Player player = new Player("Awesome");
+		assertTrue(player.attack2() == 1000);
 	}
-
 	@Test
-	public void testGame5(){
+	public void testPlayerUpdateHealth(){
+		Player player = new Player("Awesome");
+		player.updateCurrentHealth(1000);
+		assertTrue(player.getCurrentHealth() == 500);
+
 
 	}
-
 
 
 

@@ -35,7 +35,7 @@ public class Skeleton implements Monster {
 	}
 
 	public int attack() {
-		return 200; // to all players
+		return 100; // to all players
 	}
 
 	public int bite() {

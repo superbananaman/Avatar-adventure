@@ -40,7 +40,7 @@ public class Boss implements Monster {
 	 * @return an attack that hits all players
 	 */
 	public int attack() {
-		return 400;
+		return 200;
 	}
 
 	/**
