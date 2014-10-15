@@ -273,7 +273,7 @@ public class RenderWindow extends JPanel implements KeyListener {
 		}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 
-			changeRoom();
+			changeRoom(currentPlayer);
 			this.repaint();
 		}
 		if (e.getKeyCode() == KeyEvent.VK_P) {
@@ -417,7 +417,7 @@ public class RenderWindow extends JPanel implements KeyListener {
 	 * Changes the room, Checks if player is near a door then if the player has
 	 * the key to unlock the door
 	 */
-	public void changeRoom() {
+	public void changeRoom(Player currentPlayer) {
 		String nextRoom = null;
 		for (Door door : room.getDoors()) {
 			Point doorPoint = door.getTile().getLocation();
@@ -431,10 +431,7 @@ public class RenderWindow extends JPanel implements KeyListener {
 					+ door.getNextRoom() + "\t  " + doorPoint.toString() + "  "
 					+ playerPoint.toString() + "\t"
 					+ doorPoint.distance(playerPoint));
-			boolean hasKey = (clientPlayer.getInventory().hasKey(
-					door.getNextRoom())
-					|| door.getNextRoom().equals("room1") || door.getNextRoom()
-					.equals("startroom"));
+			boolean hasKey = (currentPlayer.getInventory().hasKey(door.getNextRoom())|| door.getNextRoom().equals("room1") || door.getNextRoom().equals("startroom"));
 
 			if (doorPoint.distance(playerPoint) < 3 && hasKey) {
 				nextRoom = door.getNextRoom();
