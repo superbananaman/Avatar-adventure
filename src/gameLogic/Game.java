@@ -27,12 +27,21 @@ public class Game implements Serializable{
 
 	}
 
+	/**
+	 * sets up the rooms and monsters
+	 */
+
 	public void setUp(){
 		addRoom();
 		setMonsterHealth(getTotalPlayers().size());
 
 
 	}
+
+	/**
+	 *
+	 * @param size is the number of players. the monster health is proportional to the number of players
+	 */
 
 public void setMonsterHealth(int size) {
 		for(Room r: rooms){
@@ -42,6 +51,10 @@ public void setMonsterHealth(int size) {
 		}
 
 	}
+
+/**
+ * makes all the rooms in the game and makes the tileset for each
+ */
 
 	public void addRoom() {
 		System.out.println("adding rooms");

@@ -47,7 +47,7 @@ public class Player implements Character, Serializable {
 	}
 	/**
 	 *
-	 * @param tile
+	 * @param tile that the player is on
 	 */
 
 	public void pickUp(Tile tile) {
@@ -62,6 +62,13 @@ public class Player implements Character, Serializable {
 
 		 }
 	}
+
+	/**
+	 *
+	 * @param i the item that is being dropped
+	 *
+	 * @param tile that is being dropped on to
+	 */
 
 	public void dropItem(Item i ,Tile tile) {
 		if(i != null){
@@ -100,9 +107,7 @@ public class Player implements Character, Serializable {
 	}
 
 	public void addmaxHealth(int h) {
-
 			maxHealth = maxHealth + h;
-
 	}
 
 	public int attack1() {

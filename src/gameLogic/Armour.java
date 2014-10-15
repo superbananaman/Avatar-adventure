@@ -19,17 +19,23 @@ public class Armour implements Item{
 		health = 700;
 
 	}
+	/**
+	 *
+	 * @param p - the player that the armour is being unequipped from
+	 */
+
 	public void unequip(Player p){
 		p.addmaxHealth((-health));
 		setEquipped(false);
 	}
 
+	/**
+	 * equips the armour
+	 */
+
 	public void use(Player p){  //equipping armour gives health
 		if(!equipped){
-			System.out.println("equipped");
-			System.out.println(p.getMaxHealth());
 		p.addmaxHealth(health);
-		System.out.println(p.getMaxHealth());
 		//p.setCurrentHealth(health);
 		setEquipped(true);
 		}
@@ -58,6 +64,8 @@ public class Armour implements Item{
 	public String getName() {
 		return type;
 	}
+
+
 
 	public boolean equals(Item other){
 		if(other instanceof Armour){

@@ -21,6 +21,7 @@ import gameLogic.Item;
 import gameLogic.Key;
 import gameLogic.Monster;
 import gameLogic.Player;
+import gameLogic.Potion;
 import gameLogic.Room;
 import gameLogic.Skeleton;
 
@@ -167,7 +168,7 @@ public class Renderer {
 					case 0: tempItem = new Fruit(ts[i][j], "Banana");		temp = Banana;	items.add(tempItem);	break;
 					case 1: tempItem = new Fruit(ts[i][j], "Apple");		temp = Apple;		items.add(tempItem);	break;
 					case 2: tempItem = new Fruit(ts[i][j], "Mango");		temp = Mango;		items.add(tempItem);	break;
-					case 3: tempItem = new Fruit(ts[i][j], "RedPot");		temp = RedPot;		items.add(tempItem);	break;
+					case 3: tempItem = new Potion(ts[i][j], "RedPot");		temp = RedPot;		items.add(tempItem);	break;
 					case 4: tempItem = new Armour(ts[i][j], "ArmorHead");	temp = ArmorHead;	items.add(tempItem);	break;
 					case 5: tempItem = new Armour(ts[i][j], "ArmorChest");	temp = ArmorChest;	items.add(tempItem);	break;
 					case 6: tempItem = new Armour(ts[i][j], "ArmorLegs");	temp = ArmorLegs;	items.add(tempItem);	break;

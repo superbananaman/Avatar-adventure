@@ -68,6 +68,10 @@ public class Room implements Serializable{
 		doors.add(door);
 	}
 
+	/**
+	 *
+	 * @return returns the rooms offset to  0,0
+	 */
 	public Point getOffSet() {
 		return offSet;
 	}

@@ -37,10 +37,18 @@ public class Boss implements Monster{
 		health = numofPlayers*5000;
 	}
 
-
+	/**
+	 *
+	 * @return an attack that hits all players
+	 */
 	public int attack(){
-		return 1000; // attacks all players
+		return 1000;
 	}
+
+	/**
+	 *
+	 * @return one hits players
+	 */
 	public int ulti(){
 		return 9001;
 	}

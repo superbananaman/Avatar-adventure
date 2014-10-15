@@ -20,6 +20,12 @@ public class Door {
 		this.tile = tile;
 	}
 
+
+	/**
+	 *
+	 * @param player that has the key
+	 * @return true if the player has the needed key
+	 */
 	public boolean use(Player player){
 		if(player.getInventory().has(getKey()) == true){
 			return true;

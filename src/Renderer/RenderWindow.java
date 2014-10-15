@@ -343,6 +343,9 @@ public class RenderWindow extends JPanel implements KeyListener {
 				if(currentPlayer.getInventory().get(currentPlayer.getInventory().getSelectedSpace()) instanceof Armour){
 					currentPlayer.getInventory().get(currentPlayer.getInventory().getSelectedSpace()).use(currentPlayer);
 				}
+				else if(currentPlayer.getInventory().get(currentPlayer.getInventory().getSelectedSpace()) instanceof Fruit || currentPlayer.getInventory().get(currentPlayer.getInventory().getSelectedSpace()) instanceof Potion){
+					currentPlayer.getInventory().get(currentPlayer.getInventory().getSelectedSpace()).use(currentPlayer);
+				}
 			}
 		}
 

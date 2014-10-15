@@ -11,14 +11,6 @@ public class Inventory implements Serializable{
 	public int selectedSpace = -1;
 
 
-	public Inventory(){
-
-	}
-
-	public void draw(Graphics g){
-
-	}
-
 	public void add(Item i){
 		items.add(i);
 	}
@@ -36,6 +28,12 @@ public class Inventory implements Serializable{
 		return false;
 	}
 
+
+	/**
+	 *
+	 * @param keyRoom the room that is trying to be opened
+	 * @return true if the right key is in here
+	 */
 	public boolean hasKey(String keyRoom){
 		for(Item i : items){
 			if(i instanceof Key){

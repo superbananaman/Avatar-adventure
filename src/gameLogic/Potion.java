@@ -15,10 +15,14 @@ public class Potion implements Item {
 	public Potion(Tile pos, String Type){
 		tile = pos;
 		type = Type;
-		health = 700;
+		health = 500;
 
 	}
 
+
+	/**
+	 * heals the player
+	 */
 	public void use(Player p){
 		p.updateCurrentHealth(health);
 	}

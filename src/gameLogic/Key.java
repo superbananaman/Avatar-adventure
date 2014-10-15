@@ -16,13 +16,6 @@ public class Key implements Item{
 		roomName = name;
 	}
 
-
-	public void use(Player player) {
-		//return "Opens " + getDoor();
-
-	}
-
-
 	public String getRoomName() {
 		return roomName;
 	}
@@ -52,5 +45,10 @@ public class Key implements Item{
 			return roomName.equals(other.getName());
 		}
 		return false;
+	}
+
+	public void use(Player player) {
+		// TODO Auto-generated method stub
+
 	}
 }
