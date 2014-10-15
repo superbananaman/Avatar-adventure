@@ -128,42 +128,48 @@ public class WaitFrame extends JFrame implements KeyListener, ActionListener{
         textArea.setCaretPosition(textArea.getDocument().getLength());
     }
 
+    /**
+     * Loads the music to play in the frame
+     */
     private void loadMusic(){
     	try{
     		File soundFile = new File("sound/Retribution.wav");
     		clip = AudioSystem.getClip();
-    		// getAudioInputStream() also accepts a File or InputStream
     		AudioInputStream ais = AudioSystem.getAudioInputStream(soundFile);
     		clip.open(ais);
 
     		clip.loop(Clip.LOOP_CONTINUOUSLY);
-    		//SwingUtilities.invokeLater(new Runnable() {
-    		//	public void run() {
-    				// A GUI element to prevent the Clip's daemon Thread
-    				// from terminating at the end of the main()
-    		//		JOptionPane.showMessageDialog(null, "Close to exit!");
-    		//	}
-    		//});
     	}catch (Exception e) {
 			e.printStackTrace();
 		}
     }
 
+    /**
+     * Safety method to stop music
+     */
     public void stopMusic(){
     	clip.stop();
     }
 
+    /**
+     * makes the music 2DB quieter
+     */
     private void quieter(){
     	curVol -= 2;
     	volume.setValue(curVol);
     }
-
+    /**
+     * makes the music 2DB louder, to a limit of 6DB above default
+     */
     private void louder(){
     	curVol += 2;
     	if(curVol > 6)curVol=6;
     	volume.setValue(curVol);
     }
 
+    /**
+     * Toggles muting of the music
+     */
     private void toggleMute(){
     	if(mute.getValue())mute.setValue(false);
     	else mute.setValue(true);
@@ -182,10 +188,6 @@ public class WaitFrame extends JFrame implements KeyListener, ActionListener{
         	textArea.append("\n "+e.getKeyCode());
         }
     }
-
-	public static void main(String[] args){
-		WaitFrame harold = new WaitFrame();
-	}
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Mute")){
