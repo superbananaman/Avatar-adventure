@@ -88,7 +88,7 @@ public class ClientOptions extends JFrame implements ActionListener{
 //			int num = Integer.parseInt(portText.getText());
 				Slave s;
 				try {
-					s = new Slave(InetAddress.getLocalHost().getHostAddress(), 14143, nameText.getText(), null);
+					s = new Slave(InetAddress.getLocalHost().getHostAddress(), 14141, nameText.getText(), null);
 					s.start();
 				} catch (UnknownHostException e1) {
 					// TODO Auto-generated catch block
