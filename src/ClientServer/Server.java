@@ -1,5 +1,6 @@
 package ClientServer;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -44,9 +45,32 @@ public class Server extends Thread {
 	// Instance of the game for the saving and loading
 	private static Game game;
 
+	private File saveFile;
+	private boolean loading;
+
+
+
+
+	/**
+	 * Starting a new Server
+	 * @param nclients
+	 * @param port
+	 */
 	public Server(int nclients, int port) {
 		this.nclients = nclients;
 		this.port = port;
+	}
+
+	/**
+	 * Starting a server from a saved file
+	 * @param file
+	 * @param port
+	 */
+	public Server(File file, int port){
+		loading = true;
+		this.saveFile = file;
+		this.port = port;
+		loadGame();
 	}
 
 	/**
@@ -108,6 +132,21 @@ public class Server extends Thread {
 		}
 		frame.toConsole("All clients have disconnected, the game is over");
 	}
+
+	/**
+	 * loads all necessary objects and sends them to the slave which
+	 * will create a new instance of game given the objects
+	 */
+	public void loadGame(){
+		//TODO get Num clients
+		this.nclients = 2;
+		//TODO get players
+		//TODO get other sendable objects
+	}
+
+
+
+
 
 	/**
 	 * Receives input from a single client and sends that input to each client

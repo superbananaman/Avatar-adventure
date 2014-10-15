@@ -128,21 +128,30 @@ public class Slave extends Thread {
 					else if (ob instanceof Item){
 						//TODO Send the item to the game so it can be picked up
 					}
+
+					else if (ob instanceof Integer){
+						Integer i = (Integer) ob;
+						for (Player p : players){
+							if (p.getUID().equals(playerUID)){
+								p.getInventory().selectedSpace = i;
+							}
+						}
+					}
 				}
 				// if the item has been picked up or dropped
 				else if (o instanceof String){
 					String command = (String)o;
 					//UIDObjectPair itemPair = (UIDObjectPair)in.readObject();
 
-					if (command.equals("Pickup")){
-						// TODO Pickup item
-						UIDObjectPair tileLocationPair = (UIDObjectPair)in.readObject();
-					}
-					else if(command.equals("Drop")){
-						// TODO Drop item
-						UIDObjectPair ItemNamePair  = (UIDObjectPair)in.readObject();
-						UIDObjectPair tileLocationPair = (UIDObjectPair)in.readObject();
-					}
+//					if (command.equals("Pickup")){
+//						// TODO Pickup item
+//						UIDObjectPair tileLocationPair = (UIDObjectPair)in.readObject();
+//					}
+//					else if(command.equals("Drop")){
+//						// TODO Drop item
+//						UIDObjectPair ItemNamePair  = (UIDObjectPair)in.readObject();
+//						UIDObjectPair tileLocationPair = (UIDObjectPair)in.readObject();
+//					}
 				}
 			}
 		} catch (IOException e) {
@@ -209,6 +218,17 @@ public class Slave extends Thread {
 			ioe.printStackTrace();
 		}
 	}
+
+	public static void sendSelectedSpace(int selected){
+		try{
+			out.writeObject(new UIDObjectPair(uid, (Integer) selected));
+		}catch (IOException e) {
+
+			e.printStackTrace();
+		}
+
+	}
+
 	/**
 	 * Sends a String to the server which represents that an item has been picked up,
 	 * then sends the item being picked up and a location that represents the position
