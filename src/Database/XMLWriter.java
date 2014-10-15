@@ -36,12 +36,12 @@ public class XMLWriter {
 			//loops through all the players in the game
 			for (Player p : currentPlayers) {
 				Element player = new Element("player");
-				player.addContent(new Element("nation").setText(p.getNation()));
 				player.addContent(new Element("name").setText(p.getUID()));
 				player.addContent(new Element("maxHealth").setText(Integer.toString(p.getMaxHealth())));
 				player.addContent(new Element("currentHealth").setText(Integer.toString(p.getCurrentHealth())));
 				player.addContent(new Element("alive").setText(Boolean.toString(p.isAlive())));
 
+				//Writes the players Sprite
 				Element sprite = new Element("sprite");
 				sprite.addContent(new Element("spriteName").setText(p.getSprite().getName()));
 				sprite.addContent(new Element("spriteX").setText(Integer.toString(p.getSprite().getCurrentX())));

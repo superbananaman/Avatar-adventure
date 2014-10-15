@@ -31,13 +31,13 @@ public class XMLParser {
 
 	public XMLParser(String filename){
 		fileName = filename;
-		readFromXML();
+		//readFromXML();
 	}
 
 	/**
 	 * Reads the given XML file to load a saved game.
 	 */
-	public void readFromXML(){
+	public List<Player> readFromXML(){
 		try{
 			Document jdomDoc = useSAXParser(fileName);
 			Element root = jdomDoc.getRootElement();
@@ -47,9 +47,8 @@ public class XMLParser {
 			for (Element playerElement : playerListElements){
 				Player player = new Player("");
 				player.setInventory(new Inventory());
-				player.setNation(playerElement.getChildText("nation"));
 				player.setName(playerElement.getChildText("name"));
-				player.addmaxHealth(Integer.parseInt(playerElement.getChildText("maxHealth")));
+				player.setMaxHealth(Integer.parseInt(playerElement.getChildText("maxHealth")));
 				player.setCurrentHealth(Integer.parseInt(playerElement.getChildText("currentHealth")));
 				player.setAlive(playerElement.getChildText("alive").equals("true"));
 
@@ -65,7 +64,7 @@ public class XMLParser {
 				String roomName = rooms.get(0).getText();
 				player.setCurrentRoom(new Room(roomName));
 
-				//Monsters
+				//Reads the monsters inside of the current room
 				List<Element> monsters = rooms.get(1).getChildren();
 				for(Element m : monsters){
 					List<Element> monster = m.getChildren();
@@ -116,25 +115,27 @@ public class XMLParser {
 			}
 
 			//print all the player information for debugging purposes
-			for (Player e : playerList){
-				System.out.println("Player Name: "+e.getUID());
-				System.out.println("Sprite Name: "+e.getSprite().getName());
-				System.out.println("Room: "+e.getCurrentRoom().getRoomName());
-				System.out.println("===Inventory===");
-				for(Item i : e.getInventory().getItems()){
-					System.out.println(i.getName());
-				}
-				System.out.println("===============");
-				System.out.println("===Monsters===");
-				for(Monster m : e.getCurrentRoom().getMonsters()){
-					System.out.println(m.getName());
-				}
-				System.out.println("==============");
-				System.out.println("");
-			}
+//			for (Player e : playerList){
+//				System.out.println("Player Name: "+e.getUID());
+//				System.out.println("Sprite Name: "+e.getSprite().getName());
+//				System.out.println("Room: "+e.getCurrentRoom().getRoomName());
+//				System.out.println("===Inventory===");
+//				for(Item i : e.getInventory().getItems()){
+//					System.out.println(i.getName());
+//				}
+//				System.out.println("===============");
+//				System.out.println("===Monsters===");
+//				for(Monster m : e.getCurrentRoom().getMonsters()){
+//					System.out.println(m.getName());
+//				}
+//				System.out.println("==============");
+//				System.out.println("");
+//			}
+			return playerList;
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
+		return null;
 	}
 
 	/**
