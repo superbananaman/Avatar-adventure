@@ -73,4 +73,12 @@ public class Boss implements Monster {
 
 	}
 
+	public boolean isAlive() {
+		return isAlive;
+	}
+
+	public void setAlive(boolean isAlive) {
+		this.isAlive = isAlive;
+	}
+
 }
