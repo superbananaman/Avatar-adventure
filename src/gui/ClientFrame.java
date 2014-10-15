@@ -52,7 +52,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener, A
     	this.players = players;
         setTitle("Avatar Adventure! ");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 1000, 720);
+        setBounds(100, 100, 1010, 730);
         for(Player p: players){if(p.getUID().equals(UID)){currentPlayer = p;break;}}
         setResizable(false);
 
@@ -60,8 +60,8 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener, A
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         GridBagLayout gbl_contentPane = new GridBagLayout();
-        gbl_contentPane.columnWidths = new int[]{800, 200, 0};
-        gbl_contentPane.rowHeights = new int[]{600, 114, 6};
+        gbl_contentPane.columnWidths = new int[]{800, 210, 0};
+        gbl_contentPane.rowHeights = new int[]{600, 120, 10};
         gbl_contentPane.columnWeights = new double[]{5.0, 1.0, Double.MIN_VALUE};
         gbl_contentPane.rowWeights = new double[]{50.0, 10.0, 0.5, Double.MIN_VALUE};
         contentPane.setLayout(gbl_contentPane);
@@ -263,11 +263,15 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener, A
         updateHealth();
     }
 
+    /**
+     * Refreshes the HealthBar
+     */
     public void updateHealth(){
     	int max = currentPlayer.getMaxHealth();
     	int cur = currentPlayer.getCurrentHealth();
     	hpPanel.updateHealth(cur, max);;
     }
+
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Save")){
 			JOptionPane.showMessageDialog(this, "Please choose a save Location");
