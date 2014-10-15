@@ -337,6 +337,15 @@ public class RenderWindow extends JPanel implements KeyListener {
 			}
 		}
 
+
+		if(e.getKeyCode() == KeyEvent.VK_E) {
+			if(currentPlayer.getInventory().getSelectedSpace() == -1 || currentPlayer.getInventory().getSelectedSpace() < currentPlayer.getInventory().getItems().size()){
+				if(currentPlayer.getInventory().get(currentPlayer.getInventory().getSelectedSpace()) instanceof Armour){
+					currentPlayer.getInventory().get(currentPlayer.getInventory().getSelectedSpace()).use(currentPlayer);
+				}
+			}
+		}
+
 		/*
 		 * for(int i=0; i <playersNonClient.size();i++){
 		 * System.out.print("Player:"+i+"  "+player.getUID()+"  "+

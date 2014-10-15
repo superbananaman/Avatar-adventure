@@ -99,10 +99,10 @@ public class Player implements Character, Serializable {
 		setAlive(false);
 	}
 
-	public void setmaxHealth(int h) {
-		if (isAlive) {
+	public void addmaxHealth(int h) {
+
 			maxHealth = maxHealth + h;
-		}
+
 	}
 
 	public int attack1() {
@@ -177,6 +177,6 @@ public class Player implements Character, Serializable {
 	}
 
 	public void setCurrentHealth(int currentHealth) {
-		this.currentHealth = currentHealth;
+		this.currentHealth += currentHealth;
 	}
 }

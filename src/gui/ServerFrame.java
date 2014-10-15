@@ -81,7 +81,7 @@ public class ServerFrame extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Start")){
 			if (portText.getText().isEmpty() || clientText.getText().isEmpty()){
-				server = new Server(1, 14141);
+				server = new Server(1, 14143);
 				server.start();
 				this.setVisible(false);
 				this.setEnabled(false);

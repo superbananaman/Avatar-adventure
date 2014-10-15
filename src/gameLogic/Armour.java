@@ -11,21 +11,26 @@ public class Armour implements Item{
 	private Tile tile;
 	private int health;
 	private String type;
-	private boolean equipped;
+	private boolean equipped = false;
 
 	public Armour(Tile pos, String type){
 		setTile(pos);
 		setType(type);
+		health = 700;
 
 	}
 	public void unequip(Player p){
-		p.setmaxHealth((-health));
+		p.addmaxHealth((-health));
 		setEquipped(false);
 	}
 
 	public void use(Player p){  //equipping armour gives health
 		if(!equipped){
-		p.setmaxHealth(health);
+			System.out.println("equipped");
+			System.out.println(p.getMaxHealth());
+		p.addmaxHealth(health);
+		System.out.println(p.getMaxHealth());
+		//p.setCurrentHealth(health);
 		setEquipped(true);
 		}
 	}
