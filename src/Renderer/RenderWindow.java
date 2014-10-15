@@ -341,15 +341,17 @@ public class RenderWindow extends JPanel implements KeyListener {
 
 		if(e.getKeyCode() == KeyEvent.VK_E) {
 			if(currentPlayer.getInventory().getSelectedSpace() == -1 || currentPlayer.getInventory().getSelectedSpace() < currentPlayer.getInventory().getItems().size()){
-				if(currentPlayer.getInventory().get(currentPlayer.getInventory().getSelectedSpace()) instanceof Armour){
-					currentPlayer.getInventory().get(currentPlayer.getInventory().getSelectedSpace()).use(currentPlayer);
+				Item selectedItem = currentPlayer.getInventory().get(currentPlayer.getInventory().getSelectedSpace());
+				if(selectedItem instanceof Armour){
+
+					selectedItem.use(currentPlayer);
 				}
-				else if(currentPlayer.getInventory().get(currentPlayer.getInventory().getSelectedSpace()) instanceof Fruit || currentPlayer.getInventory().get(currentPlayer.getInventory().getSelectedSpace()) instanceof Potion){
-					currentPlayer.getInventory().get(currentPlayer.getInventory().getSelectedSpace()).use(currentPlayer);
+				else if(selectedItem instanceof Fruit || selectedItem instanceof Potion){
+					selectedItem.use(currentPlayer);
 				}
 			}
 		}
-		if(e.getKeyCode() == KeyEvent.VK_E) {
+		if(e.getKeyCode() == KeyEvent.VK_K) {
 			Point playerPoint = renderer.isoTo2D(new Point(currentSprite.getCurrentX(), currentSprite.getCurrentY())); playerPoint.x += room.getSpawnSpots().getLocation().x; playerPoint.y += room.getSpawnSpots().getLocation().y;
 			for(Monster m : room.getMonsters()){
 				Point location = m.getTile().getLocation();

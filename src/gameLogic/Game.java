@@ -1,6 +1,5 @@
 package gameLogic;
 
-
 import gui.ClientFrame;
 
 import java.awt.Point;
@@ -10,21 +9,17 @@ import java.util.*;
 import Renderer.RenderWindow;
 import Renderer.Renderer;
 
-
-
-public class Game implements Serializable{
+public class Game implements Serializable {
 
 	private List<Room> rooms = new ArrayList<Room>();
 	private List<Player> totalPlayers = new ArrayList<Player>();
 	private ClientFrame clientframe;
 	private Renderer renderer = new Renderer();
 
-	public Game(String UID ,List<Player> players){
+	public Game(String UID, List<Player> players) {
 		setUp();
 		setTotalPlayers(players);
 		clientframe = new ClientFrame(UID, players, this);
-
-
 
 	}
 
@@ -32,30 +27,31 @@ public class Game implements Serializable{
 	 * sets up the rooms and monsters
 	 */
 
-	public void setUp(){
+	public void setUp() {
 		addRoom();
 		setMonsterHealth(getTotalPlayers().size());
-
 
 	}
 
 	/**
 	 *
-	 * @param size is the number of players. the monster health is proportional to the number of players
+	 * @param size
+	 *            is the number of players. the monster health is proportional
+	 *            to the number of players
 	 */
 
-public void setMonsterHealth(int size) {
-		for(Room r: rooms){
-			for(Monster m: r.getMonsters()){
+	public void setMonsterHealth(int size) {
+		for (Room r : rooms) {
+			for (Monster m : r.getMonsters()) {
 				m.setHealth(size);
 			}
 		}
 
 	}
 
-/**
- * makes all the rooms in the game and makes the tileset for each
- */
+	/**
+	 * makes all the rooms in the game and makes the tileset for each
+	 */
 
 	public void addRoom() {
 		System.out.println("adding rooms");
@@ -64,10 +60,10 @@ public void setMonsterHealth(int size) {
 		rooms.add(new Room("room2"));
 		rooms.add(new Room("room3"));
 		rooms.add(new Room("bossroom"));
-		for(Room r: rooms){
+		for (Room r : rooms) {
 
 			r.setTileSet(renderer.parseTileSet(r));
-			System.out.println(r.getRoomName()+" ADDED");
+			System.out.println(r.getRoomName() + " ADDED");
 		}
 	}
 
@@ -77,34 +73,38 @@ public void setMonsterHealth(int size) {
 
 	public void setTotalPlayers(List<Player> totalPlayers) {
 		this.totalPlayers = totalPlayers;
-		for(Player p : totalPlayers){
+		for (Player p : totalPlayers) {
 			p.setCurrentRoom(rooms.get(0));
 		}
 	}
 
-	public Room getRoom(String name){
-		for(Room r: rooms){
+	public Room getRoom(String name) {
+		for (Room r : rooms) {
 			System.out.println(r.getRoomName());
-			if(r.getRoomName().equalsIgnoreCase(name)){
+			if (r.getRoomName().equalsIgnoreCase(name)) {
 				return r;
 			}
 		}
 		return null;
 	}
 
-	public ClientFrame getClientFrame(){
+	public ClientFrame getClientFrame() {
 		return clientframe;
 	}
-	public Room getCurrentRoom(){
+
+	public Room getCurrentRoom() {
 		return totalPlayers.get(0).getCurrentRoom();
 	}
 
-	public void updateMonsters(Point location){
+	public void updateMonsters(Point location) {
 		Room currentroom = totalPlayers.get(0).getCurrentRoom();
-		for(Monster m: currentroom.getMonsters()){
-			if(m.getTile().getLocation().equals(location)){
-				currentroom.getMonsters().remove(m);
+		List<Monster> steve = currentroom.getMonsters();
+		synchronized (steve) {
+			for (Monster m : steve) {
+				if (m.getTile().getLocation().equals(location)) {
+					currentroom.getMonsters().remove(m);
 
+				}
 			}
 		}
 
