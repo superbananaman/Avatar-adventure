@@ -57,7 +57,6 @@ public class XMLWriter {
 					monster.addContent(new Element("monsterType").setText(m.getName()));
 					monster.addContent(new Element("positionX").setText(Double.toString(m.getTile().getLocation().getX())));
 					monster.addContent(new Element("positionY").setText(Double.toString(m.getTile().getLocation().getY())));
-					monster.addContent(new Element("playerCount").setText(Integer.toString(currentPlayers.size())));
 					monst.addContent(monster);
 				}
 				rm.addContent(monst);

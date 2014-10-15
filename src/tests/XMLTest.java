@@ -45,7 +45,7 @@ public class XMLTest {
 		Item legArmour = new Armour(new Tile(ArmorLegs,new Point(20,10),true),"ArmorLegs");
 		Item mango = new Fruit(new Tile(Mango,new Point(20,15),true),"Mango");
 		Monster skelly = new Skeleton(new Tile(floor,new Point(5,5),true));
-		Monster baws = new Boss(new Tile(floor,new Point(8,8),true),play.size());
+		Monster baws = new Boss(new Tile(floor,new Point(8,8),true));
 
 		play.add(new Player("Swifty"));
 		play.add(new Player("Mattdawg"));

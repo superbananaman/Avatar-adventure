@@ -3,6 +3,7 @@ package Database;
 import gameLogic.Armour;
 import gameLogic.Boss;
 import gameLogic.Fruit;
+import gameLogic.Game;
 import gameLogic.Inventory;
 import gameLogic.Item;
 import gameLogic.Monster;
@@ -73,8 +74,7 @@ public class XMLParser {
 					int posY = (int)Double.parseDouble(monster.get(2).getText());
 					Point p = new Point(posX,posY);
 					if(monsterName.equals("Boss")){
-						int numPlayers = Integer.parseInt(monster.get(3).getText());
-						player.getCurrentRoom().getMonsters().add(new Boss(new Tile(null,p,true),numPlayers));
+						player.getCurrentRoom().getMonsters().add(new Boss(new Tile(null,p,true)));
 					}
 					else{
 						player.getCurrentRoom().getMonsters().add(new Skeleton(new Tile(null,p,true)));
