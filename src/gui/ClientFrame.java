@@ -3,6 +3,7 @@ package gui;
  * Represents the Window displaying the game
  * @author Devlin Mahoney
  */
+import gameLogic.Game;
 import gameLogic.Inventory;
 import gameLogic.Item;
 import gameLogic.Player;
@@ -35,12 +36,15 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
     private JScrollPane scroll;
     private int selectedItem;
     private ArrayList<JLabel> inventory;
+    private Game game;
 
     /**
      * Create the frame.
      */
-    public ClientFrame(String UID, java.util.List<Player> players) {
+    public ClientFrame(String UID, java.util.List<Player> players,Game Game) {
         //addMouseListener(this);
+
+    	game = Game;
 
         setTitle("Avatar Adventure! ");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
