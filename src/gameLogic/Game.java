@@ -18,10 +18,12 @@ public class Game implements Serializable {
 	private List<Player> totalPlayers = new ArrayList<Player>();
 	private ClientFrame clientframe;
 	private Renderer renderer = new Renderer();
+	private int playerNumber;
 
 	public Game(String UID, List<Player> players) {
-		setTotalPlayers(players);
+		playerNumber = players.size();
 		setUp();
+		setTotalPlayers(players);
 		clientframe = new ClientFrame(UID, players, this);
 
 	}
@@ -32,7 +34,7 @@ public class Game implements Serializable {
 
 	public void setUp() {
 		addRoom();
-		setMonsterHealth(getTotalPlayers().size());
+		setMonsterHealth(playerNumber);
 
 	}
 
