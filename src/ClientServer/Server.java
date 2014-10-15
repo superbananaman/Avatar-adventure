@@ -189,7 +189,13 @@ public class Server extends Thread {
 					}
 					if (o instanceof Player) {
 						players.add((Player) o);
-						continue;
+						//continue;
+					}
+					
+					else if(o instanceof UIDObjectPair){
+						for (ObjectOutputStream oos : ooses) {
+							oos.writeObject(o);
+						}
 					}
 
 					// frame.toConsole("PLAYERSSIZE:" + players.size());
@@ -211,7 +217,7 @@ public class Server extends Thread {
 				}
 				// send a string which indicated the game can begin
 				for (ObjectOutputStream oos : ooses) {
-					oos.writeObject(new String("GO!"));
+					oos.writeObject(new Integer(1));
 				}
 				// Added so the last object that has been read isn't lost
 				synchronized (ooses) {
