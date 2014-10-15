@@ -17,14 +17,16 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import ClientServer.Server;
 import ClientServer.Slave;
+import Database.XMLWriter;
 import Renderer.RenderWindow;
 import Renderer.Renderer;
 import Renderer.Sprite;
 import Renderer.Tile;
 
 
-public class ClientFrame extends JFrame implements MouseListener, KeyListener{
+public class ClientFrame extends JFrame implements MouseListener, KeyListener, ActionListener{
 
     private JPanel contentPane;
     private RenderWindow renderWindow;
@@ -35,7 +37,9 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
     private JTextField inputArea;
     private JScrollPane scroll;
     private int selectedItem;
+
     private ArrayList<JLabel> inventory;
+    private java.util.List<Player> players;
     private Game game;
 
     /**
@@ -45,7 +49,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
         //addMouseListener(this);
 
     	this.game = game;
-
+    	this.players = players;
         setTitle("Avatar Adventure! ");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1000, 720);
@@ -74,7 +78,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
         contentPane.add(renderWindow, gbc_panel);
         renderWindow.setFocusable(true);
 
-        //Consoleoutput placeholder
+        //Console output placeholder
         textArea = new JTextArea();
         GridBagConstraints gbc_textArea = new GridBagConstraints();
         textArea.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -143,6 +147,8 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
 
         JButton saveButton = new JButton("Save");
         saveButton.setPreferredSize(new Dimension(150,40));
+        saveButton.addActionListener(this);
+
         panel_3.add(saveButton, BorderLayout.PAGE_END);
 
         hpPanel = new HpPanel(200);
@@ -193,6 +199,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
             inventory.get(selected).setBorder(null);
             selected = Integer.parseInt(((JLabel) e.getSource()).getName());
             currentPlayer.getInventory().setSelectedSpace(selected);
+            Slave.sendSelectedSpace(selected);
             inventory.get(selected).setBorder(BorderFactory.createLineBorder(Color.YELLOW));
             updateInventory();
         }
@@ -261,4 +268,13 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
     	int cur = currentPlayer.getCurrentHealth();
     	hpPanel.updateHealth(cur, max);;
     }
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("Save")){
+			JOptionPane.showMessageDialog(this, "Please choose a save Location");
+			JFileChooser thingy = new JFileChooser();
+			thingy.showSaveDialog(this);
+			XMLWriter george = new XMLWriter(thingy.getSelectedFile().toString(), players);
+
+		}
+	}
 }
