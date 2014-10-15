@@ -99,6 +99,7 @@ public class RenderWindow extends JPanel implements KeyListener {
 		offsetY = 250 + currentRoom.getOffSet().y;
 		Point spawn = room.getSpawnSpots().getLocation();
 		for (Player p : players) {
+			p.setCurrentRoom(currentRoom);
 			p.getSprite().setCurrentX(0);
 			p.getSprite().setCurrentY(0);
 			p.getSprite().setOffsetX(
@@ -348,7 +349,9 @@ public class RenderWindow extends JPanel implements KeyListener {
 				}
 			}
 		}
+		if(e.getKeyCode() == KeyEvent.VK_E) {
 
+		}
 		/*
 		 * for(int i=0; i <playersNonClient.size();i++){
 		 * System.out.print("Player:"+i+"  "+player.getUID()+"  "+

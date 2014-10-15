@@ -28,6 +28,7 @@ public class Player implements Character, Serializable {
 		maxHealth = 500;
 		currentHealth = 500;
 
+
 	}
 
 	public String getUID(){

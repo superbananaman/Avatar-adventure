@@ -76,6 +76,9 @@ public void setMonsterHealth(int size) {
 
 	public void setTotalPlayers(List<Player> totalPlayers) {
 		this.totalPlayers = totalPlayers;
+		for(Player p : totalPlayers){
+			p.setCurrentRoom(rooms.get(0));
+		}
 	}
 
 	public Room getRoom(String name){
