@@ -34,6 +34,10 @@ public class Potion implements Item {
 		this.tile = t;
 	}
 
-
-
+	public boolean equals(Item other){
+		if(other instanceof Potion){
+			return type.equals(other.getName());
+		}
+		return false;
+	}
 }

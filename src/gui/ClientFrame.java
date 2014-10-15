@@ -249,7 +249,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
                 toAdd.setIcon(null);
             }
         }
-        hpPanel.updateHealth((int)(Math.random()*500),500);
+        updateHealth();
     }
 
     public void updateHealth(){

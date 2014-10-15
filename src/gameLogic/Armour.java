@@ -46,4 +46,11 @@ public class Armour implements Item{
 		return type;
 	}
 
+	public boolean equals(Item other){
+		if(other instanceof Armour){
+			return type.equals(other.getName());
+		}
+		return false;
+	}
+
 }

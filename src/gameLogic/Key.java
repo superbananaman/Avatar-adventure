@@ -47,4 +47,10 @@ public class Key implements Item{
 		this.tile = t;
 	}
 
+	public boolean equals(Item other){
+		if(other instanceof Key){
+			return roomName.equals(other.getName());
+		}
+		return false;
+	}
 }

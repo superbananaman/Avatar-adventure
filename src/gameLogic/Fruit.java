@@ -53,4 +53,11 @@ public class Fruit implements Item{
 		return tile;
 	}
 
+	public boolean equals(Item other){
+		if(other instanceof Fruit){
+			return type.equals(other.getName());
+		}
+		return false;
+	}
+
 }
