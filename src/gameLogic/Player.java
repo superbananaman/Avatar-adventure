@@ -23,10 +23,10 @@ public class Player implements Character, Serializable {
 
 	public Player(String name) {
 		this.name = name;
-		setInventory(new Inventory());
+		inventory = new Inventory();
 		sprite = new Sprite("sprite",-60,70);
-		setmaxHealth(500);
-		setcurrentHealth(500);
+		maxHealth = 500;
+		currentHealth = 500;
 
 	}
 
@@ -51,7 +51,7 @@ public class Player implements Character, Serializable {
 	 */
 
 	public void pickUp(Tile tile) {
-		 if (isAlive()) {
+		 if (isAlive) {
 		 if (tile.hasItem()) { // has item returns true if it is
 			 System.out.println("Item picked up" + tile.getItem().getName());
 
@@ -65,9 +65,9 @@ public class Player implements Character, Serializable {
 
 	public void dropItem(Item i ,Tile tile) {
 		if(i != null){
-		Slave.sendDropItem(i.getName() ,tile.getLocation());
-		getInventory().remove(i);
-		System.out.println("Removed item");
+			Slave.sendDropItem(i.getName() ,tile.getLocation());
+			inventory.remove(i);
+			System.out.println("Removed item");
 		}
 	}
 
@@ -78,13 +78,13 @@ public class Player implements Character, Serializable {
 	 *            subtracted
 	 */
 
-	public void setcurrentHealth(int h) {
-		if ((getCurrentHealth() + h) < getMaxHealth()) {
-			setCurrentHealth(getCurrentHealth() + h);
-		} else if ((getCurrentHealth() + h) > getMaxHealth()) {
-			setCurrentHealth(getMaxHealth());
-		} else if ((getCurrentHealth() + h) < 0) {
-			setCurrentHealth(0);
+	public void updateCurrentHealth(int h) {
+		if ((currentHealth + h) < maxHealth) {
+			currentHealth += h;
+		} else if ((currentHealth + h) > maxHealth) {
+			currentHealth = maxHealth;
+		} else if ((currentHealth + h) < 0) {
+			currentHealth = 0;
 			Die();
 		}
 
@@ -92,24 +92,23 @@ public class Player implements Character, Serializable {
 
 	public void Die() {
 		setAlive(false);
-
 	}
 
 	public void setmaxHealth(int h) {
-		if (isAlive()) {
-			setMaxHealth(getMaxHealth() + h);
+		if (isAlive) {
+			maxHealth = maxHealth + h;
 		}
 	}
 
 	public int attack1() {
-		if (isAlive()) {
+		if (isAlive) {
 			return 200;
 		}
 		return 0;
 	}
 
 	public int attack2() {
-		if (isAlive()) {
+		if (isAlive) {
 			return 350;
 		}
 		return 0;
@@ -137,7 +136,7 @@ public class Player implements Character, Serializable {
 			return false;
 		}
 		Player p = (Player) obj;
-		if (p.getUID().equals(getUID())){
+		if (p.getUID().equals(name)){
 			return true;
 		}
 		return false;

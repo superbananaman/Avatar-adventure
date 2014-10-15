@@ -28,6 +28,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
     private JPanel contentPane;
     private RenderWindow renderWindow;
     private Player currentPlayer;
+    private HpPanel hpPanel;
     private int selected = 0;
     private JTextArea textArea;
     private JTextField inputArea;
@@ -140,12 +141,11 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
         saveButton.setPreferredSize(new Dimension(150,40));
         panel_3.add(saveButton, BorderLayout.PAGE_END);
 
-        JLabel barBack = new JLabel();
-        barBack.setPreferredSize(new Dimension(150,20));
-        barBack.setBackground(Color.WHITE);
-        barBack.setBorder(BorderFactory.createLineBorder(Color.RED));
-        barBack.setOpaque(true);
-        panel_3.add(barBack, BorderLayout.PAGE_START);
+        hpPanel = new HpPanel(200);
+        panel_3.add(hpPanel, BorderLayout.PAGE_START);
+
+        updateInventory();
+        updateHealth();
 
         setVisible(true);
     }
@@ -174,6 +174,7 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
 
     public void mouseClicked(MouseEvent e) {}
     public void mousePressed(MouseEvent e) {
+
         if(e.getSource() instanceof RenderWindow){
             ((RenderWindow) e.getSource()).requestFocus();
             //Tile t = ((RenderWindow) e.getSource()).getTile(e.getX(), e.getY());
@@ -185,13 +186,11 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
             //}
         }
         else if(e.getSource() instanceof JLabel){
-            textArea.append("\n" + ((JLabel) e.getSource()).getName());
             inventory.get(selected).setBorder(null);
             selected = Integer.parseInt(((JLabel) e.getSource()).getName());
             currentPlayer.getInventory().setSelectedSpace(selected);
             inventory.get(selected).setBorder(BorderFactory.createLineBorder(Color.YELLOW));
             updateInventory();
-            //this.selectedItem = number;
         }
     }
     public void mouseReleased(MouseEvent e) {}
@@ -216,6 +215,9 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
         return renderWindow;
     }
 
+    /**
+     * refreshes the inventory panel
+     */
     public void updateInventory(){
         ArrayList<Item> curInventory = new ArrayList<Item>();
         curInventory.addAll(currentPlayer.getInventory().getItems());
@@ -247,5 +249,12 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener{
                 toAdd.setIcon(null);
             }
         }
+        hpPanel.updateHealth((int)(Math.random()*500),500);
+    }
+
+    public void updateHealth(){
+    	int max = currentPlayer.getMaxHealth();
+    	int cur = currentPlayer.getCurrentHealth();
+    	hpPanel.updateHealth(cur, max);;
     }
 }

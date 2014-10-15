@@ -20,7 +20,7 @@ public class Potion implements Item {
 	}
 
 	public void use(Player p){
-		p.setcurrentHealth(health);
+		p.updateCurrentHealth(health);
 	}
 
 	public String getName() {
