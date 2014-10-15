@@ -2,17 +2,15 @@ package ClientServer;
 
 import java.awt.Point;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-
 import ClientServer.UIDObjectPair.Operation;
-import Renderer.Sprite;
-import Renderer.Tile;
+
 import tests.Circle;
 import gameLogic.Game;
 import gameLogic.Item;
@@ -32,17 +30,15 @@ public class Slave extends Thread {
 	private Socket socket;
 
 	private static String uid;
-	// the ClientPlayer
-	private Player player;
+
+	private Player player; // the ClientPlayer
 	private static List<Player> players = new ArrayList<Player>();
 
-	private static Game game;
+	private static Game game; // current state of the game
 
 	private static ObjectOutputStream out;
 	private ObjectInputStream in;
 
-
-	//private ClientFrame frame;
 
 	public Slave(String address, int port, String charName, String nation) {
 		try {
@@ -77,8 +73,6 @@ public class Slave extends Thread {
 				//System.out.println(o.toString() + " has been read");
 				if (o instanceof Player) {
 					Player p = (Player)o;
-					//System.out.println(p.getUID() + " has been added");
-					//waitframe.toConsole("A client has Connected!");
 					players.add(p);
 				}
 				// TESTING
@@ -93,6 +87,7 @@ public class Slave extends Thread {
 					UIDObjectPair message = (UIDObjectPair)o;
 					waitframe.toConsole(message.getUID(), (String)message.getObject());
 				}
+				// represents that all players have accepted
 				else if (o instanceof Integer){
 					break;
 				}
@@ -103,14 +98,11 @@ public class Slave extends Thread {
 			// frame = new ClientFrame(game);
 			System.out.println("FRAME: Player: " + player.getUID() + " Players: " + players.size());
 
-			//sleepThread(waitframe);
-
+			sleepThread(waitframe);
+			waitframe.stopMusic();
 			waitframe.dispose();
 
 			game = new Game(uid, players);
-
-//			frame = new ClientFrame(uid, players);
-//			frame.setVisible(true);
 
 			// while the game is running, recieves info
 			// on the current state of the game
@@ -122,18 +114,9 @@ public class Slave extends Thread {
 					String playerUID = pair.getUID();
 					Object ob = pair.getObject();
 					// A player had pressed a key
-					//if (ob instanceof KeyEvent){
 					if (pair.getOp().equals(Operation.KeyEvent)){
 						for (Player p : players){
-							//game.getClientFrame().toConsole(p.getSprite().getCurrentX() + "(x) " + p.getSprite().getCurrentY() + "(y)");
 							if (p.getUID().equals(playerUID)){
-//								KeyEvent ke = (KeyEvent)ob;
-//								if (ke.getKeyCode() == KeyEvent.VK_P || ke.getKeyCode() == KeyEvent.VK_O){
-//									game.getClientFrame().toConsole("Updating inventory");
-//									//game.getClientFrame().updateInventory();
-////									frame.toConsole("Updating inventory");
-////									frame.updateInventory();
-//								}
 								game.getClientFrame().getRenderWindow().receiveKeyEvent((KeyEvent) ob, p);
 							}
 						}
@@ -143,11 +126,7 @@ public class Slave extends Thread {
 						String message = (String) ob;
 						game.getClientFrame().toConsole(playerUID, message);
 					}
-					// A player has picked up or dropped an item
-					else if (ob instanceof Item){
-						//TODO Send the item to the game so it can be picked up
-					}
-
+					// received the selected inventory space of a player
 					else if (pair.getOp().equals(Operation.SpaceSelected)){
 						Integer i = (Integer) ob;
 						for (Player p : players){
@@ -156,32 +135,25 @@ public class Slave extends Thread {
 							}
 						}
 					}
+					// received a dead monster message
 					else if (pair.getOp().equals(Operation.Monster)){
 						game.updateDeadMonsters((Point) ob);
 					}
+					// received a dead player message
 					else if (pair.getOp().equals(Operation.DeadPlayer)){
 						//game.
 					}
+					// received a damage message
 					else if (pair.getOp().equals(Operation.Damage)){
-						UIDObjectPair locationPair = (UIDObjectPair)in.readObject();
-						game.updateDamageMonsters((Point)locationPair.getObject(), (Integer)pair.getObject());
+						game.updateDamageMonsters((Point)pair.getObject2(), (Integer)pair.getObject());
 					}
+
 				}
 				// if the item has been picked up or dropped
 				else if (o instanceof String){
 					String message = (String)o;
 					game.getClientFrame().toConsole(message);
-					//UIDObjectPair itemPair = (UIDObjectPair)in.readObject();
 
-//					if (command.equals("Pickup")){
-//						// TODO Pickup item
-//						UIDObjectPair tileLocationPair = (UIDObjectPair)in.readObject();
-//					}
-//					else if(command.equals("Drop")){
-//						// TODO Drop item
-//						UIDObjectPair ItemNamePair  = (UIDObjectPair)in.readObject();
-//						UIDObjectPair tileLocationPair = (UIDObjectPair)in.readObject();
-//					}
 				}
 			}
 		} catch (IOException e) {
@@ -191,6 +163,11 @@ public class Slave extends Thread {
 		}
 	}
 
+	/**
+	 * Sleeps the thread for 5 seconds and then begins the game,
+	 * the count down is recorded on the waitframe
+	 * @param waitframe
+	 */
 	private void sleepThread(WaitFrame waitframe) {
 		int count = 5;
 		while (count > 0){
@@ -220,7 +197,6 @@ public class Slave extends Thread {
 	}
 
 
-
 	/**
 	 * Sends a message to the server to be sent to all other clients playing the
 	 * game, static so any class can send a message to the server
@@ -238,6 +214,10 @@ public class Slave extends Thread {
 		}
 	}
 
+	/**
+	 * Sends a message to the console withough a given uid
+	 * @param m Represents an event occurring in the game
+	 */
 	public static void sendToConsole(String m){
 		try {
 			out.writeObject(m);
@@ -247,6 +227,10 @@ public class Slave extends Thread {
 		}
 	}
 
+	/**
+	 * sends the monster which indicates that it is dead
+	 * @param location the point the monster is on
+	 */
 	public static void sendMonster(Point location){
 		try {
 			out.writeObject(new UIDObjectPair(Operation.Monster, uid, location));
@@ -256,16 +240,24 @@ public class Slave extends Thread {
 		}
 	}
 
+	/**
+	 * sends that a monster has attacked a player to the server
+	 * @param health the amount of health lost
+	 * @param loc the location of the monster
+	 */
 	public static void sendMonsterAttack(int health, Point loc){
 		try {
-			out.writeObject(new UIDObjectPair(Operation.Damage, uid, new Integer(health)));
-			out.writeObject(new UIDObjectPair(Operation.Damage, uid, loc));
+			out.writeObject(new UIDObjectPair(Operation.Damage, uid, new Integer(health), loc));
 		} catch (IOException e) {
 			// something went wrong, ignore it for now
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Sent when a player in the game has died
+	 * @param deadPlayer
+	 */
 	public static void sendDeadPlayer(String deadPlayer){
 		try {
 			out.writeObject(new UIDObjectPair(Operation.DeadPlayer, uid, deadPlayer));
@@ -281,24 +273,16 @@ public class Slave extends Thread {
 	 */
 	public static void sendKeyEvent(KeyEvent e){
 		try {
-
-			//System.out.println("UID : " + uid);
 			out.writeObject(new UIDObjectPair(Operation.KeyEvent, uid, e));
-//			int code = e.getKeyCode();
-//			if (code == KeyEvent.VK_UP) {
-//				out.writeObject(new UIDObjectPair(uid, new Integer(1)));
-//			} else if (code == KeyEvent.VK_DOWN) {
-//				out.writeObject(new UIDObjectPair(uid, new Integer(2)));
-//			} else if (code == KeyEvent.VK_LEFT) {
-//				out.writeObject(new UIDObjectPair(uid, new Integer(3)));
-//			} else if (code == KeyEvent.VK_RIGHT) {
-//				out.writeObject(new UIDObjectPair(uid, new Integer(4)));
-//			}
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
 	}
 
+	/**
+	 * Sends the item the client player has selected to all other clients
+	 * @param selected
+	 */
 	public static void sendSelectedSpace(int selected){
 		try{
 			out.writeObject(new UIDObjectPair(Operation.SpaceSelected, uid, (Integer) selected));
@@ -360,13 +344,10 @@ public class Slave extends Thread {
 		}
 	}
 
-	/**
-	 * @return the current player of this client
-	 */
-//	public static Player getCurrent() {
-//		return player;
-//	}
 
+	/**
+	 * @return returns all players in the game
+	 */
 	public static List<Player> getPlayers() {
 		return players;
 	}

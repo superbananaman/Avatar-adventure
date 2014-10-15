@@ -12,16 +12,24 @@ public class UIDObjectPair implements Serializable {
 
 
 	public enum Operation{
-		Message, Monster, KeyEvent, SpaceSelected, Pickup, Drop, DeadPlayer, Damage
+		Message, Monster, KeyEvent, SpaceSelected, Pickup, Drop, DeadPlayer, Damage, Damage2
 	};
 	private Operation op;
 	private String uid;
 	private Object ob;
+	private Object ob2;
 
 	public UIDObjectPair(Operation op, String uid, Object ob){
 		this.op = op;
 		this.uid = uid;
 		this.ob = ob;
+	}
+
+	public UIDObjectPair(Operation op, String uid, Object ob, Object ob2){
+		this.op = op;
+		this.uid = uid;
+		this.ob = ob;
+		this.ob2 = ob2;
 	}
 
 	/**
@@ -44,6 +52,13 @@ public class UIDObjectPair implements Serializable {
 	 */
 	public Object getObject(){
 		return ob;
+	}
+
+	/**
+	 * @return a second optional object
+	 */
+	public Object getObject2(){
+		return ob2;
 	}
 
 }

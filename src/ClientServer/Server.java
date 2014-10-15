@@ -43,12 +43,9 @@ public class Server extends Thread {
 	// indicates whether all players have joined
 	private static boolean allPlayers = false;
 	// Instance of the game for the saving and loading
-	private static Game game;
 
 	private File saveFile;
 	private boolean loading;
-
-
 
 
 	/**
@@ -139,11 +136,9 @@ public class Server extends Thread {
 	 */
 	public void loadGame(){
 		//TODO get Num clients
-		this.nclients = 2;
 		//TODO get players
 		//TODO get other sendable objects
 	}
-
 
 
 
@@ -175,7 +170,6 @@ public class Server extends Thread {
 				// add the OutputStream to the list
 				ooses.add(out);
 				// while we are still waiting for clients to join
-				// add the first player
 				Object o = null;
 				do {
 					try {
@@ -191,14 +185,11 @@ public class Server extends Thread {
 						players.add((Player) o);
 						//continue;
 					}
-					
 					else if(o instanceof UIDObjectPair){
 						for (ObjectOutputStream oos : ooses) {
 							oos.writeObject(o);
 						}
 					}
-
-					// frame.toConsole("PLAYERSSIZE:" + players.size());
 					// TESTING
 					// if (o instanceof Circle){
 					// players.add((Circle)o);
@@ -225,14 +216,11 @@ public class Server extends Thread {
 						oos.writeObject(o);
 					}
 				}
-				// so far all this loop does is read an object and
-				// send it back out to all clients
+				//Loop that reads any input from a slave a relays that input to all clients
 				while (true) {
-					// Object o = null;
-
 					try {
 						o = in.readObject();
-						//frame.toConsole(o.toString() + " has been sent through");
+						frame.toConsole(o.toString() + " has been sent through");
 					} catch (ClassNotFoundException e) {
 						System.out.println("An object was not sent through");
 						e.printStackTrace();
