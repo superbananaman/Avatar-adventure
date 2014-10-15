@@ -65,6 +65,11 @@ public class Player implements Character, Serializable {
 
 	public void dropItem(Item i ,Tile tile) {
 		if(i != null){
+			if(i instanceof Armour){
+				if(((Armour) i).isEquipped()){
+					((Armour) i).unequip(this);
+				}
+			}
 			Slave.sendDropItem(i.getName() ,tile.getLocation());
 			inventory.remove(i);
 			System.out.println("Removed item");

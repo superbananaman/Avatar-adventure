@@ -11,15 +11,23 @@ public class Armour implements Item{
 	private Tile tile;
 	private int health;
 	private String type;
+	private boolean equipped;
 
 	public Armour(Tile pos, String type){
 		setTile(pos);
 		setType(type);
 
 	}
+	public void unequip(Player p){
+		p.setmaxHealth((-health));
+		setEquipped(false);
+	}
 
 	public void use(Player p){  //equipping armour gives health
+		if(!equipped){
 		p.setmaxHealth(health);
+		setEquipped(true);
+		}
 	}
 
 
@@ -51,6 +59,14 @@ public class Armour implements Item{
 			return type.equals(other.getName());
 		}
 		return false;
+	}
+
+	public boolean isEquipped() {
+		return equipped;
+	}
+
+	public void setEquipped(boolean equipped) {
+		this.equipped = equipped;
 	}
 
 }
