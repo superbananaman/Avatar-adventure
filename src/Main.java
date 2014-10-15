@@ -3,8 +3,6 @@ import gui.MainFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import ClientServer.NetworkSetup;
-
 public class Main {
 
 
