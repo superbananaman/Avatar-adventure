@@ -13,7 +13,9 @@ import gameLogic.Game;
 import gameLogic.Inventory;
 import gameLogic.Key;
 import gameLogic.Player;
+import gameLogic.Potion;
 import gameLogic.Room;
+import gameLogic.Skeleton;
 
 import org.junit.*;
 
@@ -58,7 +60,7 @@ public class GameLogicTests {
 	@Test
 	public void testBossAttack(){
 		Boss boss = new Boss(null);
-		assertTrue(boss.attack() == 400);
+		assertTrue(boss.attack() == 200);
 	}
 	@Test
 	public void testBossTakeDamage(){
@@ -138,18 +140,61 @@ public class GameLogicTests {
 		Player player = new Player("Awesome");
 		assertTrue(player.attack2() == 1000);
 	}
-	@Test
-	public void testPlayerUpdateHealth(){
-		Player player = new Player("Awesome");
-		player.updateCurrentHealth(1000);
-		assertTrue(player.getCurrentHealth() == 500);
+
+		@Test
+		public void testPlayerUpdateHealth(){
+			Player player = new Player("Awesome");
+			player.updateCurrentHealth(1000);
+			assertTrue(player.getCurrentHealth() == 500);
 
 
-	}
+		}
+
+		@Test
+		public void testPlayerUpdateHealth2(){
+			Player player = new Player("Awesome");
+			player.setCurrentHealth(100);
+			player.setMaxHealth(120);
+			player.updateCurrentHealth(21);
+			assertTrue(player.getCurrentHealth() == 120);
+		}
 
 
+		@Test
+		public void testPotion(){
+			Player player = new Player("Awesome");
+			player.setMaxHealth(1000);
+			player.setCurrentHealth(499);
+			Potion potion = new Potion(null, "Awesome");
+			potion.use(player);
+			assertTrue(player.getCurrentHealth() == 999);
+		}
+		@Test
+		public void testSkeletonHealth(){
+			Skeleton skeleton = new Skeleton(null);
+			skeleton.setHealth(3);
+			assertTrue(skeleton.getHealth() == 1200);
+		}
 
 
+		@Test
+		public void testSkeletonHealth2(){
+			Skeleton skeleton = new Skeleton(null);
+			skeleton.setHealth(4);
+			assertTrue(skeleton.getHealth() != 4500);
+		}
+		@Test
+		public void testSkeletonAttack(){
+			Skeleton skeleton = new Skeleton(null);
+			assertTrue(skeleton.attack() == 100);
+		}
+		@Test
+		public void testSkeletonTakeDamage(){
+			Skeleton skeleton = new Skeleton(null);
+			skeleton.setHealth(4);
+			skeleton.takeDamage(1599);
+			assertTrue(skeleton.getHealth() == 1);
+		}
 
 
 
