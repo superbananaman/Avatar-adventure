@@ -134,6 +134,9 @@ public class Game implements Serializable {
 	}
 
 
+
+
+
 	public void updateDeadMonsters(Point location) {
 		Room currentroom = totalPlayers.get(0).getCurrentRoom();
 		List<Monster> monsters = currentroom.getMonsters();
