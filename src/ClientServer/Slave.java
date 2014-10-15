@@ -140,7 +140,8 @@ public class Slave extends Thread {
 				}
 				// if the item has been picked up or dropped
 				else if (o instanceof String){
-					String command = (String)o;
+					String message = (String)o;
+					game.getClientFrame().toConsole(message);
 					//UIDObjectPair itemPair = (UIDObjectPair)in.readObject();
 
 //					if (command.equals("Pickup")){
@@ -188,6 +189,15 @@ public class Slave extends Thread {
 		UIDObjectPair message = new UIDObjectPair(uid, m);
 		try {
 			out.writeObject(message);
+		} catch (IOException e) {
+			// something went wrong, ignore it for now
+			e.printStackTrace();
+		}
+	}
+
+	public static void sendToConsole(String m){
+		try {
+			out.writeObject(m);
 		} catch (IOException e) {
 			// something went wrong, ignore it for now
 			e.printStackTrace();

@@ -88,7 +88,7 @@ public class ClientOptions extends JFrame implements ActionListener{
 			if (addressText.getText().isEmpty() || portText.getText().isEmpty()){
 				try {
 //					s = new Slave("130.195.4.150", 14141, nameText.getText(), null);
-						s = new Slave(InetAddress.getLocalHost().getHostAddress(), 14141, nameText.getText(), null);
+						s = new Slave(InetAddress.getLocalHost().getHostAddress(), 14143, nameText.getText(), null);
 						s.start();
 						this.setVisible(false);
 						this.setEnabled(false);
