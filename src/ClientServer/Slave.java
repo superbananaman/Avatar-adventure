@@ -137,6 +137,9 @@ public class Slave extends Thread {
 							}
 						}
 					}
+					else if (ob instanceof Point){
+						game.updateMonsters((Point) ob);
+					}
 				}
 				// if the item has been picked up or dropped
 				else if (o instanceof String){
@@ -204,6 +207,14 @@ public class Slave extends Thread {
 		}
 	}
 
+	public static void sendMonster(Point location){
+		try {
+			out.writeObject(new UIDObjectPair(uid, location));
+		} catch (IOException e) {
+			// something went wrong, ignore it for now
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Send a keyEvent to the server to send back to all clients
