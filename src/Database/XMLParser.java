@@ -1,5 +1,7 @@
 package Database;
-
+/**
+ * @author smithbren3
+ */
 import gameLogic.Armour;
 import gameLogic.Boss;
 import gameLogic.Fruit;
