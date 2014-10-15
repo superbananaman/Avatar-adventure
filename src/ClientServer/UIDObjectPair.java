@@ -10,8 +10,9 @@ import java.io.Serializable;
  */
 public class UIDObjectPair implements Serializable {
 
+
 	public enum Operation{
-		Message, Monster, KeyEvent, SpaceSelected, Pickup, Drop, DeadPlayer
+		Message, Monster, KeyEvent, SpaceSelected, Pickup, Drop, DeadPlayer, Damage
 	};
 	private Operation op;
 	private String uid;

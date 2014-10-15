@@ -41,6 +41,7 @@ public class Slave extends Thread {
 	private static ObjectOutputStream out;
 	private ObjectInputStream in;
 
+
 	//private ClientFrame frame;
 
 	public Slave(String address, int port, String charName, String nation) {
@@ -102,7 +103,7 @@ public class Slave extends Thread {
 			// frame = new ClientFrame(game);
 			System.out.println("FRAME: Player: " + player.getUID() + " Players: " + players.size());
 
-			sleepThread(waitframe);
+			//sleepThread(waitframe);
 
 			waitframe.dispose();
 
@@ -156,7 +157,14 @@ public class Slave extends Thread {
 						}
 					}
 					else if (pair.getOp().equals(Operation.Monster)){
-						game.updateMonsters((Point) ob);
+						game.updateDeadMonsters((Point) ob);
+					}
+					else if (pair.getOp().equals(Operation.DeadPlayer)){
+						//game.
+					}
+					else if (pair.getOp().equals(Operation.Damage)){
+						UIDObjectPair locationPair = (UIDObjectPair)in.readObject();
+						game.updateDamageMonsters((Point)locationPair.getObject(), (Integer)pair.getObject());
 					}
 				}
 				// if the item has been picked up or dropped
@@ -239,7 +247,7 @@ public class Slave extends Thread {
 		}
 	}
 
-	public static void sendMonster(Point location, int health){
+	public static void sendMonster(Point location){
 		try {
 			out.writeObject(new UIDObjectPair(Operation.Monster, uid, location));
 		} catch (IOException e) {
@@ -248,9 +256,10 @@ public class Slave extends Thread {
 		}
 	}
 
-	public static void sendMonsterAttack(int health){
+	public static void sendMonsterAttack(int health, Point loc){
 		try {
-			out.writeObject(new Integer(health));
+			out.writeObject(new UIDObjectPair(Operation.Damage, uid, new Integer(health)));
+			out.writeObject(new UIDObjectPair(Operation.Damage, uid, loc));
 		} catch (IOException e) {
 			// something went wrong, ignore it for now
 			e.printStackTrace();
