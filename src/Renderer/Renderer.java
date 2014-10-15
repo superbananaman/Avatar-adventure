@@ -36,7 +36,7 @@ public class Renderer {
 	final BufferedImage door = getIso(64*1,64*1);
 	final BufferedImage crate = getIso(64*3,64*5);
 	final BufferedImage skelly = getIso(64*4,64*1);
-	final BufferedImage boss1 = getIso(64*2,64*2);
+	final BufferedImage boss1 = getIso(64*5,64*1);
 	public final BufferedImage Banana = getIso(64*3,64*2);
 	public final BufferedImage Apple = getIso(64*4,64*2);
 	public final BufferedImage Mango = getIso(64,64*3);
