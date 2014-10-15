@@ -63,7 +63,7 @@ public class RenderWindow extends JPanel implements KeyListener {
 	private int selectedSpace = -1;
 
 	/**
-	 *
+	 *Constructor of RenderWindow, Takes the first room to create, the client player (this player) User id  and the players in the render window and the game
 	 * @param roomName
 	 * @param uID
 	 * @param players
@@ -76,7 +76,7 @@ public class RenderWindow extends JPanel implements KeyListener {
 		panel.setLayout(null);
 		panel.setSize(height, width);
 
-		for (Player player : players) {
+		for (Player player : players) { //Find which player in players is the client player
 			if (player.getUID().equals(uID))
 				this.clientPlayer = player;
 		}
@@ -85,19 +85,19 @@ public class RenderWindow extends JPanel implements KeyListener {
 		// playersNonClient.remove(clientPlayer);
 		addKeyListener(this);
 		setVisible(true);
-		room = game.getRoom(roomName);
+		room = game.getRoom(roomName); //set the room to start in
 		setupPlayersInRoom(room);
 	}
 
 	/**
-	 * Sets up the current room to be rendered to all sprites
+	 * Sets up the players location s and y in sprites to the new room @param currentRoom
 	 *
 	 * @param currentRoom
 	 */
 	private void setupPlayersInRoom(Room currentRoom) {
 		offsetX = -620 + currentRoom.getOffSet().x;
 		offsetY = 250 + currentRoom.getOffSet().y;
-		Point spawn = room.getSpawnSpots().getLocation();
+		Point spawn = room.getSpawnSpots().getLocation(); //finds the spawn in the room
 		for (Player p : players) {
 			p.setCurrentRoom(currentRoom);
 			p.getSprite().setCurrentX(0);
@@ -122,10 +122,10 @@ public class RenderWindow extends JPanel implements KeyListener {
 		update(g);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Called everytime by paint this method on first time round draws the background from the rooms tileset using a painters alogirthm onto a buffered image
+	 * then draws the buffered image onto the view window. Lastly renderers the sprite onto the view window
 	 *
-	 * @see javax.swing.JComponent#update(java.awt.Graphics)
 	 */
 	public void update(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
@@ -145,18 +145,18 @@ public class RenderWindow extends JPanel implements KeyListener {
 		// renderer.drawSpriteClientPlayer(g2, clientPlayer);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Sends the key pressed on the renderwindow to the server so the server can send the event back to all players
+	 * @param KeyEvent e
 	 *
-	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
 	 */
 	public void keyPressed(KeyEvent e) {
 		Slave.sendKeyEvent(e);
 	}
 
 	/**
-	 * Receives the key event from slave and process it for the specific client
-	 * updating the player fields
+	 * Receives the key event from slave and process it for the specific player in the game
+	 * updating the player fields and sprites
 	 *
 	 * @param e
 	 * @param player
@@ -174,6 +174,11 @@ public class RenderWindow extends JPanel implements KeyListener {
 		currentSprite = currentPlayer.getSprite();
 		// find sprite
 
+		/**
+		 *  For Moving: take the direction, check if the move is valid (not into a wall etc) then update the sprites x and y values
+		 *  then if the player moved is the client player move the map to simulate the camera panning across.
+		 *
+		 */
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			currentSprite.setFacing("Right");
 			if (checkValidMove(currentSprite, 4, 2, room)) {
@@ -265,17 +270,27 @@ public class RenderWindow extends JPanel implements KeyListener {
 			}
 
 		}
+		/**
+		 *  For rotating: calls the renderer to rotate the tiles in the given room
+		 *  calls firsttime true to repaint the background
+		 */
 		if (e.getKeyCode() == KeyEvent.VK_R) {
 			// rotate room 90 degrees clockwise
 			room.setTileSet(renderer.rotate(room));
 			firstTime = true;
 			this.repaint();
 		}
+		/**
+		 *  For changing room: calls the change room method on the currentplayer
+		 */
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 
 			changeRoom(currentPlayer);
 			this.repaint();
 		}
+		/**
+		 *  For pickiing up: finds where the player is and checks if there is an item close/on the tile and calls pickup method on player if it finds an item
+		 */
 		if (e.getKeyCode() == KeyEvent.VK_P) {
 			Tile itemTile = null;
 			Point playerPoint = renderer.isoTo2D(new Point(currentSprite.getCurrentX(), currentSprite.getCurrentY())); playerPoint.x += room.getSpawnSpots().getLocation().x; playerPoint.y += room.getSpawnSpots().getLocation().y;
@@ -295,6 +310,9 @@ public class RenderWindow extends JPanel implements KeyListener {
 			firstTime=true;
 			this.repaint();
 		}
+		/**
+		 *  For dropping: finds the player position and gives that tile an item / replaces that item, sets the item image  and changes the boolean on tile has item, takes it out of the current player inventory
+		 */
 		if (e.getKeyCode() == KeyEvent.VK_O) {
 			selectedSpace = currentPlayer.getInventory().getSelectedSpace();
 			Point playerPoint = renderer.isoTo2D(new Point(currentSprite.getCurrentX(), currentSprite.getCurrentY())); playerPoint.x += room.getSpawnSpots().getLocation().x; playerPoint.y += room.getSpawnSpots().getLocation().y;
@@ -337,7 +355,9 @@ public class RenderWindow extends JPanel implements KeyListener {
 			game.getClientFrame().updateInventory();
 			}
 		}
-
+		/**
+		 *  For equipping: finds the selected item in the inventory and updates the players max health with the item stats
+		 */
 
 		if(e.getKeyCode() == KeyEvent.VK_E) {
 			if(currentPlayer.getInventory().getSelectedSpace() == -1 || currentPlayer.getInventory().getSelectedSpace() < currentPlayer.getInventory().getItems().size()){
@@ -354,6 +374,10 @@ public class RenderWindow extends JPanel implements KeyListener {
 				}
 			}
 		}
+
+		/**
+		 *  For attacking: finds the monster the player is on / close to and hits the monster with the players attack, the monster then hits back  and updates the players current health
+		 */
 		if(e.getKeyCode() == KeyEvent.VK_K) {
 			Point playerPoint = renderer.isoTo2D(new Point(currentSprite.getCurrentX(), currentSprite.getCurrentY())); playerPoint.x += room.getSpawnSpots().getLocation().x; playerPoint.y += room.getSpawnSpots().getLocation().y;
 			for(Monster m : room.getMonsters()){
@@ -362,7 +386,9 @@ public class RenderWindow extends JPanel implements KeyListener {
 
 					//m.takeDamage(currentPlayer.attack1());
 					currentPlayer.updateCurrentHealth(-(m.attack()));
-					Slave.sendMonsterAttack(currentPlayer.attack1(), m.getTile().getLocation());
+					if(currentPlayer.equals(clientPlayer)){
+						Slave.sendMonsterAttack(currentPlayer.attack1(), m.getTile().getLocation());
+					}
 					game.getClientFrame().updateInventory();
 					m.getTile().setMonster(null);
 					firstTime = true;
