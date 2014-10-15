@@ -91,4 +91,9 @@ public void setMonsterHealth(int size) {
 	public ClientFrame getClientFrame(){
 		return clientframe;
 	}
+	public Room getCurrentRoom(){
+		return totalPlayers.get(0).getCurrentRoom();
+	}
+
+
 }
