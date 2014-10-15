@@ -3,6 +3,7 @@ package Renderer;
  * @author parkerliam
  */
 import gameLogic.*;
+import gui.ClientFrame;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -14,7 +15,9 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JPanel;
+
 import ClientServer.Slave;
 
 public class RenderWindow extends JPanel implements KeyListener {
@@ -92,6 +95,9 @@ public class RenderWindow extends JPanel implements KeyListener {
 			if(!p.isAlive()){
 				p.setCurrentHealth(100);
 				p.setAlive(true);
+				game.getClientFrame().updateInventory();
+				firstTime = true;
+				this.repaint();
 			}
 			p.setCurrentRoom(currentRoom);
 			p.getSprite().setCurrentX(0);
@@ -273,6 +279,7 @@ public class RenderWindow extends JPanel implements KeyListener {
 			room.setTileSet(renderer.rotate(room));
 			firstTime = true;
 			this.repaint();
+
 		}
 		/**
 		 *  For changing room: calls the change room method on the currentplayer
