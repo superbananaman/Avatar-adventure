@@ -253,7 +253,6 @@ public class ClientFrame extends JFrame implements MouseListener, KeyListener, A
                 }else {
                     temp.setIcon(new ImageIcon(renderWindow.renderer.KeyRoom2));
                 }
-                toConsole(name);
             }
             else {
                 JLabel toAdd = inventory.get(i);
