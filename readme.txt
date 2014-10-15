@@ -19,4 +19,4 @@ Running a Client-
 	The object of the game is to collect keys to open doors to get to the boss and kill it.
 	To pick up objects press 'p'. To drop items press 'o'. To go through doors, assuming you have
 	the key, press 'space'.
-	To attack the boss, stand on him and press 'k'.
+	To attack monsters, stand on them and press 'k'. Be careful not to die.
