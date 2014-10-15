@@ -7,6 +7,11 @@ import javax.swing.text.Position;
 
 import Renderer.Tile;
 
+/**
+ * @author cartyschri
+ */
+
+
 public interface Monster extends Character {
 
 

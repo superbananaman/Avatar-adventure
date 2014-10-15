@@ -5,6 +5,11 @@ import java.io.Serializable;
 
 import Renderer.Tile;
 
+/**
+ * @author cartyschri
+ */
+
+
 public interface Item extends Serializable{
 
 	public void use(Player player);

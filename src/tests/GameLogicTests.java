@@ -22,6 +22,11 @@ import org.junit.*;
 import Renderer.Renderer;
 import Renderer.Tile;
 
+/**
+ * @author cartyschri
+ */
+
+
 public class GameLogicTests {
 
 	@Test

@@ -12,6 +12,11 @@ import ClientServer.Slave;
 import Renderer.RenderWindow;
 import Renderer.Renderer;
 
+/**
+ * @author cartyschri
+ */
+
+
 public class Game implements Serializable {
 
 	private List<Room> rooms = new ArrayList<Room>();

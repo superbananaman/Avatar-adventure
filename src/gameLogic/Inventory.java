@@ -5,6 +5,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author cartyschri
+ */
+
+
 public class Inventory implements Serializable{
 
 	private List<Item> items = new ArrayList<Item>();

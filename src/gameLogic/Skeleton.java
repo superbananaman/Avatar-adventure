@@ -5,6 +5,11 @@ import java.awt.Graphics;
 import ClientServer.Slave;
 import Renderer.Tile;
 
+/**
+ * @author cartyschri
+ */
+
+
 public class Skeleton implements Monster {
 
 	private Tile tile;

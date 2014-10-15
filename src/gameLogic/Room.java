@@ -9,6 +9,11 @@ import java.util.*;
 
 import Renderer.Tile;
 
+/**
+ * @author cartyschri
+ */
+
+
 public class Room implements Serializable{
 
 	//private List<Player> players = new ArrayList<Player>(); // the current players in this room

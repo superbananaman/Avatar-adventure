@@ -4,6 +4,11 @@ import java.awt.Graphics;
 
 import Renderer.Tile;
 
+
+/**
+ * @author cartyschri
+ */
+
 public class Fruit implements Item{
 
 	private Tile tile;
@@ -25,7 +30,7 @@ public class Fruit implements Item{
 
 	public void use(Player player) {
 		player.updateCurrentHealth(health);
-		
+
 
 	}
 

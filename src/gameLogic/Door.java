@@ -2,6 +2,10 @@ package gameLogic;
 
 import java.awt.Graphics;
 
+/**
+ * @author cartyschri
+ */
+
 import javax.swing.text.Position;
 
 import Renderer.Tile;

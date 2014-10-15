@@ -6,6 +6,12 @@ import javax.swing.text.Position;
 
 import Renderer.Tile;
 
+
+/**
+ * @author cartyschri
+ */
+
+
 public class Potion implements Item {
 
 	private Tile tile;

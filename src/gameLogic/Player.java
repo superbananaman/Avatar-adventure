@@ -10,6 +10,12 @@ import ClientServer.Slave;
 import Renderer.Sprite;
 import Renderer.Tile;
 
+
+/**
+ * @author cartyschri
+ */
+
+
 public class Player implements Character, Serializable {
 
 	private Sprite sprite;

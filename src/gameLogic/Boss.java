@@ -7,6 +7,12 @@ import javax.swing.JDialog;
 import ClientServer.Slave;
 import Renderer.Tile;
 
+/**
+ *
+ * @author cartyschri
+ *
+ */
+
 public class Boss implements Monster {
 
 	private Tile tile;

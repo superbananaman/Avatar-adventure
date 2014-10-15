@@ -6,6 +6,12 @@ import javax.swing.text.Position;
 
 import Renderer.Tile;
 
+/**
+ *
+ * @author cartyschri
+ *
+ */
+
 public class Armour implements Item{
 
 	private Tile tile;
