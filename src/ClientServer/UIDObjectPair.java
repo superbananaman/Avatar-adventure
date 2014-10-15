@@ -12,7 +12,7 @@ public class UIDObjectPair implements Serializable {
 
 
 	public enum Operation{
-		Message, Monster, KeyEvent, SpaceSelected, Pickup, Drop, DeadPlayer, Damage, Damage2
+		Message, Monster, KeyEvent, SpaceSelected, Pickup, Drop, DeadPlayer, Damage
 	};
 	private Operation op;
 	private String uid;
