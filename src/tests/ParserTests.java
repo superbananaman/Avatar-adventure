@@ -95,7 +95,7 @@ public class ParserTests {
 		assertTrue(xmlPlayers.get(3).getUID().equals(play.get(3).getUID()));
 	}
 	@Test
-	public void GetInValidName_1(){
+	public void GetInvalidName_1(){
 		setUpEnvironment();
 		assertFalse(xmlPlayers.get(2).getUID().equals(play.get(1).getUID()));
 	}
@@ -115,7 +115,7 @@ public class ParserTests {
 		assertTrue(x == oldX);
 	}
 	@Test
-	public void GetInValidHealth_1(){
+	public void GetInvalidHealth_1(){
 		setUpEnvironment();
 		int x = xmlPlayers.get(0).getCurrentHealth();
 		int oldX = play.get(1).getCurrentHealth();
@@ -129,7 +129,7 @@ public class ParserTests {
 		assertTrue(x == y);
 	}
 	@Test
-	public void GetInValidMaxHealth_1(){
+	public void GetInvalidMaxHealth_1(){
 		setUpEnvironment();
 		int x = xmlPlayers.get(2).getMaxHealth();
 		int y = play.get(3).getMaxHealth();
@@ -143,7 +143,7 @@ public class ParserTests {
 		assertTrue(x == y);
 	}
 	@Test
-	public void GetInValidAlive_1(){
+	public void GetInvalidAlive_1(){
 		setUpEnvironment();
 		boolean x = xmlPlayers.get(3).isAlive();
 		boolean y = play.get(2).isAlive();
@@ -159,13 +159,32 @@ public class ParserTests {
 		assertTrue(x.equals(y));
 	}
 	@Test
-	public void GetInValidSpriteName_1(){
+	public void GetInvalidSpriteName_1(){
 		setUpEnvironment();
 		String x = xmlPlayers.get(0).getSprite().getName();
 		String y = play.get(1).getSprite().getName();
 		assertFalse(x.equals(y));
 	}
+	@Test
+	public void GetValidSpritePos_1(){
+		setUpEnvironment();
+		int posX = xmlPlayers.get(1).getSprite().getCurrentX();
+		int oldX = play.get(1).getSprite().getCurrentX();
+		int posY = xmlPlayers.get(1).getSprite().getCurrentY();
+		int oldY = play.get(1).getSprite().getCurrentY();
+		assertTrue((posX == oldX)&(posY == oldY));
+	}
+	@Test
+	public void GetInvalidSpritePos_1(){
+		setUpEnvironment();
+		int posX = xmlPlayers.get(1).getSprite().getCurrentX();
+		int oldX = play.get(0).getSprite().getCurrentX();
+		int posY = xmlPlayers.get(1).getSprite().getCurrentY();
+		int oldY = play.get(0).getSprite().getCurrentY();
+		assertFalse((posX == oldX)&(posY == oldY));
+	}
 
+	//Check Current room for the player
 	@Test
 	public void GetValidRoom_1(){
 		setUpEnvironment();
@@ -174,11 +193,63 @@ public class ParserTests {
 		assertTrue(one.getRoomName().equals(two.getRoomName()));
 	}
 	@Test
-	public void GetInValidRoom_1(){
+	public void GetInvalidRoom_1(){
 		setUpEnvironment();
 		Room one = xmlPlayers.get(0).getCurrentRoom();
 		Room two = play.get(1).getCurrentRoom();
 		assertFalse(one.getRoomName().equals(two.getRoomName()));
+	}
+	@Test
+	public void GetValidMonster_1(){
+		setUpEnvironment();
+		List<Monster> one = xmlPlayers.get(0).getCurrentRoom().getMonsters();
+		List<Monster> two = play.get(0).getCurrentRoom().getMonsters();
+		assertTrue(one.get(0).getName().equals(two.get(0).getName()));
+	}
+	@Test
+	public void GetInvalidMonster_1(){
+		setUpEnvironment();
+		List<Monster> one = xmlPlayers.get(0).getCurrentRoom().getMonsters();
+		List<Monster> two = play.get(0).getCurrentRoom().getMonsters();
+		assertFalse(one.get(0).getName().equals(two.get(1).getName()));
+	}
+	@Test
+	public void GetValidMonsterPos_1(){
+		setUpEnvironment();
+		List<Monster> one = xmlPlayers.get(0).getCurrentRoom().getMonsters();
+		List<Monster> two = play.get(0).getCurrentRoom().getMonsters();
+		Point pos = one.get(1).getTile().getLocation();
+		Point oldPos = two.get(1).getTile().getLocation();
+		assertTrue(pos.equals(oldPos));
+	}
+	@Test
+	public void GetInvalidMonsterPos_1(){
+		setUpEnvironment();
+		List<Monster> one = xmlPlayers.get(0).getCurrentRoom().getMonsters();
+		List<Monster> two = play.get(0).getCurrentRoom().getMonsters();
+		Point pos = one.get(1).getTile().getLocation();
+		Point oldPos = two.get(0).getTile().getLocation();
+		assertFalse(pos.equals(oldPos));
+	}
+
+	//Players Inventory
+	@Test
+	public void GetValidItems_1(){
+		setUpEnvironment();
+		List<Item> one = xmlPlayers.get(0).getInventory().getItems();
+		List<Item> two = play.get(0).getInventory().getItems();
+		String x = one.get(0).getName();
+		String y = two.get(0).getName();
+		assertTrue(x.equals(y));
+	}
+	@Test
+	public void GetInvalidItems_1(){
+		setUpEnvironment();
+		List<Item> one = xmlPlayers.get(0).getInventory().getItems();
+		List<Item> two = play.get(2).getInventory().getItems();
+		String x = one.get(0).getName();
+		String y = two.get(0).getName();
+		assertFalse(x.equals(y));
 	}
 
 	public static BufferedImage getIso(int x, int y) {
