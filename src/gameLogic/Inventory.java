@@ -20,20 +20,16 @@ public class Inventory implements Serializable{
 	}
 
 	public void add(Item i){
-		if(getItems().size()<27){
-
-
-		getItems().add(i);
-		}
+		items.add(i);
 	}
 
 	public void remove(Item i){
-		getItems().remove(i);
+		items.remove(i);
 	}
 
 	public boolean has(Item i){
-		for(Item item: getItems()){
-			if(i == item){
+		for(Item item: items){
+			if(i.equals(item)){
 				return true;
 			}
 		}
@@ -41,7 +37,7 @@ public class Inventory implements Serializable{
 	}
 
 	public boolean hasKey(String keyRoom){
-		for(Item i : getItems()){
+		for(Item i : items){
 			if(i instanceof Key){
 				if(((Key) i).getRoomName().equalsIgnoreCase(keyRoom)){
 				return true;
@@ -51,8 +47,8 @@ public class Inventory implements Serializable{
 		return false;
 	}
 	public Item get(int num){
-		if(getItems().size() > num){
-		return getItems().get(num);
+		if(items.size() > num){
+		return items.get(num);
 		}
 		return null;
 	}
