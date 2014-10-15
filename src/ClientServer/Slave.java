@@ -40,7 +40,7 @@ public class Slave extends Thread {
 	private static ObjectOutputStream out;
 	private ObjectInputStream in;
 
-	private ClientFrame frame;
+	//private ClientFrame frame;
 
 	public Slave(String address, int port, String charName, String nation) {
 		try {
@@ -88,8 +88,10 @@ public class Slave extends Thread {
 			// game = new Game(player, players);
 			// frame = new ClientFrame(game);
 			System.out.println("FRAME: Player: " + player.getUID() + " Players: " + players.size());
-			frame = new ClientFrame(uid, players);
-			frame.setVisible(true);
+			game = new Game(uid, players);
+
+//			frame = new ClientFrame(uid, players);
+//			frame.setVisible(true);
 
 			// while the game is running, recieves info
 			// on the current state of the game
@@ -102,20 +104,25 @@ public class Slave extends Thread {
 					Object ob = pair.getObject();
 					// A player had pressed a key
 					if (ob instanceof KeyEvent){
-						KeyEvent ke = (KeyEvent)ob;
-						if (ke.getKeyCode() == KeyEvent.VK_P || ke.getKeyCode() == KeyEvent.VK_O){
-							frame.updateInventory();
-						}
+
 						for (Player p : players){
+							//game.getClientFrame().toConsole(p.getSprite().getCurrentX() + "(x) " + p.getSprite().getCurrentY() + "(y)");
 							if (p.getUID().equals(playerUID)){
-								frame.getRenderWindow().receiveKeyEvent((KeyEvent) ob, p);
+//								KeyEvent ke = (KeyEvent)ob;
+//								if (ke.getKeyCode() == KeyEvent.VK_P || ke.getKeyCode() == KeyEvent.VK_O){
+//									game.getClientFrame().toConsole("Updating inventory");
+//									//game.getClientFrame().updateInventory();
+////									frame.toConsole("Updating inventory");
+////									frame.updateInventory();
+//								}
+								game.getClientFrame().getRenderWindow().receiveKeyEvent((KeyEvent) ob, p);
 							}
 						}
 					}
 					// A player has sent a message
 					else if (ob instanceof String) {
 						String message = (String) ob;
-						frame.toConsole(playerUID, message);
+						game.getClientFrame().toConsole(playerUID, message);
 					}
 					// A player has picked up or dropped an item
 					else if (ob instanceof Item){

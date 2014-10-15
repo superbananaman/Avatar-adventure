@@ -67,4 +67,8 @@ public void setMonsterHealth(int size) {
 		}
 		return null;
 	}
+
+	public ClientFrame getClientFrame(){
+		return clientframe;
+	}
 }
