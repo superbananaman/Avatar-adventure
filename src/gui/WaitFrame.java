@@ -33,7 +33,7 @@ public class WaitFrame extends JFrame implements KeyListener, ActionListener{
 	private Clip clip;
 
 	public WaitFrame(){
-		super("Aavatar-adventure wait frame");
+		super("Avatar-adventure wait frame");
 		setSize(new Dimension(650,650));
 		addKeyListener(this);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -182,10 +182,8 @@ public class WaitFrame extends JFrame implements KeyListener, ActionListener{
 	public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == 10){
             //they presed enter
-            //Slave.sendMessage(inputArea.getText());
+            Slave.sendMessage(inputArea.getText());
             inputArea.setText("");
-        }else {
-        	textArea.append("\n "+e.getKeyCode());
         }
     }
 
