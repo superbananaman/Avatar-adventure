@@ -350,7 +350,16 @@ public class RenderWindow extends JPanel implements KeyListener {
 			}
 		}
 		if(e.getKeyCode() == KeyEvent.VK_E) {
+			Point playerPoint = renderer.isoTo2D(new Point(currentSprite.getCurrentX(), currentSprite.getCurrentY())); playerPoint.x += room.getSpawnSpots().getLocation().x; playerPoint.y += room.getSpawnSpots().getLocation().y;
+			for(Monster m : room.getMonsters()){
+				Point location = m.getTile().getLocation();
+				if(location.distance(playerPoint) < 2){
+					m.takeDamage(currentPlayer.attack1());
+					currentPlayer.updateCurrentHealth(m.attack());
 
+					break;
+				}
+			}
 		}
 		/*
 		 * for(int i=0; i <playersNonClient.size();i++){

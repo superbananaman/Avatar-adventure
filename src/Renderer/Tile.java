@@ -1,6 +1,7 @@
 package Renderer;
 
 import gameLogic.Item;
+import gameLogic.Monster;
 
 import java.awt.Image;
 import java.awt.Point;
@@ -18,6 +19,7 @@ private BufferedImage pickUpImage;
 private BufferedImage monsterImage;
 private boolean isWalkable = true;
 private Item item = null;
+private Monster monster = null;
 private Point location;
 
 /**
@@ -134,6 +136,14 @@ public Point getLocation() {
  */
 public void setLocation(Point location) {
 	this.location = location;
+}
+
+public Monster getMonster() {
+	return monster;
+}
+
+public void setMonster(Monster monster) {
+	this.monster = monster;
 }
 
 

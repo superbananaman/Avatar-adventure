@@ -9,11 +9,11 @@ public class Boss implements Monster{
 	private Tile tile;
 	private int health;
 	private String name;
+	private boolean isAlive =true;
 
 
-	public Boss(Tile tile, int players){
+	public Boss(Tile tile){
 		setTile(tile);
-		health = players*5000;
 		setName("Boss");
 	}
 
@@ -34,7 +34,7 @@ public class Boss implements Monster{
 
 
 	public void setHealth(int numofPlayers) {
-		health = numofPlayers*5000;
+		health = numofPlayers*1000;
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class Boss implements Monster{
 	 * @return an attack that hits all players
 	 */
 	public int attack(){
-		return 1000;
+		return 500;
 	}
 
 	/**
@@ -61,6 +61,21 @@ public class Boss implements Monster{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+	public void takeDamage(int damage) {
+		if((health-damage) <0){
+			Die();
+		}
+		health = health-damage;
+
+	}
+
+
+	public void Die() {
+		isAlive = false;
+
 	}
 
 

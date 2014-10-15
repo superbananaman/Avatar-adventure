@@ -15,6 +15,7 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 import gameLogic.Armour;
+import gameLogic.Boss;
 import gameLogic.Door;
 import gameLogic.Fruit;
 import gameLogic.Item;
@@ -188,15 +189,16 @@ public class Renderer {
 			for(int i =0; i <30; i++){
 				for(int j = 0; j <30; j++){
 					BufferedImage temp = null;
+					Monster tempMonster = null;
 					int tile = scan.nextInt();
 					switch(tile) {
-					case 0:								temp = boss1;  	break; // TODO add new monster
-					case 1:								temp = skelly; monsters.add(new Skeleton(ts[i][j])); break;
+					case 0:								temp = boss1;  tempMonster = (new Boss(ts[i][j]));	monsters.add(tempMonster);break; // TODO add new monster
+					case 1:								temp = skelly;tempMonster =(new Skeleton(ts[i][j])); monsters.add(tempMonster); break;
 
 					}
 
 					ts[i][j].setMonsterImage(temp);
-
+					ts[i][j].setMonster(tempMonster);
 				}
 			}
 			room.setMonsters(monsters);

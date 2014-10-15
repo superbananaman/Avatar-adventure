@@ -12,6 +12,10 @@ public interface Monster extends Character {
 
 	public void setHealth(int numofPlayers);
 
+	public void takeDamage(int damage);
+	public int attack();
+	public void Die();
+
 	public Tile getTile();
 
 	public String getName();

@@ -9,6 +9,7 @@ public class Skeleton implements Monster{
 	private Tile tile;
 	private String name;
 	private int health;
+	private boolean isAlive =true;
 
 
 	public Skeleton(Tile tile){
@@ -38,8 +39,8 @@ public class Skeleton implements Monster{
 		health = numofPlayers*400;
 	}
 
-	public int throwBones(){
-		return 100; // to all players
+	public int attack(){
+		return 300; // to all players
 	}
 
 	public int bite(){
@@ -54,6 +55,20 @@ public class Skeleton implements Monster{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+	public void takeDamage(int damage) {
+		if((health-damage) <0){
+			Die();
+		}
+		health = health-damage;
+
+	}
+
+	public void Die() {
+		isAlive = false;
+
 	}
 
 

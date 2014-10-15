@@ -113,14 +113,14 @@ public class Player implements Character, Serializable {
 
 	public int attack1() {
 		if (isAlive) {
-			return 200;
+			return 350;
 		}
 		return 0;
 	}
 
 	public int attack2() {
 		if (isAlive) {
-			return 350;
+			return 1000;
 		}
 		return 0;
 	}
