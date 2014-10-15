@@ -49,7 +49,7 @@ public class XMLParser {
 				player.setNation(playerElement.getChildText("nation"));
 				player.setName(playerElement.getChildText("name"));
 				player.setmaxHealth(Integer.parseInt(playerElement.getChildText("maxHealth")));
-				player.setcurrentHealth(Integer.parseInt(playerElement.getChildText("currentHealth")));
+				player.setCurrentHealth(Integer.parseInt(playerElement.getChildText("currentHealth")));
 				player.setAlive(playerElement.getChildText("alive").equals("true"));
 
 				//Loading a players sprite
