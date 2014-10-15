@@ -27,6 +27,7 @@ public class Armour implements Item{
 	public void unequip(Player p){
 		if(equipped){
 		p.addmaxHealth((-health));
+		p.setCurrentHealth((-health));
 		setEquipped(false);
 		}
 	}
@@ -38,7 +39,7 @@ public class Armour implements Item{
 	public void use(Player p){  //equipping armour gives health
 		if(!equipped){
 		p.addmaxHealth(health);
-		//p.setCurrentHealth(health);
+		p.setCurrentHealth(health);
 		setEquipped(true);
 		}
 	}
