@@ -76,7 +76,7 @@ public class Renderer {
 		if(tile.getPickUpImage()!=null)
 			g.drawImage(tile.getPickUpImage(), isoPoint.x+1100, isoPoint.y+10, null);
 
-		if(tile.getMonsterImage()!=null)
+		if(tile.getMonster()!=null)
 			g.drawImage(tile.getMonsterImage(), isoPoint.x+1100, isoPoint.y+10, null);
 
 

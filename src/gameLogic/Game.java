@@ -126,7 +126,6 @@ public class Game implements Serializable {
 			for (Monster m : monsters) {
 				if (m.getTile().getLocation().equals(location)) {
 					m.takeDamage(damage);
-
 					break;
 				}
 			}
@@ -142,12 +141,14 @@ public class Game implements Serializable {
 			for (Monster m : monsters) {
 				if (m.getTile().getLocation().equals(location)) {
 					currentroom.getMonsters().remove(m);
-
+					System.out.println(m.isAlive());
+					if(!m.isAlive()){m.getTile().setMonster(null);}
 					if(m instanceof Boss && currentroom.getRoomName().equals("bossroom")){
 						JOptionPane.showMessageDialog(clientframe,
 								"Congratulations you have finished the game!");
 						System.exit(0);
 					}
+					clientframe.getRenderWindow().repaintBackground();
 					System.out.println("Monster is deleted");
 					break;
 				}

@@ -11,7 +11,7 @@ public interface Monster extends Character {
 
 
 	public void setHealth(int numofPlayers);
-
+	public boolean isAlive();
 	public void takeDamage(int damage);
 	public int attack();
 	public void Die();

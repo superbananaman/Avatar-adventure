@@ -52,6 +52,7 @@ public class Skeleton implements Monster {
 
 	public void takeDamage(int damage) {
 		health = health - damage;
+
 		if (health <= 0) {
 			Die();
 		}
@@ -61,9 +62,13 @@ public class Skeleton implements Monster {
 
 	public void Die() {
 		isAlive = false;
-		System.out.println("Monster died");
+		tile.setMonster(null);
 		Slave.sendMonster(tile.getLocation());
 
+	}
+
+	public boolean isAlive() {
+		return isAlive;
 	}
 
 }

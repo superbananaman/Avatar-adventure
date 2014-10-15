@@ -45,6 +45,8 @@ public class Inventory implements Serializable{
 		return false;
 	}
 	public Item get(int num){
+		if(items.size() < 0)return null;
+
 		if(items.size() > num){
 		return items.get(num);
 		}

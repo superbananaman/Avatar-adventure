@@ -390,7 +390,7 @@ public class RenderWindow extends JPanel implements KeyListener {
 						Slave.sendMonsterAttack(currentPlayer.attack1(), m.getTile().getLocation());
 					}
 					game.getClientFrame().updateInventory();
-					m.getTile().setMonster(null);
+
 					firstTime = true;
 					this.repaint();
 					break;
