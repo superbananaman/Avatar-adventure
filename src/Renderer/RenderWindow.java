@@ -1,31 +1,21 @@
 package Renderer;
-
+/**
+ * @author parkerliam
+ */
 import gameLogic.*;
 
 import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Polygon;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import ClientServer.Slave;
-import Renderer.*;
 
 public class RenderWindow extends JPanel implements KeyListener {
 	/**
@@ -445,7 +435,6 @@ public class RenderWindow extends JPanel implements KeyListener {
 			return false;
 		}
 		Tile[][] proposedTile = room.getTileSet();
-		// System.out.println("proposed tile is location : "+playerPoint);
 		return proposedTile[playerPoint.y][playerPoint.x].isWalkable();
 
 	}
@@ -478,22 +467,22 @@ public class RenderWindow extends JPanel implements KeyListener {
 			playerPoint.x += room.getSpawnSpots().getLocation().x;
 			playerPoint.y += room.getSpawnSpots().getLocation().y;
 
-			System.out.println("Checking door in "
+			/*System.out.println("Checking door in "
 					+ door.getRoom().getRoomName() + " to "
 					+ door.getNextRoom() + "\t  " + doorPoint.toString() + "  "
 					+ playerPoint.toString() + "\t"
-					+ doorPoint.distance(playerPoint));
+					+ doorPoint.distance(playerPoint));*/
 			boolean hasKey = (currentPlayer.getInventory().hasKey(door.getNextRoom())|| door.getNextRoom().equals("room1") || door.getNextRoom().equals("startroom"));
 
 			if (doorPoint.distance(playerPoint) < 3 && hasKey) {
 				nextRoom = door.getNextRoom();
 				room = game.getRoom(nextRoom);
-				System.out.println("Changing to room : " + nextRoom);
+				//System.out.println("Changing to room : " + nextRoom);
 				break;
 			}
 		}
 		if (nextRoom != null) {
-			System.out.println("Changing rooom now");
+			//System.out.println("Changing rooom now");
 			firstTime = true;
 			game.getClientFrame().toConsole("Changed room to " + nextRoom);
 			this.setupPlayersInRoom(room);

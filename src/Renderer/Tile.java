@@ -1,16 +1,14 @@
 package Renderer;
-
+/**
+ * @author parkerliam
+ */
 import gameLogic.Item;
 import gameLogic.Monster;
 
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
-
-import javax.imageio.ImageIO;
 
 public class Tile implements Serializable {
 

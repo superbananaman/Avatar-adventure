@@ -1,5 +1,7 @@
 package Renderer;
-
+/**
+ * @author parkerliam
+ */
 import java.io.Serializable;
 
 public class Sprite implements Serializable{
@@ -77,7 +79,7 @@ public class Sprite implements Serializable{
 		return name;
 	}
 
-	/** 
+	/**
 	 * @return the offset x value
 	 */
 	public int getOffsetX() {
@@ -113,7 +115,7 @@ public class Sprite implements Serializable{
 	public void setOffsetY(int offsetY) {
 		this.offsetY = offsetY;
 	}
-	
+
 	/**
 	 * @return null dont use, use renderer.getTile()
 	 */

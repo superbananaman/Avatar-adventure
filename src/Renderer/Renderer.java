@@ -1,19 +1,18 @@
 package Renderer;
-
+/**
+ * @author parkerliam
+ */
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 import javax.imageio.ImageIO;
-
 import gameLogic.Armour;
 import gameLogic.Boss;
 import gameLogic.Door;
