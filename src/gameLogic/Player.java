@@ -106,6 +106,7 @@ public class Player implements Character, Serializable {
 	public void Die() {
 		setAlive(false);
 		System.out.println("Player Died");
+		Slave.sendDeadPlayer(name);
 
 	}
 

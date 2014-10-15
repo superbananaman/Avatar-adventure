@@ -2,6 +2,8 @@ package gameLogic;
 
 import java.awt.Graphics;
 
+import javax.swing.JDialog;
+
 import ClientServer.Slave;
 import Renderer.Tile;
 
@@ -69,6 +71,7 @@ public class Boss implements Monster {
 	public void Die() {
 		isAlive = false;
 		Slave.sendMonster(tile.getLocation());
+
 	}
 
 }

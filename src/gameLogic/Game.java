@@ -6,6 +6,9 @@ import java.awt.Point;
 import java.io.Serializable;
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
+import ClientServer.Slave;
 import Renderer.RenderWindow;
 import Renderer.Renderer;
 
@@ -96,13 +99,31 @@ public class Game implements Serializable {
 		return totalPlayers.get(0).getCurrentRoom();
 	}
 
+	public void updateDeadPlayers(String name){
+		Room currentroom = totalPlayers.get(0).getCurrentRoom();
+		List<Player> players = totalPlayers;
+		synchronized (players) {
+			for(Player p: players){
+				if(p.getUID().equals(name)){
+					p.setCurrentHealth(500);
+					p.getSprite().setCurrentX(1000000);
+					p.getSprite().setCurrentY(1000000);
+					Slave.sendToConsole("A player has died. Leave the room so they can respawn");
+
+				}
+			}
+		}
+	}
+
+
+
 	public void updateDamageMonsters(Point location, int damage){
 		Room currentroom = totalPlayers.get(0).getCurrentRoom();
 		List<Monster> monsters = currentroom.getMonsters();
 		synchronized (monsters) {
 			for (Monster m : monsters) {
 				if (m.getTile().getLocation().equals(location)) {
-					currentroom.getMonsters().get(m);
+					m.takeDamage(damage);
 
 					break;
 				}
@@ -120,6 +141,11 @@ public class Game implements Serializable {
 				if (m.getTile().getLocation().equals(location)) {
 					currentroom.getMonsters().remove(m);
 					m.getTile().setMonsterImage(null);
+					if(m instanceof Boss && currentroom.getRoomName().equals("bossroom")){
+						JOptionPane.showMessageDialog(clientframe,
+								"Congratulations you have finished the game!");
+						System.exit(0);
+					}
 					System.out.println("Monster is deleted");
 					break;
 				}

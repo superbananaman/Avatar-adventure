@@ -360,9 +360,9 @@ public class RenderWindow extends JPanel implements KeyListener {
 				Point location = m.getTile().getLocation();
 				if(location.distance(playerPoint) < 2){
 
-					m.takeDamage(currentPlayer.attack1());
+					//m.takeDamage(currentPlayer.attack1());
 					currentPlayer.updateCurrentHealth(-(m.attack()));
-					Slave.sendMonsterAttack(currentPlayer.attack1());
+					Slave.sendMonsterAttack(currentPlayer.attack1(), m.getTile().getLocation());
 
 
 
