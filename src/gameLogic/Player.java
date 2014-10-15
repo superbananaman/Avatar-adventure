@@ -186,6 +186,6 @@ public class Player implements Character, Serializable {
 	}
 
 	public void setCurrentHealth(int currentHealth) {
-		this.currentHealth += currentHealth;
+		this.currentHealth = currentHealth;
 	}
 }

@@ -25,8 +25,10 @@ public class Armour implements Item{
 	 */
 
 	public void unequip(Player p){
+		if(equipped){
 		p.addmaxHealth((-health));
 		setEquipped(false);
+		}
 	}
 
 	/**
