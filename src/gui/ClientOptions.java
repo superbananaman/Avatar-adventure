@@ -78,23 +78,37 @@ public class ClientOptions extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Join")){
+			// defualt port
 
+			Slave s;
 			if (nameText.getText().isEmpty()){
-
 				JOptionPane.showMessageDialog(this, "Please enter a name", "Name error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-//			try{
-//			int num = Integer.parseInt(portText.getText());
-				Slave s;
+			if (addressText.getText().isEmpty() || portText.getText().isEmpty()){
 				try {
-					s = new Slave(InetAddress.getLocalHost().getHostAddress(), 14141, nameText.getText(), null);
+//					s = new Slave("130.195.4.150", 14141, nameText.getText(), null);
+						s = new Slave(InetAddress.getLocalHost().getHostAddress(), 14141, nameText.getText(), null);
+						s.start();
+						this.setVisible(false);
+						this.setEnabled(false);
+						return;
+					} catch (UnknownHostException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						return;
+					}
+			}
+
+
+//			try{
+			int num = Integer.parseInt(portText.getText());
+
+
+//				s = new Slave("130.195.4.150", 14141, nameText.getText(), null);
+					s = new Slave(addressText.getText(), num, nameText.getText(), null);
 					s.start();
-				} catch (UnknownHostException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					return;
-				}
+
 
 
 				this.setVisible(false);
