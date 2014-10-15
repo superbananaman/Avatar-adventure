@@ -495,7 +495,7 @@ public class RenderWindow extends JPanel implements KeyListener {
 		if (nextRoom != null) {
 			System.out.println("Changing rooom now");
 			firstTime = true;
-
+			game.getClientFrame().toConsole("Changed room to " + nextRoom);
 			this.setupPlayersInRoom(room);
 			this.repaint();
 		}
