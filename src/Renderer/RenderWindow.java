@@ -64,11 +64,11 @@ public class RenderWindow extends JPanel implements KeyListener {
 
 	/**
 	 *
-	 * @param RoomName
+	 * @param roomName
 	 * @param uID
 	 * @param players
 	 */
-	public RenderWindow(String RoomName, String uID, ArrayList<Player> players, Game game) {
+	public RenderWindow(String roomName, String uID, ArrayList<Player> players, Game game) {
 		this.players = players;
 		this.game = game;
 
@@ -85,7 +85,7 @@ public class RenderWindow extends JPanel implements KeyListener {
 		// playersNonClient.remove(clientPlayer);
 		addKeyListener(this);
 		setVisible(true);
-		room = game.getRoom(roomname);
+		room = game.getRoom(roomName);
 		setupPlayersInRoom(room);
 	}
 
@@ -411,14 +411,14 @@ public class RenderWindow extends JPanel implements KeyListener {
 			if (doorPoint.distance(playerPoint) < 3 && hasKey) {
 				nextRoom = door.getNextRoom();
 				room = game.getRoom(nextRoom);
-				System.out.println("Changing to room : " + nextRoom.toString());
+				System.out.println("Changing to room : " + nextRoom);
 				break;
 			}
 		}
 		if (nextRoom != null) {
 			System.out.println("Changing rooom now");
 			firstTime = true;
-			room = nxtRoom;
+
 			this.setupPlayersInRoom(room);
 			this.repaint();
 		}
