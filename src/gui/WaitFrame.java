@@ -2,7 +2,13 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.BooleanControl;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -14,26 +20,41 @@ import ClientServer.Slave;
  * @author mahonedevl
  *
  */
-public class WaitFrame extends JFrame implements KeyListener{
+public class WaitFrame extends JFrame implements KeyListener, ActionListener{
 
 	private JTextArea textArea;
 	private JPanel contentPane;
 	private JScrollPane scroll;
+
 	private JTextField inputArea;
+	private FloatControl volume;
+	private float curVol;
+	private BooleanControl mute;
+	private Clip clip;
 
 	public WaitFrame(){
-		setSize(new Dimension(600,600));
+		super("Aavatar-adventure wait frame");
+		setSize(new Dimension(650,650));
 		addKeyListener(this);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+		loadMusic();
+		clip.loop(Clip.LOOP_CONTINUOUSLY);
+
+		volume= (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+
+		mute = (BooleanControl) clip.getControl(BooleanControl.Type.MUTE);
+		mute.setValue(false);
 
 		contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         GridBagLayout gbl_contentPane = new GridBagLayout();
         gbl_contentPane.columnWidths = new int[]{600, 0, 0};
-        gbl_contentPane.rowHeights = new int[]{550, 10, 0};
+        gbl_contentPane.rowHeights = new int[]{550, 10, 75};
         contentPane.setLayout(gbl_contentPane);
 
+        //Console Output
         textArea = new JTextArea();
         GridBagConstraints gbc_textArea = new GridBagConstraints();
         textArea.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -48,6 +69,7 @@ public class WaitFrame extends JFrame implements KeyListener{
         gbc_textArea.gridy = 0;
         contentPane.add(scroll, gbc_textArea);
 
+        //Console Input
         inputArea = new JTextField();
         inputArea.addKeyListener(this);
         GridBagConstraints gbc_inputArea = new GridBagConstraints();
@@ -59,6 +81,27 @@ public class WaitFrame extends JFrame implements KeyListener{
         gbc_inputArea.gridx = 0;
         gbc_inputArea.gridy = 1;
         contentPane.add(inputArea, gbc_inputArea);
+
+        //Sound Button Panel
+        JPanel buttonPanel = new JPanel();
+        GridBagConstraints gbc_buttonPanel = new GridBagConstraints();
+        gbc_buttonPanel.insets = new Insets(0, 0, 10, 10);
+        gbc_buttonPanel.fill = GridBagConstraints.BOTH;
+        gbc_buttonPanel.gridx = 0;
+        gbc_buttonPanel.gridy = 2;
+        contentPane.add(buttonPanel, gbc_buttonPanel);
+
+        JButton b = new JButton("Mute");
+        b.addActionListener(this);
+        buttonPanel.add(b);
+
+        b = new JButton("Increase V");
+        b.addActionListener(this);
+        buttonPanel.add(b);
+
+        b = new JButton("Decrease V");
+        b.addActionListener(this);
+        buttonPanel.add(b);
 
         setVisible(true);
 
@@ -85,7 +128,46 @@ public class WaitFrame extends JFrame implements KeyListener{
         textArea.setCaretPosition(textArea.getDocument().getLength());
     }
 
+    private void loadMusic(){
+    	try{
+    		File soundFile = new File("sound/Retribution.wav");
+    		clip = AudioSystem.getClip();
+    		// getAudioInputStream() also accepts a File or InputStream
+    		AudioInputStream ais = AudioSystem.getAudioInputStream(soundFile);
+    		clip.open(ais);
 
+    		clip.loop(Clip.LOOP_CONTINUOUSLY);
+    		//SwingUtilities.invokeLater(new Runnable() {
+    		//	public void run() {
+    				// A GUI element to prevent the Clip's daemon Thread
+    				// from terminating at the end of the main()
+    		//		JOptionPane.showMessageDialog(null, "Close to exit!");
+    		//	}
+    		//});
+    	}catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+
+    public void stopMusic(){
+    	clip.stop();
+    }
+
+    private void quieter(){
+    	curVol -= 2;
+    	volume.setValue(curVol);
+    }
+
+    private void louder(){
+    	curVol += 2;
+    	if(curVol > 6)curVol=6;
+    	volume.setValue(curVol);
+    }
+
+    private void toggleMute(){
+    	if(mute.getValue())mute.setValue(false);
+    	else mute.setValue(true);
+    }
 
 	public void keyTyped(KeyEvent e) {}
 
@@ -95,12 +177,23 @@ public class WaitFrame extends JFrame implements KeyListener{
         if(e.getKeyCode() == 10){
             //they presed enter
             //Slave.sendMessage(inputArea.getText());
-            Slave.sendMessage(inputArea.getText());
-
-        };
+            inputArea.setText("");
+        }else {
+        	textArea.append("\n "+e.getKeyCode());
+        }
     }
 
 	public static void main(String[] args){
 		WaitFrame harold = new WaitFrame();
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("Mute")){
+			toggleMute();
+		}else if(e.getActionCommand().equals("Increase V")){
+			louder();
+		}else if(e.getActionCommand().equals("Decrease V")){
+			quieter();
+		}
 	}
 }
