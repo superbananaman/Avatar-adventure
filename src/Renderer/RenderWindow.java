@@ -363,15 +363,16 @@ public class RenderWindow extends JPanel implements KeyListener {
 					//m.takeDamage(currentPlayer.attack1());
 					currentPlayer.updateCurrentHealth(-(m.attack()));
 					Slave.sendMonsterAttack(currentPlayer.attack1(), m.getTile().getLocation());
-
-
-
-
 					game.getClientFrame().updateInventory();
+					m.getTile().setMonster(null);
+					firstTime = true;
 					this.repaint();
 					break;
 				}
 			}
+			game.getClientFrame().updateInventory();
+			firstTime = true;
+			this.repaint();
 		}
 		/*
 		 * for(int i=0; i <playersNonClient.size();i++){
@@ -421,6 +422,11 @@ public class RenderWindow extends JPanel implements KeyListener {
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public void repaintBackground(){
+		firstTime = true;
+		this.repaint();
 	}
 
 	/**

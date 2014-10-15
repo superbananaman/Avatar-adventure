@@ -92,13 +92,13 @@ public class Player implements Character, Serializable {
 	 */
 
 	public void updateCurrentHealth(int h) {
-		if ((currentHealth + h) < maxHealth) {
-			currentHealth += h;
-		} else if ((currentHealth + h) > maxHealth) {
-			currentHealth = maxHealth;
-		} else if ((currentHealth + h) < 0) {
+		if ((currentHealth + h) < 0) {
 			currentHealth = 0;
 			Die();
+		}else if ((currentHealth + h) > maxHealth) {
+			currentHealth = maxHealth;
+		} else if ((currentHealth + h) < maxHealth) {
+			currentHealth += h;
 		}
 
 	}

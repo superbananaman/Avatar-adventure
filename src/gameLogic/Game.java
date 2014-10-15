@@ -140,7 +140,7 @@ public class Game implements Serializable {
 			for (Monster m : monsters) {
 				if (m.getTile().getLocation().equals(location)) {
 					currentroom.getMonsters().remove(m);
-					m.getTile().setMonsterImage(null);
+
 					if(m instanceof Boss && currentroom.getRoomName().equals("bossroom")){
 						JOptionPane.showMessageDialog(clientframe,
 								"Congratulations you have finished the game!");

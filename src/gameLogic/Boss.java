@@ -32,7 +32,7 @@ public class Boss implements Monster {
 	}
 
 	public void setHealth(int numofPlayers) {
-		health = numofPlayers * 1000;
+		health = numofPlayers * 1500;
 	}
 
 	/**
@@ -60,10 +60,9 @@ public class Boss implements Monster {
 	}
 
 	public void takeDamage(int damage) {
-		if ((getHealth() - damage) <= 0) {
+		health = health - damage;
+		if (health <= 0) {
 			Die();
-		} else {
-			health = health - damage;
 		}
 
 	}
