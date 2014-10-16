@@ -212,7 +212,7 @@ public class Server extends Thread {
 				while (true) {
 					try {
 						o = in.readObject();
-						frame.toConsole(o.toString() + " has been sent through");
+						//frame.toConsole(o.toString() + " has been sent through");
 					} catch (ClassNotFoundException e) {
 						e.printStackTrace();
 					}
